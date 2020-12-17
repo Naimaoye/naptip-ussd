@@ -2,9 +2,7 @@ import UssdMenu from "ussd-menu-builder";
 
 let sessions = {};
 let menu = new UssdMenu();
-let gender = '';
-let state = '';
-let incidence = '';
+
 menu.sessionConfig({
   start: (sessionId, callback)=>{
       // initialize current session if it doesn't exist
@@ -46,8 +44,6 @@ menu.startState({
 
 menu.state("male", {
   run: () => {
-    gender = 'male'
-    menu.session.set('gender', gender);
     menu.con(
       "Kindly select the incidence you will like to report. Enter 1,2,3,4,5 to proceed:" + "\n1. Rape" + "\n2. Violence" + "\n3.Human Trafficking" + "\n4.Child labour"+ "\n5.Others" + "\n00. Back" 
     );
@@ -65,8 +61,6 @@ menu.state("male", {
 });
 menu.state("female", {
     run: () => {
-        gender = 'female'
-        menu.session.set('gender', gender);
       menu.con(
         "Kindly select the incidence you will like to report. Enter 1,2,3,4,5 to proceed:" + "\n1. Rape" + "\n2. Violence" + "\n3.Human Trafficking" + "\n4.Child labour"+ "\n5.Others" + "\n00. Back" 
       );
@@ -84,8 +78,6 @@ menu.state("female", {
   });
 menu.state('rape', {
   run: () => {
-    incidence = 'rape'
-    menu.session.set('incidence', incidence);
     menu.con(
         "Please select the first letter of your resident state:" + "\n1.A-B" + "\n2.C-I" + "\n3.J-L" + "\n4.N-R"+ "\n5.S-Z" + "\n00. Back" 
       );
@@ -101,8 +93,6 @@ menu.state('rape', {
 });
 menu.state('violence', {
     run: () => {
-        incidence = 'violence'
-        menu.session.set('incidence', incidence);
       menu.con(
           "Please select the first letter of your resident state:" + "\n1.A-B" + "\n2.C-I" + "\n3.J-L" + "\n4.N-R"+ "\n5.S-Z" + "\n00. Back" 
         );
@@ -118,8 +108,6 @@ menu.state('violence', {
   });
 menu.state('humanTrafficking', {
     run: () => {
-        incidence = 'human trafficking'
-        menu.session.set('incidence', incidence);
       menu.con(
           "Please select the first letter of your resident state:" + "\n1.A-B" + "\n2.C-I" + "\n3.J-L" + "\n4.N-R"+ "\n5.S-Z" + "\n00. Back" 
         );
@@ -135,8 +123,6 @@ menu.state('humanTrafficking', {
   });
 menu.state('childLabour', {
     run: () => {
-        incidence = 'child labour'
-        menu.session.set('incidence', incidence);
       menu.con(
           "Please select the first letter of your resident state:" + "\n1.A-B" + "\n2.C-I" + "\n3.J-L" + "\n4.N-R"+ "\n5.S-Z" + "\n00. Back" 
         );
@@ -153,8 +139,6 @@ menu.state('childLabour', {
 
 menu.state('others', {
     run: () => {
-        incidence = 'others'
-        menu.session.set('incidence', incidence);
       menu.con(
           "Please select the first letter of your resident state:" + "\n1.A-B" + "\n2.C-I" + "\n3.J-L" + "\n4.N-R"+ "\n5.S-Z" + "\n00. Back" 
         );
@@ -200,8 +184,8 @@ menu.state('others', {
         "4": "edo",
         "5": "ekiti",
         "6": "enugu",
-        "5": "gombe",
-        "5": "imo",
+        "7": "gombe",
+        "8": "imo",
         "00": "others"
     }
   });
@@ -257,7 +241,6 @@ menu.state('others', {
   });
   menu.state('abia', {
     run: () => {
-        state = 'abia';
   
           menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
@@ -265,105 +248,91 @@ menu.state('others', {
   });
   menu.state('adamawa', {
     run: () => {
-        state = 'adamawa';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('akwaIbom', {
     run: () => {
-        state = 'akwaIbom';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('anambra', {
     run: () => {
-        state = 'anambra';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('bauchi', {
     run: () => {
-        state = 'bauchi';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('bayelsa', {
     run: () => {
-        state = 'bayelsa';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('benue', {
     run: () => {
-        state = 'benue';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('borno', {
     run: () => {
-        state = 'borno';
-  
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('crossRiver', {
     run: () => {
-        state = 'crossRiver';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('delta', {
     run: () => {
-        state = 'delta';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('ebonyi', {
     run: () => {
-        state = 'ebonyi';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('edo', {
     run: () => {
-        state = 'edo';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('ekiti', {
     run: () => {
-        state = 'ekiti';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('enugu', {
     run: () => {
-        state = 'enugu';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
@@ -371,175 +340,153 @@ menu.state('others', {
     run: () => {
         state = 'gombe';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('imo', {
     run: () => {
-        state = 'imo';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('jigawa', {
     run: () => {
-        state = 'jigawa';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('kaduna', {
     run: () => {
-        state = 'kaduna';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('kano', {
     run: () => {
-        state = 'kano';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('katsina', {
     run: () => {
-        state = 'katsina';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('kebbi', {
     run: () => {
-        state = 'kebbi';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('kogi', {
     run: () => {
-        state = 'kogi';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('kwara', {
     run: () => {
-        state = 'kwara';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('lagos', {
     run: () => {
-        state = 'lagos';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('nasarawa', {
     run: () => {
-        state = 'nasarawa';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('niger', {
     run: () => {
-        state = 'niger';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('ogun', {
     run: () => {
-        state = 'ogun';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('ondo', {
     run: () => {
-        state = 'ondo';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('osun', {
     run: () => {
-        state = 'osun';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('oyo', {
     run: () => {
-        state = 'oyo';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('plateau', {
     run: () => {
-        state = 'plateau';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('rivers', {
     run: () => {
-        state = 'rivers';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('sokoto', {
     run: () => {
-        state = 'sokoto';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('taraba', {
     run: () => {
-        state = 'taraba';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('yobe', {
     run: () => {
-        state = 'yobe';
   
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
   });
   menu.state('zamfara', {
     run: () => {
-        state = 'zamfara';
-  
-          menu.end('Thank you, your report has been registered, we will contact you shortly.' +"data: "+ gender +' '+ incidence + ' '+ state);
+          menu.end('Thank you, your report has been registered, we will contact you shortly.');
       
     }
 });

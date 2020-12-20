@@ -4,20 +4,20 @@ import qs from 'qs';
 //import { readJson } from './utils/readJson';
 import menu from './controllers/ussd';
 import { parseResponseString } from './utils/parsedResponse';
-import {
-GENDER_ARRAY_Q1,
-INCIDENCE_ARRAY_Q2,
-//STATE_FIRST_LETTER_Q3,
-STATE_ARRAY_1,
-STATE_ARRAY_2,
-STATE_ARRAY_3,
-STATE_ARRAY_4,
-STATE_ARRAY_5,
-GENDER_ARRAY_PATTERN,
-INCIDENCE_ARRAY_PATTERN,
-STATE_FIRST_LETTER_PATTERN,
-STATE_ARRAY_PATTERN,
-} from './utils/constants';
+// import {
+// GENDER_ARRAY_Q1,
+// INCIDENCE_ARRAY_Q2,
+// //STATE_FIRST_LETTER_Q3,
+// STATE_ARRAY_1,
+// STATE_ARRAY_2,
+// STATE_ARRAY_3,
+// STATE_ARRAY_4,
+// STATE_ARRAY_5,
+// GENDER_ARRAY_PATTERN,
+// INCIDENCE_ARRAY_PATTERN,
+// STATE_FIRST_LETTER_PATTERN,
+// STATE_ARRAY_PATTERN,
+// } from './utils/constants';
 
 const app = new App();
 
@@ -28,11 +28,11 @@ const port = 3003;
 // parse the url params
 // console.log something once the request is made
 
-app.post('/request', (res, req) => {
+app.post('/', (res, req) => {
 
 // let ussdQuestionNumber = 0;
 // let details = {};
-console.log('Hello, I am here!')
+console.log('request', req);
 const query = qs.parse(req.getQuery());
 const { text, msisdn } = query;
 console.log(text);

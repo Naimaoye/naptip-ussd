@@ -71,7 +71,7 @@ export default class Ussd {
                     }
             }
         } else {
-            const requestUrl = `http://localhost:13150/cgi-bin/sendsms?username=${username}&password=${password}&from=${shortcode}&smsc=${smsc}&to=${msisdn}&text=${ERROR_MESSAGE}&meta-data=?smpp?meta-data=2&`
+            const requestUrl = `http://localhost:13150/cgi-bin/sendsms?username=${username}&password=${password}&from=${shortcode}&smsc=${smsc}&to=${msisdn}&text=${ERROR_MESSAGE}&meta-data=?smpp?meta-data=16&`
                         fetch(requestUrl)
                         .then(res => res.json())
                         .then(json => console.log(json))

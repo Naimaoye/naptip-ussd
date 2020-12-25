@@ -58,7 +58,7 @@ export default class Ussd {
                 if (ussdQuestion === 1) {
                     // first state, before the user selects an option
                     if (text.includes('#')){
-                        const requestUrl = `http://localhost:13150/cgi-bin/sendsms?username=${username}&password=${password}&from=${shortcode}&smsc=${smsc}&to=${msisdn}&text=${GENDER_SELECTION}&meta-data=?smpp?meta-data=2&`
+                        const requestUrl = `http://10.0.0.56:13150/cgi-bin/sendsms?username=${username}&password=${password}&from=${shortcode}&smsc=${smsc}&to=${msisdn}&text=${GENDER_SELECTION}&meta-data=?smpp?meta-data=2&`
                         fetch(requestUrl)
                         .then(res => res.json())
                         .then(json => console.log(json))
@@ -71,7 +71,7 @@ export default class Ussd {
                     }
             }
         } else {
-            const requestUrl = `http://localhost:13150/cgi-bin/sendsms?username=${username}&password=${password}&from=${shortcode}&smsc=${smsc}&to=${msisdn}&text=${ERROR_MESSAGE}&meta-data=?smpp?meta-data=16&`
+            const requestUrl = `http://10.0.0.56:13150/cgi-bin/sendsms?username=${username}&password=${password}&from=${shortcode}&smsc=${smsc}&to=${msisdn}&text=${ERROR_MESSAGE}&meta-data=?smpp?meta-data=16&`
                         fetch(requestUrl)
                         .then(res => res.json())
                         .then(json => console.log(json))

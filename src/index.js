@@ -1,23 +1,5 @@
 import { App } from '@sifrr/server';
-import qs from 'qs';
-
-//import { readJson } from './utils/readJson';
-import menu from './controllers/ussd';
-import { parseResponseString } from './utils/parsedResponse';
-// import {
-// GENDER_ARRAY_Q1,
-// INCIDENCE_ARRAY_Q2,
-// //STATE_FIRST_LETTER_Q3,
-// STATE_ARRAY_1,
-// STATE_ARRAY_2,
-// STATE_ARRAY_3,
-// STATE_ARRAY_4,
-// STATE_ARRAY_5,
-// GENDER_ARRAY_PATTERN,
-// INCIDENCE_ARRAY_PATTERN,
-// STATE_FIRST_LETTER_PATTERN,
-// STATE_ARRAY_PATTERN,
-// } from './utils/constants';
+import Ussd from './controllers/registerUssd/ussd-menu'
 
 const app = new App();
 
@@ -28,18 +10,15 @@ const port = 3003;
 // parse the url params
 // console.log something once the request is made
 
-app.post('/', (res, req) => {
+app.post('/', Ussd
 
 // let ussdQuestionNumber = 0;
 // let details = {};
-console.log('request', req);
-const query = qs.parse(req.getQuery());
-const { text, msisdn } = query;
-console.log(text);
-console.log(msisdn);
-const responseArray = parseResponseString(text);
-console.log('respArray', responseArray);
-if (msisdn == '+2347063982876' || msisdn == '+2347063328009'){
+
+
+// const responseArray = parseResponseString(text);
+// console.log('respArray', responseArray);
+
 // if(ussdQuestionNumber == 0){
 //   details.questionNumber = 1;
 // }
@@ -98,14 +77,13 @@ if (msisdn == '+2347063982876' || msisdn == '+2347063328009'){
 // }
 // }
 //console.log('details', details);
-menu.run(query, (ussdResult) => {
-   res.writeStatus("200 OK").end(ussdResult);
-});
-} else {
-  res.writeStatus("200 OK").end('invalid msisdn');
-}
-
-}).listen(port, token => {
+// menu.run(query, (ussdResult) => {
+//    res.writeStatus("200 OK").end(ussdResult);
+// });
+// } else {
+//   res.writeStatus("200 OK").end('invalid msisdn');
+// }
+).listen(port, token => {
   token ?
   console.log(`Listening to port ${port}`) :
   console.log(`Failed to listen to port ${port}`);

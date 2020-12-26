@@ -1,5 +1,23 @@
 import { App } from '@sifrr/server';
-import Ussd from './controllers/registerUssd/ussd-menu'
+import qs from 'qs';
+import fetch from 'node-fetch';
+// import Ussd from './controllers/registerUssd/ussd-menu'
+import {
+  SUCCESS_MESSAGE,
+  ERROR_MESSAGE,
+  INVALID_CODE,
+  GENDER_SELECTION,
+  INCIDENCE_SELECTION,
+  STATE_ALPHABET_SELECTION,
+  STATE_SELECTION_PAGE1,
+  STATE_SELECTION_PAGE2,
+  STATE_SELECTION_PAGE3,
+  STATE_SELECTION_PAGE4,
+  STATE_SELECTION_PAGE5,
+} from './controllers/registerUssd/constants';
+
+const username = 'test';
+const password = 'test';
 
 const app = new App();
 
@@ -10,79 +28,18 @@ const port = 3003;
 // parse the url params
 // console.log something once the request is made
 
-app.post('/', Ussd
-
-// let ussdQuestionNumber = 0;
-// let details = {};
-
-
-// const responseArray = parseResponseString(text);
-// console.log('respArray', responseArray);
-
-// if(ussdQuestionNumber == 0){
-//   details.questionNumber = 1;
-// }
-// if (details.questionNumber == 1){
-//   if (GENDER_ARRAY_PATTERN.includes(responseArray[0])){
-//     const parseResponseText = parseInt(responseArray[1]);
-//     const genderValue = parseResponseText - 1;
-//     details.gender = GENDER_ARRAY_Q1[genderValue];
-//     details.questionNumber = 2;
-//   }
-// }
-// if(details.questionNumber == 2){
-//   if (INCIDENCE_ARRAY_PATTERN.test(responseArray[0])) {
-//     const parseResponseText = parseInt(responseArray[1]);
-//     const incidenceValue = parseResponseText - 1;
-//     details.incidenceType = INCIDENCE_ARRAY_Q2[incidenceValue];
-//     details.questionNumber = 3;
-// }
-// }
-// if(details.questionNumber == 3){
-//   if (STATE_FIRST_LETTER_PATTERN.test(responseArray[0])) {
-//     const parseResponseText = parseInt(responseArray[1]);
-//     details.stateFirstLetter = parseResponseText;
-//     details.questionNumber = 4;
-// } 
-// }
-// if(details.questionNumber == 4){
-//   if (STATE_ARRAY_PATTERN.test(responseArray[0])) {
-//     if(details.stateFirstLetter == 1){
-//       const parseResponseText = parseInt(responseArray[1]);
-//       const stateOption = parseResponseText - 1;
-//       const state = STATE_ARRAY_1[stateOption];
-//       details.state = state;
-//     } else if(details.stateFirstLetter == 2){
-//       const parseResponseText = parseInt(responseArray[1]);
-//       const stateOption = parseResponseText - 1;
-//       const state = STATE_ARRAY_2[stateOption];
-//       details.state = state;
-//     } else if(details.stateFirstLetter == 3){
-//       const parseResponseText = parseInt(responseArray[1]);
-//       const stateOption = parseResponseText - 1;
-//       const state = STATE_ARRAY_3[stateOption];
-//       details.state = state;
-//     } else if(details.stateFirstLetter == 4){
-//       const parseResponseText = parseInt(responseArray[1]);
-//       const stateOption = parseResponseText - 1;
-//       const state = STATE_ARRAY_4[stateOption];
-//       details.state = state;
-//     } else if(details.stateFirstLetter == 5){
-//       const parseResponseText = parseInt(responseArray[1]);
-//       const stateOption = parseResponseText - 1;
-//       const state = STATE_ARRAY_5[stateOption];
-//       details.state = state;
-//     }
-    
-// }
-// }
-//console.log('details', details);
-// menu.run(query, (ussdResult) => {
-//    res.writeStatus("200 OK").end(ussdResult);
-// });
-// } else {
-//   res.writeStatus("200 OK").end('invalid msisdn');
-// }
+app.post('/', (res, req) => {
+  const queryString = req.getQuery();
+                const parseUrl = qs.parse(queryString);
+                console.log('incoming req', parseUrl);
+                const { msisdn, smsc, shortcode } = parseUrl;
+  const requestUrl = `http://10.0.0.56:13150/cgi-bin/sendsms?username=${username}&password=${password}&from=${shortcode}&smsc=${smsc}&to=${msisdn}&text=${GENDER_SELECTION}&meta-data=?smpp?meta-data=2&`
+                        fetch(requestUrl)
+                        .then(res => res.json())
+                        .then(json => console.log(json))
+                        .catch(err => console.log(err));
+  res.end();
+}
 ).listen(port, token => {
   token ?
   console.log(`Listening to port ${port}`) :

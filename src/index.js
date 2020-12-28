@@ -33,7 +33,7 @@ app.post('/', (res, req) => {
                 const parseUrl = qs.parse(queryString);
                 console.log('incoming req', parseUrl);
                 const { msisdn, smsc, shortcode } = parseUrl;
-  const requestUrl = `http://10.0.0.56:13150/cgi-bin/sendsms?username=${username}&password=${password}&from=${shortcode}&smsc=${smsc}&to=${msisdn}&text=${GENDER_SELECTION}&meta-data=?smpp?meta-data=2&`
+  const requestUrl = `http://10.0.0.56:13150/cgi-bin/sendsms?username=${username}&password=${password}&from=${shortcode}&smsc=${smsc}&to=${msisdn}&text=${GENDER_SELECTION}&meta-data=%3Fsmpp%3Fmeta-data%3D2`
                         fetch(requestUrl)
                         .then(res => res.json())
                         .then(json => console.log(json))

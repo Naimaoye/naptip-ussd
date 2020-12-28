@@ -18,6 +18,7 @@
     "@babel/preset-env": "^7.6.3",
     "@babel/register": "^7.6.2",
     "@babel/runtime-corejs3": "^7.6.3",
+    "@sifrr/fetch": "0.0.9",
     "@sifrr/server": "0.0.8",
     "body-parser": "^1.19.0",
     "mongoose": "^5.11.8",

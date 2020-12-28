@@ -1,6 +1,7 @@
 import { App } from '@sifrr/server';
 import qs from 'qs';
-import fetch from 'node-fetch';
+import { Fetch } from '@sifrr/fetch';
+//import fetch from 'node-fetch';
 // import Ussd from './controllers/registerUssd/ussd-menu'
 import {
   SUCCESS_MESSAGE,
@@ -28,19 +29,33 @@ const port = 3003;
 // parse the url params
 // console.log something once the request is made
 
-app.post('/', (res, req) => {
+app.get('/', (res, req) => {
   const queryString = req.getQuery();
                 const parseUrl = qs.parse(queryString);
                 console.log('incoming req', parseUrl);
                 const { msisdn, smsc, shortcode } = parseUrl;
-  const requestUrl = `http://10.0.0.56:13150/cgi-bin/sendsms?username=${username}&password=${password}&from=${shortcode}&smsc=${smsc}&to=${msisdn}&text=${GENDER_SELECTION}&meta-data=%3Fsmpp%3Fmeta-data%3D2`
-                        fetch(requestUrl)
-                        .then(res => res.json())
-                        .then(json => console.log(json))
-                        .catch(err => console.log(err));
+  const requestUrl = 'http://10.0.0.56:13150/cgi-bin/sendsms'
+  options.query = { 
+    username: username,
+    password: password,
+    from: shortcode,
+    smsc: smsc,
+    to: msisdn,
+    text: GENDER_SELECTION,
+    'meta-data': '%3Fsmpp%3Fmeta-data%3D2'
+  };
+  Fetch.get(requestUrl, options)
+    .then(response => {
+      // This will send request to url?key=value
+      // response is JSON if response has `content-type: application/json` header
+      // else it is a Fetch API response object.
+      console.log(response.json());
+    })
+    .catch(e => {
+     console.log(e)
+    });
   res.end();
-}
-).listen(port, token => {
+}).listen(port, token => {
   token ?
   console.log(`Listening to port ${port}`) :
   console.log(`Failed to listen to port ${port}`);

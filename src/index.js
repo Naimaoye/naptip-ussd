@@ -47,7 +47,7 @@ app.get('/', (res, req) => {
     }
   })
   .then(function (response) {
-    console.log("resp",response.json());
+    console.log("resp",response);
   })
   .catch(function (error) {
     console.log('err',error);

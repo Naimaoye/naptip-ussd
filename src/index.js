@@ -35,14 +35,15 @@ app.get('/', (res, req) => {
                 console.log('incoming req', parseUrl);
                 const { msisdn, smsc, shortcode } = parseUrl;
   //const requestUrl = `http://10.0.0.56:13150/cgi-bin/sendsms?username=${username}&password=${password}&from=${shortcode}&smsc=${smsc}&to=${msisdn}&text=${GENDER_SELECTION}&meta-data=%3Fsmpp%3Fmeta-data%3D2`
+  if(msisdn == '2349154100054' || msisdn == '2347058793298'){
   axios.get('http://10.0.0.56:13150/cgi-bin/sendsms', {
     params: {
-      username: username,
-      password: password,
-      from: shortcode,
-      smsc: smsc,
-      to: msisdn,
-      text: GENDER_SELECTION,
+      'username': username,
+      'password': password,
+      'from': shortcode,
+      'smsc': smsc,
+      'to': msisdn,
+      'text': GENDER_SELECTION,
       'meta-data': '%3Fsmpp%3Fmeta-data%3D2'
     }
   })
@@ -52,6 +53,25 @@ app.get('/', (res, req) => {
   .catch(function (error) {
     console.log('err',error);
   });
+} else {
+  axios.get('http://10.0.0.56:13150/cgi-bin/sendsms', {
+    params: {
+      'username': username,
+      'password': password,
+      'from': shortcode,
+      'smsc': smsc,
+      'to': msisdn,
+      'text': 'invalid code',
+      'meta-data': '%3Fsmpp%3Fmeta-data%3D2'
+    }
+  })
+  .then(function (response) {
+    console.log("resp",response);
+  })
+  .catch(function (error) {
+    console.log('err',error);
+  });
+}
   res.end();
 }).listen(port, token => {
   token ?

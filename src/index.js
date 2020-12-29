@@ -1,6 +1,6 @@
 import { App } from '@sifrr/server';
 import qs from 'qs';
-import { Fetch } from '@sifrr/fetch';
+import axios from 'axios';
 //import fetch from 'node-fetch';
 // import Ussd from './controllers/registerUssd/ussd-menu'
 import {
@@ -34,26 +34,24 @@ app.get('/', (res, req) => {
                 const parseUrl = qs.parse(queryString);
                 console.log('incoming req', parseUrl);
                 const { msisdn, smsc, shortcode } = parseUrl;
-  const requestUrl = 'http://10.0.0.56:13150/cgi-bin/sendsms'
-  options.query = { 
-    username: username,
-    password: password,
-    from: shortcode,
-    smsc: smsc,
-    to: msisdn,
-    text: GENDER_SELECTION,
-    'meta-data': '%3Fsmpp%3Fmeta-data%3D2'
-  };
-  Fetch.get(requestUrl, options)
-    .then(response => {
-      // This will send request to url?key=value
-      // response is JSON if response has `content-type: application/json` header
-      // else it is a Fetch API response object.
-      console.log(response.json());
-    })
-    .catch(e => {
-     console.log(e)
-    });
+  //const requestUrl = `http://10.0.0.56:13150/cgi-bin/sendsms?username=${username}&password=${password}&from=${shortcode}&smsc=${smsc}&to=${msisdn}&text=${GENDER_SELECTION}&meta-data=%3Fsmpp%3Fmeta-data%3D2`
+  axios.get('http://10.0.0.56:13150/cgi-bin/sendsms', {
+    params: {
+      username: username,
+      password: password,
+      from: shortcode,
+      smsc: smsc,
+      to: msisdn,
+      text: GENDER_SELECTION,
+      'meta-data': '%3Fsmpp%3Fmeta-data%3D2'
+    }
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
   res.end();
 }).listen(port, token => {
   token ?

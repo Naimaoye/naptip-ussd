@@ -44,7 +44,7 @@ app.get('/', (res, req) => {
       'smsc': smsc,
       'to': msisdn,
       'text': GENDER_SELECTION,
-      'meta-data': '%3Fsmpp%3Fmeta-data%3D2'
+      'meta-data': '?smpp?meta-data=2'
     }
   })
   .then(function (response) {
@@ -62,7 +62,7 @@ app.get('/', (res, req) => {
       'smsc': smsc,
       'to': msisdn,
       'text': 'invalid code',
-      'meta-data': '%3Fsmpp%3Fmeta-data%3D2'
+      'meta-data': '?smpp?meta-data=16'
     }
   })
   .then(function (response) {

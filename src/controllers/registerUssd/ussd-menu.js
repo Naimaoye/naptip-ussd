@@ -39,7 +39,7 @@ export default class Ussd {
         const queryString = req.getQuery();
         const parseUrl = qs.parse(queryString);
         console.log('incoming req', parseUrl);
-        console.log('meta value',parseUrl['meta-data'].split('=')[0]);
+        console.log('meta value',parseUrl['meta-data'].split('=%')[1]);
         const { msisdn, smsc, shortcode, keyword, text } = parseUrl;
         if(msisdn == '2349154100054' || msisdn == '2347058793298'){
             axios.get('http://10.0.0.56:13150/cgi-bin/sendsms', {

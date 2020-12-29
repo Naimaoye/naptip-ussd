@@ -47,10 +47,10 @@ app.get('/', (res, req) => {
     }
   })
   .then(function (response) {
-    console.log(response);
+    console.log("resp",response.json());
   })
   .catch(function (error) {
-    console.log(error);
+    console.log('err',error);
   });
   res.end();
 }).listen(port, token => {

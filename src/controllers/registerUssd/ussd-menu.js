@@ -143,8 +143,7 @@ export default class Ussd {
                 }
                 console.log('questionNumber', questionNumber);
             } else if (metaValue == '12&' || metaValue == '12' && questionNumber == 3){
-                // console.log('HERE');
-                // if (text == '1'){
+                if (text == '1' || text == '2' || text == '3' || text == '4' || text == '5'){
                 //     console.log('HERE I AM');
                 //     const answerIndex = parseInt(text) - 1;
                 //     const answer = STATE_FIRST_LETTER_Q3[answerIndex];
@@ -167,7 +166,7 @@ export default class Ussd {
                     console.log('err',error);
                     });
                     questionNumber += 1;
-                // } else if (text == '2'){
+                 } //else if (text == '2'){
                 //     const answerIndex = parseInt(text) - 1;
                 //     const answer = STATE_FIRST_LETTER_Q3[answerIndex];
                 //     dataArray.push(answer);

@@ -142,7 +142,7 @@ export default class Ussd {
                     //questionNumber -= 1;
                 }
                 console.log('questionNumber', questionNumber);
-            } else if (metaValue == '12&' || metaValue == '12' && questionNumber == 3){
+            } else if (metaValue == '12&' || metaValue == '12'){
                 if (text == '1'){
                     const answerIndex = parseInt(text) - 1;
                     const answer = STATE_FIRST_LETTER_Q3[answerIndex];
@@ -275,7 +275,7 @@ export default class Ussd {
                    // questionNumber -= 1;
                     console.log('arr', dataArray)
                 }
-            } else if (metaValue == '12&' || metaValue == '12' && questionNumber == 4){
+            } else if (metaValue == '12&' || metaValue == '12'){
                 if (text == '1' || text == '2' || text == '3' || text == '4' || 
                 text == '5' || text == '6' || text == '7' || text == '8' && 
                 dataArray[2] == 'A-B'){

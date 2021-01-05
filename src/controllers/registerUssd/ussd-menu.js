@@ -71,6 +71,7 @@ export default class Ussd {
                 console.log('err',error);
                 });
                 questionNumber += 1;
+                console.log('questionNumber', questionNumber);
             } else if (metaValue == '12&' || metaValue == '12'){
                 if (text == '1' || text == '2' && questionNumber == 1){
                     const answerIndex = parseInt(text) - 1;
@@ -140,6 +141,7 @@ export default class Ussd {
                     });
                     //questionNumber -= 1;
                 }
+                console.log('questionNumber', questionNumber);
             } else if (metaValue == '12&' || metaValue == '12' && questionNumber == 3){
                 if (text == '1'){
                     const answerIndex = parseInt(text) - 1;

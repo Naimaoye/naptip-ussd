@@ -71,8 +71,8 @@ export default class Ussd {
                 console.log('err',error);
                 });
                 questionNumber += 1;
-            } else if (metaValue == '12&' || metaValue == '12'){
-                if (text == '1' || text == '2' && questionNumber == 1){
+            } else if (metaValue == '12&' || metaValue == '12' && questionNumber == 1){
+                if (text == '1' || text == '2'){
                     const answerIndex = parseInt(text) - 1;
                     const answer = GENDER_ARRAY_Q1[answerIndex];
                     dataArray.push(answer);
@@ -95,6 +95,27 @@ export default class Ussd {
                     });
                     questionNumber += 1;
                     console.log('questionNumber', questionNumber);
+                }else {
+                    dataArray.pop();
+                    axios.get(baseURL, {
+                        params: {
+                        'username': username,
+                        'password': password,
+                        'from': shortcode,
+                        'smsc': smsc,
+                        'to': msisdn,
+                        'text': GENDER_SELECTION,
+                        'meta-data': '?smpp?meta-data=2'
+                        }
+                    })
+                    .then(function (response) {
+                    console.log("resp",response);
+                    })
+                    .catch(function (error) {
+                    console.log('err',error);
+                    });
+                    questionNumber -= 1;
+                }
                 } else if (metaValue == '12&' || metaValue == '12' && questionNumber == 2){
                     if (text == '1' || text == '2' || text == '3' || text == '4' || text == '5'){
                     const answerIndex = parseInt(text) - 1;
@@ -418,7 +439,6 @@ console.log('arr', dataArray)
                 });
                 questionNumber -= 1;
             }
-        }
         }
         } else {
             axios.get(baseURL, {

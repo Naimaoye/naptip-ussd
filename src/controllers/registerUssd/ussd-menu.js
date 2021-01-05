@@ -269,6 +269,7 @@ export default class Ussd {
                     console.log('err',error);
                     });
                     questionNumber -= 1;
+                    console.log('arr', dataArray)
                 }
             } else if (questionNumber == 4){
                 if (text == '1' || text == '2' || text == '3' || text == '4' || 
@@ -295,6 +296,7 @@ export default class Ussd {
                 console.log('err',error);
                 });
                 questionNumber += 1;
+                console.log('arr', dataArray)
             } else if (text == '1' || text == '2' || text == '3' || text == '4' || 
             text == '5' || text == '6' || text == '7' || text == '8' && 
             dataArray[2] == 'C-I'){
@@ -319,6 +321,7 @@ export default class Ussd {
             console.log('err',error);
             });
             questionNumber += 1;
+            console.log('arr', dataArray)
         } else if (text == '1' || text == '2' || text == '3' || text == '4' || 
         text == '5' || text == '6' || text == '7' || text == '8' && 
         dataArray[2] == 'J-L'){
@@ -343,6 +346,7 @@ export default class Ussd {
         console.log('err',error);
         });
         questionNumber += 1;
+        console.log('arr', dataArray)
     } else if (text == '1' || text == '2' || text == '3' || text == '4' || 
     text == '5' || text == '6' || text == '7' || text == '8' && 
     dataArray[2] == 'N-R'){
@@ -367,6 +371,7 @@ export default class Ussd {
     console.log('err',error);
     });
     questionNumber += 1;
+    console.log('arr', dataArray)
 } else if (text == '1' || text == '2' || text == '3' || text == '4' && 
 dataArray[2] == 'S-Z'){
 const answerIndex = parseInt(text) - 1;
@@ -390,6 +395,7 @@ console.log("resp",response);
 console.log('err',error);
 });
 questionNumber += 1;
+console.log('arr', dataArray)
 } else {
                 dataArray.pop();
                 axios.get(baseURL, {

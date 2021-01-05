@@ -71,8 +71,8 @@ export default class Ussd {
                 console.log('err',error);
                 });
                 questionNumber += 1;
-            } else if (metaValue == '12&' || metaValue == '12' && questionNumber == 1){
-                if (text == '1' || text == '2'){
+            } else if (metaValue == '12&' || metaValue == '12'){
+                if (text == '1' || text == '2' && questionNumber == 1){
                     const answerIndex = parseInt(text) - 1;
                     const answer = GENDER_ARRAY_Q1[answerIndex];
                     dataArray.push(answer);
@@ -95,27 +95,6 @@ export default class Ussd {
                     });
                     questionNumber += 1;
                     console.log('questionNumber', questionNumber);
-                }else {
-                    dataArray.pop();
-                    axios.get(baseURL, {
-                        params: {
-                        'username': username,
-                        'password': password,
-                        'from': shortcode,
-                        'smsc': smsc,
-                        'to': msisdn,
-                        'text': GENDER_SELECTION,
-                        'meta-data': '?smpp?meta-data=2'
-                        }
-                    })
-                    .then(function (response) {
-                    console.log("resp",response);
-                    })
-                    .catch(function (error) {
-                    console.log('err',error);
-                    });
-                    questionNumber += 2;
-                }
                 } else if (metaValue == '12&' || metaValue == '12' && questionNumber == 2){
                     if (text == '1' || text == '2' || text == '3' || text == '4' || text == '5'){
                     const answerIndex = parseInt(text) - 1;
@@ -344,102 +323,103 @@ export default class Ussd {
             });
             questionNumber += 1;
             console.log('arr', dataArray)
-                } else if (text == '1' || text == '2' || text == '3' || text == '4' || 
-                text == '5' || text == '6' || text == '7' || text == '8' && 
-                dataArray[2] == 'J-L'){
-                const answerIndex = parseInt(text) - 1;
-                const answer =  STATE_ARRAY_3[answerIndex];
-                dataArray.push(answer);
-                axios.get(baseURL, {
-                    params: {
-                    'username': username,
-                    'password': password,
-                    'from': shortcode,
-                    'smsc': smsc,
-                    'to': msisdn,
-                    'text': SUCCESS_MESSAGE,
-                    'meta-data': '?smpp?meta-data=3'
-                    }
-                })
-                .then(function (response) {
-                console.log("resp",response);
-                })
-                .catch(function (error) {
-                console.log('err',error);
-                });
-                questionNumber += 1;
-                console.log('arr', dataArray)
-            } else if (text == '1' || text == '2' || text == '3' || text == '4' || 
-            text == '5' || text == '6' || text == '7' || text == '8' && 
-            dataArray[2] == 'N-R'){
-            const answerIndex = parseInt(text) - 1;
-            const answer =  STATE_ARRAY_4[answerIndex];
-            dataArray.push(answer);
-            axios.get(baseURL, {
-                params: {
-                'username': username,
-                'password': password,
-                'from': shortcode,
-                'smsc': smsc,
-                'to': msisdn,
-                'text': SUCCESS_MESSAGE,
-                'meta-data': '?smpp?meta-data=3'
-                }
-            })
-            .then(function (response) {
-            console.log("resp",response);
-            })
-            .catch(function (error) {
-            console.log('err',error);
-            });
-            questionNumber += 1;
-            console.log('arr', dataArray)
-        } else if (text == '1' || text == '2' || text == '3' || text == '4' && 
-                dataArray[2] == 'S-Z'){
-                const answerIndex = parseInt(text) - 1;
-                const answer =  STATE_ARRAY_5[answerIndex];
-                dataArray.push(answer);
-                axios.get(baseURL, {
-                    params: {
-                    'username': username,
-                    'password': password,
-                    'from': shortcode,
-                    'smsc': smsc,
-                    'to': msisdn,
-                    'text': SUCCESS_MESSAGE,
-                    'meta-data': '?smpp?meta-data=3'
-                    }
-                })
-                .then(function (response) {
-                console.log("resp",response);
-                })
-                .catch(function (error) {
-                console.log('err',error);
-                });
-                questionNumber += 1;
-                console.log('arr', dataArray)
-            } else {
-                    dataArray.pop();
-                    axios.get(baseURL, {
-                        params: {
-                        'username': username,
-                        'password': password,
-                        'from': shortcode,
-                        'smsc': smsc,
-                        'to': msisdn,
-                        'text':  STATE_ALPHABET_SELECTION,
-                        'meta-data': '?smpp?meta-data=2'
-                        }
-                    })
-                    .then(function (response) {
-                    console.log("resp",response);
-                    })
-                    .catch(function (error) {
-                    console.log('err',error);
-                    });
-                    questionNumber -= 1;
-                }
+        } else if (text == '1' || text == '2' || text == '3' || text == '4' || 
+        text == '5' || text == '6' || text == '7' || text == '8' && 
+        dataArray[2] == 'J-L'){
+        const answerIndex = parseInt(text) - 1;
+        const answer =  STATE_ARRAY_3[answerIndex];
+        dataArray.push(answer);
+        axios.get(baseURL, {
+            params: {
+            'username': username,
+            'password': password,
+            'from': shortcode,
+            'smsc': smsc,
+            'to': msisdn,
+            'text': SUCCESS_MESSAGE,
+            'meta-data': '?smpp?meta-data=3'
             }
+        })
+        .then(function (response) {
+        console.log("resp",response);
+        })
+        .catch(function (error) {
+        console.log('err',error);
+        });
+        questionNumber += 1;
+        console.log('arr', dataArray)
+    } else if (text == '1' || text == '2' || text == '3' || text == '4' || 
+    text == '5' || text == '6' || text == '7' || text == '8' && 
+    dataArray[2] == 'N-R'){
+    const answerIndex = parseInt(text) - 1;
+    const answer =  STATE_ARRAY_4[answerIndex];
+    dataArray.push(answer);
+    axios.get(baseURL, {
+        params: {
+        'username': username,
+        'password': password,
+        'from': shortcode,
+        'smsc': smsc,
+        'to': msisdn,
+        'text': SUCCESS_MESSAGE,
+        'meta-data': '?smpp?meta-data=3'
+        }
+    })
+    .then(function (response) {
+    console.log("resp",response);
+    })
+    .catch(function (error) {
+    console.log('err',error);
+    });
+    questionNumber += 1;
+    console.log('arr', dataArray)
+} else if (text == '1' || text == '2' || text == '3' || text == '4' && 
+dataArray[2] == 'S-Z'){
+const answerIndex = parseInt(text) - 1;
+const answer =  STATE_ARRAY_5[answerIndex];
+dataArray.push(answer);
+axios.get(baseURL, {
+    params: {
+    'username': username,
+    'password': password,
+    'from': shortcode,
+    'smsc': smsc,
+    'to': msisdn,
+    'text': SUCCESS_MESSAGE,
+    'meta-data': '?smpp?meta-data=3'
+    }
+})
+.then(function (response) {
+console.log("resp",response);
+})
+.catch(function (error) {
+console.log('err',error);
+});
+questionNumber += 1;
+console.log('arr', dataArray)
+} else {
+                dataArray.pop();
+                axios.get(baseURL, {
+                    params: {
+                    'username': username,
+                    'password': password,
+                    'from': shortcode,
+                    'smsc': smsc,
+                    'to': msisdn,
+                    'text':  STATE_ALPHABET_SELECTION,
+                    'meta-data': '?smpp?meta-data=2'
+                    }
+                })
+                .then(function (response) {
+                console.log("resp",response);
+                })
+                .catch(function (error) {
+                console.log('err',error);
+                });
+                questionNumber -= 1;
+            }
+        }
+        }
         } else {
             axios.get(baseURL, {
                 params: {

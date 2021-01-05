@@ -114,7 +114,7 @@ export default class Ussd {
                     .catch(function (error) {
                     console.log('err',error);
                     });
-                    questionNumber += 1;
+                    questionNumber += 2;
                 }
                 } else if (metaValue == '12&' || metaValue == '12' && questionNumber == 2){
                     if (text == '1' || text == '2' || text == '3' || text == '4' || text == '5'){

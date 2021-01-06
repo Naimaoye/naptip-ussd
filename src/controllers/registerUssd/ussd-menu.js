@@ -111,26 +111,27 @@ export default class Ussd {
                     });
                     questionNumber += 1;
                     console.log('arr', dataArray);
-                } else {
-                    axios.get(baseURL, {
-                        params: {
-                        'username': username,
-                        'password': password,
-                        'from': shortcode,
-                        'smsc': smsc,
-                        'to': msisdn,
-                        'text': INCIDENCE_SELECTION,
-                        'meta-data': '?smpp?meta-data=2'
-                        }
-                    })
-                    .then(function (response) {
-                    console.log("resp",response);
-                    })
-                    .catch(function (error) {
-                    console.log('err',error);
-                    });
-                    //questionNumber -= 1;
                 }
+                // } else {
+                //     axios.get(baseURL, {
+                //         params: {
+                //         'username': username,
+                //         'password': password,
+                //         'from': shortcode,
+                //         'smsc': smsc,
+                //         'to': msisdn,
+                //         'text': INCIDENCE_SELECTION,
+                //         'meta-data': '?smpp?meta-data=2'
+                //         }
+                //     })
+                //     .then(function (response) {
+                //     console.log("resp",response);
+                //     })
+                //     .catch(function (error) {
+                //     console.log('err',error);
+                //     });
+                //     //questionNumber -= 1;
+                // }
             } else if (metaValue == '12&' || metaValue == '12'){
                 if (text == '1' && questionNumber == 3){
                     axios.get(baseURL, {

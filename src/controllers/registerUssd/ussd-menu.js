@@ -131,9 +131,8 @@ export default class Ussd {
                     });
                     //questionNumber -= 1;
                 }
-                console.log('questionNumber', questionNumber);
-            } else if (metaValue == '12&' || metaValue == '12' && questionNumber == 3){
-                if (metaValue == '12&' || metaValue == '12' && text == '1'){
+            } else if (metaValue == '12&' || metaValue == '12'){
+                if (text == '1'){
                     axios.get(baseURL, {
                         params: {
                         'username': username,

@@ -132,7 +132,7 @@ export default class Ussd {
                     //questionNumber -= 1;
                 }
             } else if (metaValue == '12&' || metaValue == '12'){
-                if (text == '1'){
+                if (text == '1' && questionNumber == 3){
                     axios.get(baseURL, {
                         params: {
                         'username': username,
@@ -151,7 +151,7 @@ export default class Ussd {
                     console.log('err',error);
                     });
                     questionNumber += 1;
-                 } else if (metaValue == '12&' || metaValue == '12' && text == '2'){
+                 } else if (text == '2' && questionNumber == 3){
                     axios.get(baseURL, {
                         params: {
                         'username': username,
@@ -170,7 +170,7 @@ export default class Ussd {
                     console.log('err',error);
                     });
                     questionNumber += 1;
-                } else if (metaValue == '12&' || metaValue == '12' && text == '3'){
+                } else if (text == '3' && questionNumber == 3){
                     axios.get(baseURL, {
                         params: {
                         'username': username,

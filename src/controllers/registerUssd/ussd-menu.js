@@ -73,7 +73,7 @@ export default class Ussd {
                 questionNumber += 1;
                 console.log('questionNumber', questionNumber);
             } else if (metaValue == '12&' || metaValue == '12'){
-                if (text == '1' || text == '2' && questionNumber == 1){
+                if (text == '1'){
                     const answerIndex = parseInt(text) - 1;
                     const answer = GENDER_ARRAY_Q1[answerIndex];
                     dataArray.push(answer);
@@ -161,10 +161,6 @@ export default class Ussd {
                 console.log('questionNumber', questionNumber);
             } else if (metaValue == '12&' || metaValue == '12' && questionNumber == 3){
                 if (text == '1' || text == '2' || text == '3' || text == '4' || text == '5'){
-                //     console.log('HERE I AM');
-                //     const answerIndex = parseInt(text) - 1;
-                //     const answer = STATE_FIRST_LETTER_Q3[answerIndex];
-                //     dataArray.push(answer);
                     axios.get(baseURL, {
                         params: {
                         'username': username,

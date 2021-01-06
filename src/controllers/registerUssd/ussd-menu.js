@@ -77,6 +77,23 @@ export default class Ussd {
                     const answerIndex = parseInt(text) - 1;
                     const answer = GENDER_ARRAY_Q1[answerIndex];
                     dataArray.push(answer);
+                    // axios.get(baseURL, {
+                    //     params: {
+                    //     'username': username,
+                    //     'password': password,
+                    //     'from': shortcode,
+                    //     'smsc': smsc,
+                    //     'to': msisdn,
+                    //     'text': INCIDENCE_SELECTION,
+                    //     'meta-data': '?smpp?meta-data=2'
+                    //     }
+                    // })
+                    // .then(function (response) {
+                    // console.log("resp",response);
+                    // })
+                    // .catch(function (error) {
+                    // console.log('err',error);
+                    // });
                     axios.get(baseURL, {
                         params: {
                         'username': username,
@@ -84,7 +101,7 @@ export default class Ussd {
                         'from': shortcode,
                         'smsc': smsc,
                         'to': msisdn,
-                        'text': INCIDENCE_SELECTION,
+                        'text': STATE_SELECTION_PAGE1,
                         'meta-data': '?smpp?meta-data=2'
                         }
                     })
@@ -166,7 +183,9 @@ export default class Ussd {
                     console.log('err',error);
                     });
                     questionNumber += 1;
-                 } //else if (text == '2'){
+                 } else {
+
+                 }//else if (text == '2'){
                 //     const answerIndex = parseInt(text) - 1;
                 //     const answer = STATE_FIRST_LETTER_Q3[answerIndex];
                 //     dataArray.push(answer);

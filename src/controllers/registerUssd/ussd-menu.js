@@ -71,29 +71,8 @@ export default class Ussd {
                 console.log('err',error);
                 });
                 questionNumber += 1;
-                console.log('questionNumber', questionNumber);
             } else if (metaValue == '12&' || metaValue == '12'){
-                if (text == '1'){
-                    const answerIndex = parseInt(text) - 1;
-                    const answer = GENDER_ARRAY_Q1[answerIndex];
-                    dataArray.push(answer);
-                    // axios.get(baseURL, {
-                    //     params: {
-                    //     'username': username,
-                    //     'password': password,
-                    //     'from': shortcode,
-                    //     'smsc': smsc,
-                    //     'to': msisdn,
-                    //     'text': INCIDENCE_SELECTION,
-                    //     'meta-data': '?smpp?meta-data=2'
-                    //     }
-                    // })
-                    // .then(function (response) {
-                    // console.log("resp",response);
-                    // })
-                    // .catch(function (error) {
-                    // console.log('err',error);
-                    // });
+                if (text == '1' || text == '2' && questionNumber == 1){
                     axios.get(baseURL, {
                         params: {
                         'username': username,
@@ -101,7 +80,7 @@ export default class Ussd {
                         'from': shortcode,
                         'smsc': smsc,
                         'to': msisdn,
-                        'text': STATE_SELECTION_PAGE1,
+                        'text': INCIDENCE_SELECTION,
                         'meta-data': '?smpp?meta-data=2'
                         }
                     })
@@ -111,13 +90,8 @@ export default class Ussd {
                     .catch(function (error) {
                     console.log('err',error);
                     });
-                    questionNumber += 1;
-                    console.log('questionNumber', questionNumber);
                 } else if (metaValue == '12&' || metaValue == '12' && questionNumber == 2){
                     if (text == '1' || text == '2' || text == '3' || text == '4' || text == '5'){
-                    const answerIndex = parseInt(text) - 1;
-                    const answer =  INCIDENCE_ARRAY_Q2[answerIndex];
-                    dataArray.push(answer);
                     axios.get(baseURL, {
                         params: {
                         'username': username,
@@ -138,7 +112,6 @@ export default class Ussd {
                     questionNumber += 1;
                     console.log('arr', dataArray);
                 } else {
-                    dataArray.pop();
                     axios.get(baseURL, {
                         params: {
                         'username': username,
@@ -160,7 +133,7 @@ export default class Ussd {
                 }
                 console.log('questionNumber', questionNumber);
             } else if (metaValue == '12&' || metaValue == '12' && questionNumber == 3){
-                if (text == '1' || text == '2' || text == '3' || text == '4' || text == '5'){
+                if (metaValue == '12&' || metaValue == '12' && text == '1'){
                     axios.get(baseURL, {
                         params: {
                         'username': username,
@@ -179,125 +152,107 @@ export default class Ussd {
                     console.log('err',error);
                     });
                     questionNumber += 1;
-                 } else {
-
-                 }//else if (text == '2'){
-                //     const answerIndex = parseInt(text) - 1;
-                //     const answer = STATE_FIRST_LETTER_Q3[answerIndex];
-                //     dataArray.push(answer);
-                //     axios.get(baseURL, {
-                //         params: {
-                //         'username': username,
-                //         'password': password,
-                //         'from': shortcode,
-                //         'smsc': smsc,
-                //         'to': msisdn,
-                //         'text': STATE_SELECTION_PAGE2,
-                //         'meta-data': '?smpp?meta-data=2'
-                //         }
-                //     })
-                //     .then(function (response) {
-                //     console.log("resp",response);
-                //     })
-                //     .catch(function (error) {
-                //     console.log('err',error);
-                //     });
-                //     questionNumber += 1;
-                // } else if (text == '3'){
-                //     const answerIndex = parseInt(text) - 1;
-                //     const answer = STATE_FIRST_LETTER_Q3[answerIndex];
-                //     dataArray.push(answer);
-                //     axios.get(baseURL, {
-                //         params: {
-                //         'username': username,
-                //         'password': password,
-                //         'from': shortcode,
-                //         'smsc': smsc,
-                //         'to': msisdn,
-                //         'text': STATE_SELECTION_PAGE3,
-                //         'meta-data': '?smpp?meta-data=2'
-                //         }
-                //     })
-                //     .then(function (response) {
-                //     console.log("resp",response);
-                //     })
-                //     .catch(function (error) {
-                //     console.log('err',error);
-                //     });
-                //     questionNumber += 1;
-                // }else if (text == '4'){
-                //     const answerIndex = parseInt(text) - 1;
-                //     const answer = STATE_FIRST_LETTER_Q3[answerIndex];
-                //     dataArray.push(answer);
-                //     axios.get(baseURL, {
-                //         params: {
-                //         'username': username,
-                //         'password': password,
-                //         'from': shortcode,
-                //         'smsc': smsc,
-                //         'to': msisdn,
-                //         'text': STATE_SELECTION_PAGE4,
-                //         'meta-data': '?smpp?meta-data=2'
-                //         }
-                //     })
-                //     .then(function (response) {
-                //     console.log("resp",response);
-                //     })
-                //     .catch(function (error) {
-                //     console.log('err',error);
-                //     });
-                //     questionNumber += 1;
-                // }else if (text == '5'){
-                //     const answerIndex = parseInt(text) - 1;
-                //     const answer = STATE_FIRST_LETTER_Q3[answerIndex];
-                //     dataArray.push(answer);
-                //     axios.get(baseURL, {
-                //         params: {
-                //         'username': username,
-                //         'password': password,
-                //         'from': shortcode,
-                //         'smsc': smsc,
-                //         'to': msisdn,
-                //         'text': STATE_SELECTION_PAGE5,
-                //         'meta-data': '?smpp?meta-data=2'
-                //         }
-                //     })
-                //     .then(function (response) {
-                //     console.log("resp",response);
-                //     })
-                //     .catch(function (error) {
-                //     console.log('err',error);
-                //     });
-                //     questionNumber += 1;
-                // }else {
-                //     dataArray.pop();
-                //     axios.get(baseURL, {
-                //         params: {
-                //         'username': username,
-                //         'password': password,
-                //         'from': shortcode,
-                //         'smsc': smsc,
-                //         'to': msisdn,
-                //         'text': STATE_ALPHABET_SELECTION,
-                //         'meta-data': '?smpp?meta-data=2'
-                //         }
-                //     })
-                //     .then(function (response) {
-                //     console.log("resp",response);
-                //     })
-                //     .catch(function (error) {
-                //     console.log('err',error);
-                //     });
-                //    // questionNumber -= 1;
-                //     console.log('arr', dataArray)
-                // }
+                 } else if (metaValue == '12&' || metaValue == '12' && text == '2'){
+                    axios.get(baseURL, {
+                        params: {
+                        'username': username,
+                        'password': password,
+                        'from': shortcode,
+                        'smsc': smsc,
+                        'to': msisdn,
+                        'text': STATE_SELECTION_PAGE2,
+                        'meta-data': '?smpp?meta-data=2'
+                        }
+                    })
+                    .then(function (response) {
+                    console.log("resp",response);
+                    })
+                    .catch(function (error) {
+                    console.log('err',error);
+                    });
+                    questionNumber += 1;
+                } else if (metaValue == '12&' || metaValue == '12' && text == '3'){
+                    axios.get(baseURL, {
+                        params: {
+                        'username': username,
+                        'password': password,
+                        'from': shortcode,
+                        'smsc': smsc,
+                        'to': msisdn,
+                        'text': STATE_SELECTION_PAGE3,
+                        'meta-data': '?smpp?meta-data=2'
+                        }
+                    })
+                    .then(function (response) {
+                    console.log("resp",response);
+                    })
+                    .catch(function (error) {
+                    console.log('err',error);
+                    });
+                    questionNumber += 1;
+                }else if (metaValue == '12&' || metaValue == '12' && text == '4'){
+                    axios.get(baseURL, {
+                        params: {
+                        'username': username,
+                        'password': password,
+                        'from': shortcode,
+                        'smsc': smsc,
+                        'to': msisdn,
+                        'text': STATE_SELECTION_PAGE4,
+                        'meta-data': '?smpp?meta-data=2'
+                        }
+                    })
+                    .then(function (response) {
+                    console.log("resp",response);
+                    })
+                    .catch(function (error) {
+                    console.log('err',error);
+                    });
+                    questionNumber += 1;
+                }else if (metaValue == '12&' || metaValue == '12' && text == '5'){
+                    axios.get(baseURL, {
+                        params: {
+                        'username': username,
+                        'password': password,
+                        'from': shortcode,
+                        'smsc': smsc,
+                        'to': msisdn,
+                        'text': STATE_SELECTION_PAGE5,
+                        'meta-data': '?smpp?meta-data=2'
+                        }
+                    })
+                    .then(function (response) {
+                    console.log("resp",response);
+                    })
+                    .catch(function (error) {
+                    console.log('err',error);
+                    });
+                    questionNumber += 1;
+                }else {
+                    dataArray.pop();
+                    axios.get(baseURL, {
+                        params: {
+                        'username': username,
+                        'password': password,
+                        'from': shortcode,
+                        'smsc': smsc,
+                        'to': msisdn,
+                        'text': STATE_ALPHABET_SELECTION,
+                        'meta-data': '?smpp?meta-data=2'
+                        }
+                    })
+                    .then(function (response) {
+                    console.log("resp",response);
+                    })
+                    .catch(function (error) {
+                    console.log('err',error);
+                    });
+                   // questionNumber -= 1;
+                    console.log('arr', dataArray)
+                }
             } else if (metaValue == '12&' || metaValue == '12' && questionNumber == 4){
                 if (text == '1' || text == '2' || text == '3' || text == '4' || 
-                text == '5' || text == '6' || text == '7' || text == '8' && 
-                dataArray[2] == 'A-B'){
-                const answerIndex = parseInt(text) - 1;
-                const answer =  STATE_ARRAY_1[answerIndex];
-                dataArray.push(answer);
+                text == '5' || text == '6' || text == '7' || text == '8'){
                 axios.get(baseURL, {
                     params: {
                     'username': username,
@@ -317,107 +272,7 @@ export default class Ussd {
                 });
                 questionNumber += 1;
                 console.log('arr', dataArray)
-            } else if (text == '1' || text == '2' || text == '3' || text == '4' || 
-            text == '5' || text == '6' || text == '7' || text == '8' && 
-            dataArray[2] == 'C-I'){
-            const answerIndex = parseInt(text) - 1;
-            const answer =  STATE_ARRAY_2[answerIndex];
-            dataArray.push(answer);
-            axios.get(baseURL, {
-                params: {
-                'username': username,
-                'password': password,
-                'from': shortcode,
-                'smsc': smsc,
-                'to': msisdn,
-                'text': SUCCESS_MESSAGE,
-                'meta-data': '?smpp?meta-data=3'
-                }
-            })
-            .then(function (response) {
-            console.log("resp",response);
-            })
-            .catch(function (error) {
-            console.log('err',error);
-            });
-            questionNumber += 1;
-            console.log('arr', dataArray)
-        } else if (text == '1' || text == '2' || text == '3' || text == '4' || 
-        text == '5' || text == '6' || text == '7' || text == '8' && 
-        dataArray[2] == 'J-L'){
-        const answerIndex = parseInt(text) - 1;
-        const answer =  STATE_ARRAY_3[answerIndex];
-        dataArray.push(answer);
-        axios.get(baseURL, {
-            params: {
-            'username': username,
-            'password': password,
-            'from': shortcode,
-            'smsc': smsc,
-            'to': msisdn,
-            'text': SUCCESS_MESSAGE,
-            'meta-data': '?smpp?meta-data=3'
-            }
-        })
-        .then(function (response) {
-        console.log("resp",response);
-        })
-        .catch(function (error) {
-        console.log('err',error);
-        });
-        questionNumber += 1;
-        console.log('arr', dataArray)
-    } else if (text == '1' || text == '2' || text == '3' || text == '4' || 
-    text == '5' || text == '6' || text == '7' || text == '8' && 
-    dataArray[2] == 'N-R'){
-    const answerIndex = parseInt(text) - 1;
-    const answer =  STATE_ARRAY_4[answerIndex];
-    dataArray.push(answer);
-    axios.get(baseURL, {
-        params: {
-        'username': username,
-        'password': password,
-        'from': shortcode,
-        'smsc': smsc,
-        'to': msisdn,
-        'text': SUCCESS_MESSAGE,
-        'meta-data': '?smpp?meta-data=3'
-        }
-    })
-    .then(function (response) {
-    console.log("resp",response);
-    })
-    .catch(function (error) {
-    console.log('err',error);
-    });
-    questionNumber += 1;
-    console.log('arr', dataArray)
-} else if (text == '1' || text == '2' || text == '3' || text == '4' && 
-dataArray[2] == 'S-Z'){
-const answerIndex = parseInt(text) - 1;
-const answer =  STATE_ARRAY_5[answerIndex];
-dataArray.push(answer);
-axios.get(baseURL, {
-    params: {
-    'username': username,
-    'password': password,
-    'from': shortcode,
-    'smsc': smsc,
-    'to': msisdn,
-    'text': SUCCESS_MESSAGE,
-    'meta-data': '?smpp?meta-data=3'
-    }
-})
-.then(function (response) {
-console.log("resp",response);
-})
-.catch(function (error) {
-console.log('err',error);
-});
-questionNumber += 1;
-console.log('arr', dataArray)
-} else {
-                dataArray.pop();
+            } else {
                 axios.get(baseURL, {
                     params: {
                     'username': username,

@@ -52,8 +52,7 @@ export default class Ussd {
         const metaValue = parseUrl['meta-data'].split('=%')[1];
         const { msisdn, smsc, shortcode, keyword, text } = parseUrl;
         if(msisdn == '2349154100054' || msisdn == '2347058793298'){
-            for(let i = 0; i < 5; i++){
-            if(metaValue == '01&' || metaValue == '01' || metaValue == '1&' && text.includes('#') && i == 0){
+            if(metaValue == '01&' || metaValue == '01' || metaValue == '1&' && text.includes('#')){
                 axios.get(baseURL, {
                     params: {
                     'username': username,
@@ -72,7 +71,7 @@ export default class Ussd {
                 console.log('err',error);
                 });
             } else if (metaValue == '12&' || metaValue == '12'){
-                if (text == '1' || text == '2' && i == 1){
+                if (text == '1' || text == '2' && questionNumber == 1){
                     axios.get(baseURL, {
                         params: {
                         'username': username,
@@ -90,7 +89,7 @@ export default class Ussd {
                     .catch(function (error) {
                     console.log('err',error);
                     });
-                } else if (metaValue == '12&' || metaValue == '12' && i == 2){
+                } else if (metaValue == '12&' || metaValue == '12' && questionNumber == 2){
                     if (text == '1' || text == '2' || text == '3' || text == '4' || text == '5'){
                     axios.get(baseURL, {
                         params: {
@@ -291,7 +290,6 @@ export default class Ussd {
                 });
                 questionNumber -= 1;
             }
-        }
         }
         }
         } else {

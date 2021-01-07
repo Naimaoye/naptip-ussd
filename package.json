@@ -20,6 +20,7 @@
     "@babel/runtime-corejs3": "^7.6.3",
     "@sifrr/fetch": "0.0.9",
     "@sifrr/server": "0.0.8",
+    "async": "^3.2.0",
     "axios": "^0.21.1",
     "mysql": "^2.18.1",
     "qs": "^6.9.4",

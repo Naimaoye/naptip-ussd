@@ -1,5 +1,6 @@
 import qs from 'qs';
 import axios from 'axios';
+// import async from 'async';
 
 import Report from '../../models/db.report';
 import {
@@ -47,12 +48,246 @@ export default class Ussd {
         const queryString = req.getQuery();
         const parseUrl = qs.parse(queryString);
         console.log('incoming req', parseUrl);
+        //const data = [];
         const metaValue = parseUrl['meta-data'].split('=%')[1];
         const { msisdn, smsc, shortcode, keyword, text } = parseUrl;
         if(msisdn == '2349154100054' || msisdn == '2347058793298'){
-            let questionNumber = 0;
-            const dataArray = [];
-            if(metaValue == '01&' || metaValue == '01' || metaValue == '1&' && text.includes('#')){
+            for(let i = 0; i < 5; i++){
+                if(metaValue == '01&' || metaValue == '01' || metaValue == '1&' && text.includes('#') && i == 0){
+                    axios.get(baseURL, {
+                        params: {
+                        'username': username,
+                        'password': password,
+                        'from': shortcode,
+                        'smsc': smsc,
+                        'to': msisdn,
+                        'text': GENDER_SELECTION,
+                        'meta-data': '?smpp?meta-data=2'
+                        }
+                    })
+                    .then(function (response) {
+                    console.log("resp",response);
+                    })
+                    .catch(function (error) {
+                    console.log('err',error);
+                    });
+                } else if (metaValue == '12&' && i == 1){
+                    if (text == '1' || text == '2'){
+                        axios.get(baseURL, {
+                            params: {
+                            'username': username,
+                            'password': password,
+                            'from': shortcode,
+                            'smsc': smsc,
+                            'to': msisdn,
+                            'text': INCIDENCE_SELECTION,
+                            'meta-data': '?smpp?meta-data=2'
+                            }
+                        })
+                        .then(function (response) {
+                        console.log("resp",response);
+                        })
+                        .catch(function (error) {
+                        console.log('err',error);
+                        });
+                    } else {
+
+                    }
+                    } else if (metaValue == '12&' && i == 2){
+                        if (text == '1' || text == '2' || text == '3' || text == '4' || text == '5'){
+                        axios.get(baseURL, {
+                            params: {
+                            'username': username,
+                            'password': password,
+                            'from': shortcode,
+                            'smsc': smsc,
+                            'to': msisdn,
+                            'text': STATE_ALPHABET_SELECTION,
+                            'meta-data': '?smpp?meta-data=2'
+                            }
+                        })
+                        .then(function (response) {
+                        console.log("resp",response);
+                        })
+                        .catch(function (error) {
+                        console.log('err',error);
+                        });
+                    } else {
+                        axios.get(baseURL, {
+                            params: {
+                            'username': username,
+                            'password': password,
+                            'from': shortcode,
+                            'smsc': smsc,
+                            'to': msisdn,
+                            'text': INCIDENCE_SELECTION,
+                            'meta-data': '?smpp?meta-data=2'
+                            }
+                        })
+                        .then(function (response) {
+                        console.log("resp",response);
+                        })
+                        .catch(function (error) {
+                        console.log('err',error);
+                        });
+                        //questionNumber -= 1;
+                    }
+                } else if (metaValue == '12&' && i == 3){
+                    if (metaValue == '12&' && text == '1'){
+                        axios.get(baseURL, {
+                            params: {
+                            'username': username,
+                            'password': password,
+                            'from': shortcode,
+                            'smsc': smsc,
+                            'to': msisdn,
+                            'text': STATE_SELECTION_PAGE1,
+                            'meta-data': '?smpp?meta-data=2'
+                            }
+                        })
+                        .then(function (response) {
+                        console.log("resp",response);
+                        })
+                        .catch(function (error) {
+                        console.log('err',error);
+                        });
+                    } else if (metaValue == '12&' && text == '2'){
+                        axios.get(baseURL, {
+                            params: {
+                            'username': username,
+                            'password': password,
+                            'from': shortcode,
+                            'smsc': smsc,
+                            'to': msisdn,
+                            'text': STATE_SELECTION_PAGE2,
+                            'meta-data': '?smpp?meta-data=2'
+                            }
+                        })
+                        .then(function (response) {
+                        console.log("resp",response);
+                        })
+                        .catch(function (error) {
+                        console.log('err',error);
+                        });
+                    } else if (metaValue == '12&' && text == '3'){
+                        axios.get(baseURL, {
+                            params: {
+                            'username': username,
+                            'password': password,
+                            'from': shortcode,
+                            'smsc': smsc,
+                            'to': msisdn,
+                            'text': STATE_SELECTION_PAGE3,
+                            'meta-data': '?smpp?meta-data=2'
+                            }
+                        })
+                        .then(function (response) {
+                        console.log("resp",response);
+                        })
+                        .catch(function (error) {
+                        console.log('err',error);
+                        });
+                    }else if (metaValue == '12&' && text == '4'){
+                        axios.get(baseURL, {
+                            params: {
+                            'username': username,
+                            'password': password,
+                            'from': shortcode,
+                            'smsc': smsc,
+                            'to': msisdn,
+                            'text': STATE_SELECTION_PAGE4,
+                            'meta-data': '?smpp?meta-data=2'
+                            }
+                        })
+                        .then(function (response) {
+                        console.log("resp",response);
+                        })
+                        .catch(function (error) {
+                        console.log('err',error);
+                        });
+                        questionNumber += 1;
+                    }else if (metaValue == '12&' && text == '5'){
+                        axios.get(baseURL, {
+                            params: {
+                            'username': username,
+                            'password': password,
+                            'from': shortcode,
+                            'smsc': smsc,
+                            'to': msisdn,
+                            'text': STATE_SELECTION_PAGE5,
+                            'meta-data': '?smpp?meta-data=2'
+                            }
+                        })
+                        .then(function (response) {
+                        console.log("resp",response);
+                        })
+                        .catch(function (error) {
+                        console.log('err',error);
+                        });
+                    }else {
+                        dataArray.pop();
+                        axios.get(baseURL, {
+                            params: {
+                            'username': username,
+                            'password': password,
+                            'from': shortcode,
+                            'smsc': smsc,
+                            'to': msisdn,
+                            'text': STATE_ALPHABET_SELECTION,
+                            'meta-data': '?smpp?meta-data=2'
+                            }
+                        })
+                        .then(function (response) {
+                        console.log("resp",response);
+                        })
+                        .catch(function (error) {
+                        console.log('err',error);
+                        });
+                    // questionNumber -= 1;
+                        console.log('arr', dataArray)
+                    }
+                } else if (metaValue == '12&' || metaValue == '12' && i == 4){
+                    if (text == '1' || text == '2' || text == '3' || text == '4' || 
+                    text == '5' || text == '6' || text == '7' || text == '8'){
+                    axios.get(baseURL, {
+                        params: {
+                        'username': username,
+                        'password': password,
+                        'from': shortcode,
+                        'smsc': smsc,
+                        'to': msisdn,
+                        'text': SUCCESS_MESSAGE,
+                        'meta-data': '?smpp?meta-data=3'
+                        }
+                    })
+                    .then(function (response) {
+                    console.log("resp",response);
+                    })
+                    .catch(function (error) {
+                    console.log('err',error);
+                    });
+                } else {
+                    axios.get(baseURL, {
+                        params: {
+                        'username': username,
+                        'password': password,
+                        'from': shortcode,
+                        'smsc': smsc,
+                        'to': msisdn,
+                        'text':  STATE_ALPHABET_SELECTION,
+                        'meta-data': '?smpp?meta-data=2'
+                        }
+                    })
+                    .then(function (response) {
+                    console.log("resp",response);
+                    })
+                    .catch(function (error) {
+                    console.log('err',error);
+                    });
+                }
+                }
+            }
+            } else {
                 axios.get(baseURL, {
                     params: {
                     'username': username,
@@ -60,8 +295,8 @@ export default class Ussd {
                     'from': shortcode,
                     'smsc': smsc,
                     'to': msisdn,
-                    'text': GENDER_SELECTION,
-                    'meta-data': '?smpp?meta-data=2'
+                    'text': '',
+                    'meta-data': '?smpp?meta-data=16'
                     }
                 })
                 .then(function (response) {
@@ -70,251 +305,10 @@ export default class Ussd {
                 .catch(function (error) {
                 console.log('err',error);
                 });
-                questionNumber += 1;
-            } else if (metaValue == '12&' || metaValue == '12'){
-                if (text == '1' || text == '2' && questionNumber == 1){
-                    axios.get(baseURL, {
-                        params: {
-                        'username': username,
-                        'password': password,
-                        'from': shortcode,
-                        'smsc': smsc,
-                        'to': msisdn,
-                        'text': INCIDENCE_SELECTION,
-                        'meta-data': '?smpp?meta-data=2'
-                        }
-                    })
-                    .then(function (response) {
-                    console.log("resp",response);
-                    })
-                    .catch(function (error) {
-                    console.log('err',error);
-                    });
-                } else if (metaValue == '12&' || metaValue == '12' && questionNumber == 2){
-                    if (text == '1' || text == '2' || text == '3' || text == '4' || text == '5'){
-                    axios.get(baseURL, {
-                        params: {
-                        'username': username,
-                        'password': password,
-                        'from': shortcode,
-                        'smsc': smsc,
-                        'to': msisdn,
-                        'text': STATE_ALPHABET_SELECTION,
-                        'meta-data': '?smpp?meta-data=2'
-                        }
-                    })
-                    .then(function (response) {
-                    console.log("resp",response);
-                    })
-                    .catch(function (error) {
-                    console.log('err',error);
-                    });
-                    questionNumber += 1;
-                    console.log('arr', dataArray);
                 }
-                // } else {
-                //     axios.get(baseURL, {
-                //         params: {
-                //         'username': username,
-                //         'password': password,
-                //         'from': shortcode,
-                //         'smsc': smsc,
-                //         'to': msisdn,
-                //         'text': INCIDENCE_SELECTION,
-                //         'meta-data': '?smpp?meta-data=2'
-                //         }
-                //     })
-                //     .then(function (response) {
-                //     console.log("resp",response);
-                //     })
-                //     .catch(function (error) {
-                //     console.log('err',error);
-                //     });
-                //     //questionNumber -= 1;
-                // }
-            } else if (metaValue == '12&' || metaValue == '12'){
-                if (text == '1'){
-                    axios.get(baseURL, {
-                        params: {
-                        'username': username,
-                        'password': password,
-                        'from': shortcode,
-                        'smsc': smsc,
-                        'to': msisdn,
-                        'text': STATE_SELECTION_PAGE1,
-                        'meta-data': '?smpp?meta-data=2'
-                        }
-                    })
-                    .then(function (response) {
-                    console.log("resp",response);
-                    })
-                    .catch(function (error) {
-                    console.log('err',error);
-                    });
-                    questionNumber += 1;
-                 } else if (text == '2' && questionNumber == 3){
-                    axios.get(baseURL, {
-                        params: {
-                        'username': username,
-                        'password': password,
-                        'from': shortcode,
-                        'smsc': smsc,
-                        'to': msisdn,
-                        'text': STATE_SELECTION_PAGE2,
-                        'meta-data': '?smpp?meta-data=2'
-                        }
-                    })
-                    .then(function (response) {
-                    console.log("resp",response);
-                    })
-                    .catch(function (error) {
-                    console.log('err',error);
-                    });
-                    questionNumber += 1;
-                } else if (text == '3' && questionNumber == 3){
-                    axios.get(baseURL, {
-                        params: {
-                        'username': username,
-                        'password': password,
-                        'from': shortcode,
-                        'smsc': smsc,
-                        'to': msisdn,
-                        'text': STATE_SELECTION_PAGE3,
-                        'meta-data': '?smpp?meta-data=2'
-                        }
-                    })
-                    .then(function (response) {
-                    console.log("resp",response);
-                    })
-                    .catch(function (error) {
-                    console.log('err',error);
-                    });
-                    questionNumber += 1;
-                }else if (metaValue == '12&' || metaValue == '12' && text == '4'){
-                    axios.get(baseURL, {
-                        params: {
-                        'username': username,
-                        'password': password,
-                        'from': shortcode,
-                        'smsc': smsc,
-                        'to': msisdn,
-                        'text': STATE_SELECTION_PAGE4,
-                        'meta-data': '?smpp?meta-data=2'
-                        }
-                    })
-                    .then(function (response) {
-                    console.log("resp",response);
-                    })
-                    .catch(function (error) {
-                    console.log('err',error);
-                    });
-                    questionNumber += 1;
-                }else if (metaValue == '12&' || metaValue == '12' && text == '5'){
-                    axios.get(baseURL, {
-                        params: {
-                        'username': username,
-                        'password': password,
-                        'from': shortcode,
-                        'smsc': smsc,
-                        'to': msisdn,
-                        'text': STATE_SELECTION_PAGE5,
-                        'meta-data': '?smpp?meta-data=2'
-                        }
-                    })
-                    .then(function (response) {
-                    console.log("resp",response);
-                    })
-                    .catch(function (error) {
-                    console.log('err',error);
-                    });
-                    questionNumber += 1;
-                }
-                // } else {
-                //     dataArray.pop();
-                //     axios.get(baseURL, {
-                //         params: {
-                //         'username': username,
-                //         'password': password,
-                //         'from': shortcode,
-                //         'smsc': smsc,
-                //         'to': msisdn,
-                //         'text': STATE_ALPHABET_SELECTION,
-                //         'meta-data': '?smpp?meta-data=2'
-                //         }
-                //     })
-                //     .then(function (response) {
-                //     console.log("resp",response);
-                //     })
-                //     .catch(function (error) {
-                //     console.log('err',error);
-                //     });
-                //    // questionNumber -= 1;
-                //     console.log('arr', dataArray)
-                // }
-            } else if (metaValue == '12&' || metaValue == '12' && questionNumber == 4){
-                if (text == '1' || text == '2' || text == '3' || text == '4' || 
-                text == '5' || text == '6' || text == '7' || text == '8'){
-                axios.get(baseURL, {
-                    params: {
-                    'username': username,
-                    'password': password,
-                    'from': shortcode,
-                    'smsc': smsc,
-                    'to': msisdn,
-                    'text': SUCCESS_MESSAGE,
-                    'meta-data': '?smpp?meta-data=3'
-                    }
-                })
-                .then(function (response) {
-                console.log("resp",response);
-                })
-                .catch(function (error) {
-                console.log('err',error);
-                });
-                questionNumber += 1;
-                console.log('arr', dataArray)
-            }
-            // } else {
-            //     axios.get(baseURL, {
-            //         params: {
-            //         'username': username,
-            //         'password': password,
-            //         'from': shortcode,
-            //         'smsc': smsc,
-            //         'to': msisdn,
-            //         'text':  STATE_ALPHABET_SELECTION,
-            //         'meta-data': '?smpp?meta-data=2'
-            //         }
-            //     })
-            //     .then(function (response) {
-            //     console.log("resp",response);
-            //     })
-            //     .catch(function (error) {
-            //     console.log('err',error);
-            //     });
-            //     questionNumber -= 1;
-            // }
-        }
-        }
-        } else {
-            axios.get(baseURL, {
-                params: {
-                'username': username,
-                'password': password,
-                'from': shortcode,
-                'smsc': smsc,
-                'to': msisdn,
-                'text': '',
-                'meta-data': '?smpp?meta-data=16'
-                }
-            })
-            .then(function (response) {
-            console.log("resp",response);
-            })
-            .catch(function (error) {
-            console.log('err',error);
-            });
-            }
+        //    const queue = async.queue((data, callback)=>{
+
+        //    }) 
         res.end();
     }
 }

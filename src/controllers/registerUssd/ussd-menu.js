@@ -311,9 +311,9 @@ export default class Ussd {
             console.log('err',error);
             });
             }
-           const queue = async.queue((data, callback)=>{
+        //    const queue = async.queue((data, callback)=>{
 
-           }) 
+        //    }) 
         res.end();
     }
 }

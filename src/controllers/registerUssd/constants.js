@@ -2,7 +2,7 @@ export const SUCCESS_MESSAGE = 'You have successfully reported. We will contact 
 export const ERROR_MESSAGE = 'An error occured. Please try again.';
 export const INVALID_CODE = 'You have entered the wrong key, please try again.';
 
-export const FOOTER_BACK_TEXT = `00. BACK`;
+export const FOOTER_BACK_TEXT = `0. BACK`;
 export const GENDER_SELECTION = `This is the NAPTIP VAPP Reporter, kindly select your Gender. Enter 1 or 2 to proceed:
 1. Male
 2. Female

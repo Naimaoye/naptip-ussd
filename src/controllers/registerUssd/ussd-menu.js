@@ -79,7 +79,7 @@ export default class Ussd {
             } else {
             client.get(questionNumber, async (err, ansExist) => {
                 if (ansExist == '1') {
-                    if (metaValue == '12&' && text === '1' || text === '2'){
+                    if (metaValue == '12&' && text == '1' || text == '2'){
                             axios.get(baseURL, {
                                 params: {
                                 'username': username,
@@ -128,7 +128,7 @@ export default class Ussd {
               });
               client.get(questionNumber, async (err, ansExist) => {
                 if (ansExist == '2') {
-                    if (metaValue == '12&' && text === '1' || text === '2' || text === '3' || text === '4' || text === '5'){
+                    if (metaValue == '12&' && text == '1' || text == '2' || text == '3' || text == '4' || text == '5'){
                         axios.get(baseURL, {
                             params: {
                             'username': username,
@@ -196,7 +196,7 @@ export default class Ussd {
                         const state = STATE_ARRAY_1[stateIndex];
                         client.set("state", state);
                         client.set('questionNumber', '4');
-                     } else if (metaValue == '12&' && text === '2'){
+                     } else if (metaValue == '12&' && text == '2'){
                         axios.get(baseURL, {
                             params: {
                             'username': username,
@@ -218,7 +218,7 @@ export default class Ussd {
                         const state = STATE_ARRAY_2[stateIndex];
                         client.set("state", state);
                         client.set('questionNumber', '4');
-                    } else if (metaValue == '12&' && text === '3'){
+                    } else if (metaValue == '12&' && text == '3'){
                         axios.get(baseURL, {
                             params: {
                             'username': username,
@@ -240,7 +240,7 @@ export default class Ussd {
                         const state = STATE_ARRAY_3[stateIndex];
                         client.set("state", state);
                         client.set('questionNumber', '4');
-                        }else if (metaValue == '12&' && text === '4'){
+                        }else if (metaValue == '12&' && text == '4'){
                             axios.get(baseURL, {
                                 params: {
                                 'username': username,
@@ -308,8 +308,8 @@ export default class Ussd {
               });
               client.get(questionNumber, async (err, ansExist) => {
                 if (ansExist == '4') {
-                    if (metaValue == '12&'&& text === '1' || text === '2' || text === '3' || text === '4' || 
-                text === '5' || text === '6' || text === '7' || text === '8'){
+                    if (metaValue == '12&'&& text == '1' || text == '2' || text == '3' || text == '4' || 
+                text == '5' || text == '6' || text == '7' || text == '8'){
                 axios.get(baseURL, {
                     params: {
                     'username': username,

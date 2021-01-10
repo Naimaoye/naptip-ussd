@@ -36,7 +36,7 @@ const username = 'test';
 const password = 'test';
 const baseURL = 'http://10.0.0.56:13150/cgi-bin/sendsms';
 
-const client = redis.createClient(6379);
+const client = redis.createClient();
 // get the text coming back
 // convert the text value to float
 // check the answer
@@ -74,11 +74,12 @@ export default class Ussd {
                 });
                 const genderIndex = parseInt(text) - 1;
                 const gender = GENDER_ARRAY_Q1[genderIndex];
-                client.set("gender", gender);
-                client.set('questionNumber', '1');
+                client.setex("gender", 120, gender);
+                client.setex('questionNumber', 120, '1');
             } else {
             client.get(questionNumber, async (err, ansExist) => {
                 if (ansExist == '1') {
+                    console.log('keyExist', ansExist);
                     if (metaValue == '12&' && text == '1' || text == '2'){
                             axios.get(baseURL, {
                                 params: {
@@ -99,8 +100,8 @@ export default class Ussd {
                             });
                             const incidenceIndex = parseInt(text) - 1;
                             const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
-                            client.set("incidence", incidenceType);
-                            client.set('questionNumber', '2');
+                            client.setex("incidence", 120, incidenceType);
+                            client.setex('questionNumber', 120, '2');
                         } else { // When the data is not found in the cache then we can make request to the server
                             axios.get(baseURL, {
                                 params: {
@@ -121,8 +122,8 @@ export default class Ussd {
                             });
                             const genderIndex = parseInt(text) - 1;
                             const gender = GENDER_ARRAY_Q1[genderIndex];
-                            client.set("gender", gender);
-                            client.set('questionNumber', '1');
+                            client.setex("gender", 120, gender);
+                            client.setex('questionNumber', 120, '1');
                         }
                 } 
               });
@@ -146,7 +147,7 @@ export default class Ussd {
                         .catch(function (error) {
                         console.log('err',error);
                         });
-                        client.set('questionNumber', '3');
+                        client.setex('questionNumber', 120, '3');
                         } else { // When the data is not found in the cache then we can make request to the server
                             axios.get(baseURL, {
                                 params: {
@@ -167,8 +168,8 @@ export default class Ussd {
                             });
                             const incidenceIndex = parseInt(text) - 1;
                             const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
-                            client.set("incidence", incidenceType);
-                            client.set('questionNumber', '2');
+                            client.setex("incidence", 120, incidenceType);
+                            client.setex('questionNumber', 120, '2');
                         }
                 } 
               });
@@ -194,8 +195,8 @@ export default class Ussd {
                         });
                         const stateIndex = parseInt(text) - 1;
                         const state = STATE_ARRAY_1[stateIndex];
-                        client.set("state", state);
-                        client.set('questionNumber', '4');
+                        client.setex("state", 120, state);
+                        client.setex('questionNumber', 120, '4');
                      } else if (metaValue == '12&' && text == '2'){
                         axios.get(baseURL, {
                             params: {
@@ -216,8 +217,8 @@ export default class Ussd {
                         });
                         const stateIndex = parseInt(text) - 1;
                         const state = STATE_ARRAY_2[stateIndex];
-                        client.set("state", state);
-                        client.set('questionNumber', '4');
+                        client.setex("state", 120, state);
+                        client.setex('questionNumber', 120, '4');
                     } else if (metaValue == '12&' && text == '3'){
                         axios.get(baseURL, {
                             params: {
@@ -238,8 +239,8 @@ export default class Ussd {
                         });
                         const stateIndex = parseInt(text) - 1;
                         const state = STATE_ARRAY_3[stateIndex];
-                        client.set("state", state);
-                        client.set('questionNumber', '4');
+                        client.setex("state", 120, state);
+                        client.setex('questionNumber', 120, '4');
                         }else if (metaValue == '12&' && text == '4'){
                             axios.get(baseURL, {
                                 params: {
@@ -260,8 +261,8 @@ export default class Ussd {
                             });
                             const stateIndex = parseInt(text) - 1;
                             const state = STATE_ARRAY_4[stateIndex];
-                            client.set("state", state);
-                            client.set('questionNumber', '4');
+                            client.setex("state", 120, state);
+                            client.setex('questionNumber', 120, '4');
                         }else if (metaValue == '12&' && text == '5'){
                             axios.get(baseURL, {
                                 params: {
@@ -282,8 +283,8 @@ export default class Ussd {
                             });
                             const stateIndex = parseInt(text) - 1;
                             const state = STATE_ARRAY_5[stateIndex];
-                            client.set("state", state);
-                            client.set('questionNumber', '4');
+                            client.setex("state", 120, state);
+                            client.setex('questionNumber', 120, '4');
                         }else {
                             axios.get(baseURL, {
                                 params: {
@@ -302,7 +303,7 @@ export default class Ussd {
                             .catch(function (error) {
                             console.log('err',error);
                             });
-                            client.set('questionNumber', '3');
+                            client.setex('questionNumber', 120, '3');
                         } 
                 } 
               });
@@ -345,7 +346,7 @@ export default class Ussd {
                 .catch(function (error) {
                 console.log('err',error);
                 });
-                client.set('questionNumber', '3');
+                client.setex('questionNumber', 120, '3');
                 }
                 } 
               });

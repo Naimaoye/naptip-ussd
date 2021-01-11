@@ -2,6 +2,7 @@ import { App } from '@sifrr/server';
 //import mysql from 'mysql';
 
 import Ussd from './controllers/registerUssd/ussd-menu';
+require('./utils/redis-config');
 //import { createIncidenceTable } from './models/db.report';
 
 const app = new App();

@@ -1,7 +1,7 @@
 import qs from 'qs';
 import axios from 'axios';
-import redis from 'redis';
 
+import client from '../../utils/redis-config';
 import Report from '../../models/db.report';
 import {
 GENDER_ARRAY_Q1,
@@ -36,7 +36,7 @@ const username = 'test';
 const password = 'test';
 const baseURL = 'http://10.0.0.56:13150/cgi-bin/sendsms';
 
-const client = redis.createClient();
+
 // get the text coming back
 // convert the text value to float
 // check the answer
@@ -50,7 +50,6 @@ export default class Ussd {
         const queryString = req.getQuery();
         const parseUrl = qs.parse(queryString);
         console.log('incoming req', parseUrl);
-        const data = [];
         const metaValue = parseUrl['meta-data'].split('=%')[1];
         const { msisdn, smsc, shortcode, keyword, text } = parseUrl;
         if(msisdn == '2349154100054' || msisdn == '2347058793298'){
@@ -74,7 +73,7 @@ export default class Ussd {
                 });
                 const genderIndex = parseInt(text) - 1;
                 const gender = GENDER_ARRAY_Q1[genderIndex];
-                client.setex("gender", 120, gender);
+                client.set("gender", gender, function(err) { console.log("redis err", err)});
                 client.setex('questionNumber', 120, '1');
             } else {
             client.get(questionNumber, async (err, ansExist) => {

@@ -79,7 +79,6 @@ export default class Ussd {
             } else {
             client.get(questionNumber, async (err, ansExist) => {
                 if (ansExist == '1') {
-                    console.log('keyExist', ansExist);
                     if (metaValue == '12&' && text == '1' || text == '2'){
                             axios.get(baseURL, {
                                 params: {

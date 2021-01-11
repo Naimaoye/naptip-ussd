@@ -74,8 +74,8 @@ export default class Ussd {
                 });
                 const genderIndex = parseInt(text) - 1;
                 const gender = GENDER_ARRAY_Q1[genderIndex];
-                client.set("gender", gender, function(err) { console.log("redis err", err)});
-                client.set('questionNumber', '1', function(err) { console.log("redis err", err)});
+                client.setex("gender", 120,gender);
+                client.setex('questionNumber', 120,'1');
             } else {
             client.get(questionNumber, async (err, ansExist) => {
                 if (ansExist == '1') {
@@ -100,9 +100,9 @@ export default class Ussd {
                             });
                             const incidenceIndex = parseInt(text) - 1;
                             const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
-                            client.set("incidence", incidenceType, function(err) { console.log("redis err", err)});
-                            client.set('questionNumber', '2', function(err) { console.log("redis err", err)});
-                        } else { // When the data is not found in the cache then we can make request to the server
+                            client.setex("incidence", 120,incidenceType);
+                            client.setex('questionNumber', 120,'2');
+                        } else if (metaValue == '12&' && text == '0' && text !== '1' || text !== '2'){ // When the data is not found in the cache then we can make request to the server
                             axios.get(baseURL, {
                                 params: {
                                 'username': username,
@@ -122,8 +122,8 @@ export default class Ussd {
                             });
                             const genderIndex = parseInt(text) - 1;
                             const gender = GENDER_ARRAY_Q1[genderIndex];
-                            client.set("gender", gender, function(err) { console.log("redis err", err)});
-                            client.set('questionNumber', '1', function(err) { console.log("redis err", err)});
+                            client.setex("gender", 120,gender);
+                            client.setex('questionNumber', 120,'1');
                         }
                 } else {
                     console.log("from redis",err);
@@ -149,8 +149,8 @@ export default class Ussd {
                         .catch(function (error) {
                         console.log('err',error);
                         });
-                        client.set('questionNumber', '3', function(err) { console.log("redis err", err)});
-                        } else { // When the data is not found in the cache then we can make request to the server
+                        client.setex('questionNumber', 120,'3');
+                        } else if (metaValue == '12&' && text == '0' && text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5'){ // When the data is not found in the cache then we can make request to the server
                             axios.get(baseURL, {
                                 params: {
                                 'username': username,
@@ -170,8 +170,8 @@ export default class Ussd {
                             });
                             const incidenceIndex = parseInt(text) - 1;
                             const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
-                            client.set("incidence", incidenceType, function(err) { console.log("redis err", err)});
-                            client.set('questionNumber', '2', function(err) { console.log("redis err", err)});
+                            client.setex("incidence", 120, incidenceType);
+                            client.setex('questionNumber', 120,'2');
                         }
                 } 
               });
@@ -197,8 +197,8 @@ export default class Ussd {
                         });
                         const stateIndex = parseInt(text) - 1;
                         const state = STATE_ARRAY_1[stateIndex];
-                        client.set("state", state, function(err) { console.log("redis err", err)});
-                        client.set('questionNumber', '4', function(err) { console.log("redis err", err)});
+                        client.setex("state", 120, state);
+                        client.setex('questionNumber', 120, '4');
                      } else if (metaValue == '12&' && text == '2'){
                         axios.get(baseURL, {
                             params: {
@@ -241,8 +241,8 @@ export default class Ussd {
                         });
                         const stateIndex = parseInt(text) - 1;
                         const state = STATE_ARRAY_3[stateIndex];
-                        client.set("state", state, function(err) { console.log("redis err", err)});
-                        client.set('questionNumber', '4', function(err) { console.log("redis err", err)});
+                        client.setex("state", 120,state);
+                        client.setex('questionNumber', 120, '4');
                         }else if (metaValue == '12&' && text == '4'){
                             axios.get(baseURL, {
                                 params: {
@@ -263,8 +263,8 @@ export default class Ussd {
                             });
                             const stateIndex = parseInt(text) - 1;
                             const state = STATE_ARRAY_4[stateIndex];
-                            client.set("state", state, function(err) { console.log("redis err", err)});
-                            client.set('questionNumber', '4', function(err) { console.log("redis err", err)});
+                            client.setex("state", 120, state);
+                            client.setex('questionNumber', 120,'4');
                         }else if (metaValue == '12&' && text == '5'){
                             axios.get(baseURL, {
                                 params: {
@@ -285,9 +285,9 @@ export default class Ussd {
                             });
                             const stateIndex = parseInt(text) - 1;
                             const state = STATE_ARRAY_5[stateIndex];
-                            client.set("state", state, function(err) { console.log("redis err", err)});
-                            client.set('questionNumber', '4', function(err) { console.log("redis err", err)});
-                        }else {
+                            client.setex("state", 120,state);
+                            client.setex('questionNumber', 120,'4');
+                        }else if (metaValue == '12&' && text == '0' && text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5') {
                             axios.get(baseURL, {
                                 params: {
                                 'username': username,
@@ -305,7 +305,7 @@ export default class Ussd {
                             .catch(function (error) {
                             console.log('err',error);
                             });
-                            client.set('questionNumber', '3', function(err) { console.log("redis err", err)});
+                            client.setex('questionNumber', 120,'3');
                         } 
                 } 
               });
@@ -330,7 +330,11 @@ export default class Ussd {
                 .catch(function (error) {
                 console.log('err',error);
                 });
-            } else {
+            } else if (metaValue == '12&' && text == '0' && 
+            text !== '1' || text !== '2' || 
+            text !== '3' || text !== '4' || 
+            text !== '5' || text !== '6' || 
+             text !== '7' || text !== '8') {
                 axios.get(baseURL, {
                     params: {
                     'username': username,
@@ -348,7 +352,7 @@ export default class Ussd {
                 .catch(function (error) {
                 console.log('err',error);
                 });
-                client.set('questionNumber', '3', function(err) { console.log("redis err", err)});
+                client.setex('questionNumber', 120,'3');
                 }
                 } 
               });

@@ -102,7 +102,7 @@ export default class Ussd {
                             const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
                             client.setex("incidence", 120,incidenceType);
                             client.setex('questionNumber', 120,'2');
-                        } else if (metaValue == '12&' && text == '0' && text !== '1' || text !== '2'){ // When the data is not found in the cache then we can make request to the server
+                        } else if (metaValue == '12&' && text == '0' || text !== '1' || text !== '2'){ // When the data is not found in the cache then we can make request to the server
                             axios.get(baseURL, {
                                 params: {
                                 'username': username,
@@ -150,7 +150,7 @@ export default class Ussd {
                         console.log('err',error);
                         });
                         client.setex('questionNumber', 120,'3');
-                        } else if (metaValue == '12&' && text == '0' && text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5'){ // When the data is not found in the cache then we can make request to the server
+                        } else if (metaValue == '12&' && text == '0' || text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5'){ // When the data is not found in the cache then we can make request to the server
                             axios.get(baseURL, {
                                 params: {
                                 'username': username,

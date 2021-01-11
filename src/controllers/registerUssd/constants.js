@@ -14,6 +14,7 @@ export const INCIDENCE_SELECTION = `Kindly select the incidence you will like to
 3. Human Trafficking
 4. Child labour
 5. Others
+${FOOTER_BACK_TEXT}
 `;
 
 export const STATE_ALPHABET_SELECTION = `Please select the first letter of your resident state:

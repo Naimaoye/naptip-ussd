@@ -74,7 +74,7 @@ export default class Ussd {
                 const genderIndex = parseInt(text) - 1;
                 const gender = GENDER_ARRAY_Q1[genderIndex];
                 client.set("gender", gender, function(err) { console.log("redis err", err)});
-                client.setex('questionNumber', 120, '1');
+                client.set('questionNumber', '1', function(err) { console.log("redis err", err)});
             } else {
             client.get(questionNumber, async (err, ansExist) => {
                 if (ansExist == '1') {
@@ -99,8 +99,8 @@ export default class Ussd {
                             });
                             const incidenceIndex = parseInt(text) - 1;
                             const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
-                            client.setex("incidence", 120, incidenceType);
-                            client.setex('questionNumber', 120, '2');
+                            client.set("incidence", incidenceType, function(err) { console.log("redis err", err)});
+                            client.set('questionNumber', '2', function(err) { console.log("redis err", err)});
                         } else { // When the data is not found in the cache then we can make request to the server
                             axios.get(baseURL, {
                                 params: {
@@ -121,10 +121,12 @@ export default class Ussd {
                             });
                             const genderIndex = parseInt(text) - 1;
                             const gender = GENDER_ARRAY_Q1[genderIndex];
-                            client.setex("gender", 120, gender);
-                            client.setex('questionNumber', 120, '1');
+                            client.set("gender", gender, function(err) { console.log("redis err", err)});
+                            client.set('questionNumber', '1', function(err) { console.log("redis err", err)});
                         }
-                } 
+                } else {
+                    console.log("from redis",err);
+                }
               });
               client.get(questionNumber, async (err, ansExist) => {
                 if (ansExist == '2') {
@@ -146,7 +148,7 @@ export default class Ussd {
                         .catch(function (error) {
                         console.log('err',error);
                         });
-                        client.setex('questionNumber', 120, '3');
+                        client.set('questionNumber', '3', function(err) { console.log("redis err", err)});
                         } else { // When the data is not found in the cache then we can make request to the server
                             axios.get(baseURL, {
                                 params: {
@@ -167,8 +169,8 @@ export default class Ussd {
                             });
                             const incidenceIndex = parseInt(text) - 1;
                             const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
-                            client.setex("incidence", 120, incidenceType);
-                            client.setex('questionNumber', 120, '2');
+                            client.set("incidence", incidenceType, function(err) { console.log("redis err", err)});
+                            client.set('questionNumber', '2', function(err) { console.log("redis err", err)});
                         }
                 } 
               });
@@ -194,8 +196,8 @@ export default class Ussd {
                         });
                         const stateIndex = parseInt(text) - 1;
                         const state = STATE_ARRAY_1[stateIndex];
-                        client.setex("state", 120, state);
-                        client.setex('questionNumber', 120, '4');
+                        client.set("state", state, function(err) { console.log("redis err", err)});
+                        client.set('questionNumber', '4', function(err) { console.log("redis err", err)});
                      } else if (metaValue == '12&' && text == '2'){
                         axios.get(baseURL, {
                             params: {
@@ -238,8 +240,8 @@ export default class Ussd {
                         });
                         const stateIndex = parseInt(text) - 1;
                         const state = STATE_ARRAY_3[stateIndex];
-                        client.setex("state", 120, state);
-                        client.setex('questionNumber', 120, '4');
+                        client.set("state", state, function(err) { console.log("redis err", err)});
+                        client.set('questionNumber', '4', function(err) { console.log("redis err", err)});
                         }else if (metaValue == '12&' && text == '4'){
                             axios.get(baseURL, {
                                 params: {
@@ -260,8 +262,8 @@ export default class Ussd {
                             });
                             const stateIndex = parseInt(text) - 1;
                             const state = STATE_ARRAY_4[stateIndex];
-                            client.setex("state", 120, state);
-                            client.setex('questionNumber', 120, '4');
+                            client.set("state", state, function(err) { console.log("redis err", err)});
+                            client.set('questionNumber', '4', function(err) { console.log("redis err", err)});
                         }else if (metaValue == '12&' && text == '5'){
                             axios.get(baseURL, {
                                 params: {
@@ -282,8 +284,8 @@ export default class Ussd {
                             });
                             const stateIndex = parseInt(text) - 1;
                             const state = STATE_ARRAY_5[stateIndex];
-                            client.setex("state", 120, state);
-                            client.setex('questionNumber', 120, '4');
+                            client.set("state", state, function(err) { console.log("redis err", err)});
+                            client.set('questionNumber', '4', function(err) { console.log("redis err", err)});
                         }else {
                             axios.get(baseURL, {
                                 params: {
@@ -302,7 +304,7 @@ export default class Ussd {
                             .catch(function (error) {
                             console.log('err',error);
                             });
-                            client.setex('questionNumber', 120, '3');
+                            client.set('questionNumber', '3', function(err) { console.log("redis err", err)});
                         } 
                 } 
               });
@@ -345,7 +347,7 @@ export default class Ussd {
                 .catch(function (error) {
                 console.log('err',error);
                 });
-                client.setex('questionNumber', 120, '3');
+                client.set('questionNumber', '3', function(err) { console.log("redis err", err)});
                 }
                 } 
               });

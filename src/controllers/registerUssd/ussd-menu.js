@@ -115,8 +115,6 @@ export default class Ussd {
                             client.setex("gender", 120,gender);
                             client.setex('questionNumber', 120,'1');
                         }
-                } else {
-                    console.log("from redis",err);
                 }
               });
               client.get(questionNumber, async (err, ansExist) => {

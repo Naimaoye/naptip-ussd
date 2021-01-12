@@ -275,7 +275,7 @@ export default class Ussd {
                             const state = STATE_ARRAY_5[stateIndex];
                             client.setex("state", 120,state);
                             client.setex('questionNumber', 120,'4');
-                        }else if (metaValue == '12&' && text == '0' && text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5') {
+                        }else {
                             axios.get(baseURL, {
                                 params: {
                                 'username': username,

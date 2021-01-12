@@ -312,6 +312,8 @@ export default class Ussd {
               });
               client.get(questionNumber, async (err, ansExist) => {
                 if (ansExist == '4') {
+                    if (metaValue == '12&'&& text == '1' || text == '2' || text == '3' || text == '4' || 
+                text == '5' || text == '6' || text == '7' || text == '8'){
                 axios.get(baseURL, {
                     params: {
                     'username': username,
@@ -329,7 +331,11 @@ export default class Ussd {
                 .catch(function (error) {
                 console.log('err',error);
                 });
-            } else {
+            } else if (metaValue == '12&' && text == '0' && 
+            text !== '1' || text !== '2' || 
+            text !== '3' || text !== '4' || 
+            text !== '5' || text !== '6' || 
+             text !== '7' || text !== '8') {
                 axios.get(baseURL, {
                     params: {
                     'username': username,
@@ -337,8 +343,8 @@ export default class Ussd {
                     'from': shortcode,
                     'smsc': smsc,
                     'to': msisdn,
-                    'text':  STATE_ALPHABET_SELECTION,
-                    'meta-data': '?smpp?meta-data=2'
+                    'text':  '',
+                    'meta-data': '?smpp?meta-data=21'
                     }
                 })
                 .then(function (response) {
@@ -348,7 +354,8 @@ export default class Ussd {
                 console.log('err',error);
                 });
                 client.setex('questionNumber', 120,'3');
-            } 
+                }
+                } 
               });
             }   
         } else {

@@ -39,6 +39,15 @@ export const STATE_ALPHABET_SELECTION = `Please select the first letter of your 
 5. S-Z
 `;
 
+export const STATE_ALPHABET_SELECTION_INVALID = `Invalid Option
+Please select the first letter of your resident state:
+1. A-B
+2. C-I
+3. J-L
+4. N-R
+5. S-Z
+`;
+
 export const STATE_SELECTION_PAGE1 = `Please select your resident state:
 1. Abia
 2. Adamawa

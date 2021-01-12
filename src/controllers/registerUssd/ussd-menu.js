@@ -312,8 +312,6 @@ export default class Ussd {
               });
               client.get(questionNumber, async (err, ansExist) => {
                 if (ansExist == '4') {
-                    if (metaValue == '12&'&& text == '1' || text == '2' || text == '3' || text == '4' || 
-                text == '5' || text == '6' || text == '7' || text == '8'){
                 axios.get(baseURL, {
                     params: {
                     'username': username,
@@ -331,11 +329,7 @@ export default class Ussd {
                 .catch(function (error) {
                 console.log('err',error);
                 });
-            } else if (metaValue == '12&' && text == '0' && 
-            text !== '1' || text !== '2' || 
-            text !== '3' || text !== '4' || 
-            text !== '5' || text !== '6' || 
-             text !== '7' || text !== '8') {
+            } else {
                 axios.get(baseURL, {
                     params: {
                     'username': username,
@@ -354,8 +348,7 @@ export default class Ussd {
                 console.log('err',error);
                 });
                 client.setex('questionNumber', 120,'3');
-                }
-                } 
+            } 
               });
             }   
         } else {

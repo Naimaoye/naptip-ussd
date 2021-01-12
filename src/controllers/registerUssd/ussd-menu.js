@@ -30,6 +30,7 @@ import {
     STATE_SELECTION_PAGE3,
     STATE_SELECTION_PAGE4,
     STATE_SELECTION_PAGE5,
+    GENDER_SELECTION_INVALID
 } from './constants';
 
 const username = 'test';
@@ -101,7 +102,7 @@ export default class Ussd {
                             const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
                             client.setex("incidence", 120,incidenceType);
                             client.setex('questionNumber', 120,'2');
-                        } else if (metaValue == '12&' && text == '0'){ // When the data is not found in the cache then we can make request to the server
+                        } else { // When the data is not found in the cache then we can make request to the server
                             axios.get(baseURL, {
                                 params: {
                                 'username': username,
@@ -109,7 +110,7 @@ export default class Ussd {
                                 'from': shortcode,
                                 'smsc': smsc,
                                 'to': msisdn,
-                                'text': GENDER_SELECTION,
+                                'text': GENDER_SELECTION_INVALID,
                                 'meta-data': '?smpp?meta-data=2'
                                 }
                             })

@@ -283,7 +283,7 @@ export default class Ussd {
                                 'from': shortcode,
                                 'smsc': smsc,
                                 'to': msisdn,
-                                'text': STATE_ALPHABET_SELECTION_INVALID,
+                                'text': STATE_ALPHABET_SELECTION,
                                 'meta-data': '?smpp?meta-data=2'
                                 }
                             })

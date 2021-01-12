@@ -30,7 +30,8 @@ import {
     STATE_SELECTION_PAGE3,
     STATE_SELECTION_PAGE4,
     STATE_SELECTION_PAGE5,
-    GENDER_SELECTION_INVALID
+    GENDER_SELECTION_INVALID,
+    INCIDENCE_SELECTION_INVALID
 } from './constants';
 
 const username = 'test';
@@ -150,7 +151,7 @@ export default class Ussd {
                         console.log('err',error);
                         });
                         client.setex('questionNumber', 120,'3');
-                        } else if (metaValue == '12&' && text == '0' || text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5'){ // When the data is not found in the cache then we can make request to the server
+                        } else { // When the data is not found in the cache then we can make request to the server
                             axios.get(baseURL, {
                                 params: {
                                 'username': username,
@@ -158,7 +159,7 @@ export default class Ussd {
                                 'from': shortcode,
                                 'smsc': smsc,
                                 'to': msisdn,
-                                'text': INCIDENCE_SELECTION,
+                                'text': INCIDENCE_SELECTION_INVALID,
                                 'meta-data': '?smpp?meta-data=2'
                                 }
                             })
@@ -330,11 +331,7 @@ export default class Ussd {
                 .catch(function (error) {
                 console.log('err',error);
                 });
-            } else if (metaValue == '12&' && text == '0' && 
-            text !== '1' || text !== '2' || 
-            text !== '3' || text !== '4' || 
-            text !== '5' || text !== '6' || 
-             text !== '7' || text !== '8') {
+            } else {
                 axios.get(baseURL, {
                     params: {
                     'username': username,

@@ -9,11 +9,21 @@ export const GENDER_SELECTION = `This is the NAPTIP VAPP Reporter, kindly select
 `;
 
 export const GENDER_SELECTION_INVALID = `Invalid Option
+Enter 1 or 2 to proceed:
 1. Male
 2. Female
 `;
 
 export const INCIDENCE_SELECTION = `Kindly select the incidence you will like to report. Enter 1,2,3,4,5 to proceed:
+1. Rape
+2. Violence
+3. Human Trafficking
+4. Child labour
+5. Others
+`;
+
+export const INCIDENCE_SELECTION_INVALID = `Invalid Option. 
+Enter 1,2,3,4,5 to proceed:
 1. Rape
 2. Violence
 3. Human Trafficking

@@ -322,7 +322,7 @@ export default class Ussd {
                     'smsc': smsc,
                     'to': msisdn,
                     'text': SUCCESS_MESSAGE,
-                    'meta-data': '?smpp?meta-data=3'
+                    'meta-data': '?smpp?meta-data=16'
                     }
                 })
                 .then(function (response) {
@@ -331,7 +331,7 @@ export default class Ussd {
                 .catch(function (error) {
                 console.log('err',error);
                 });
-            } else if (metaValue == '12&' && text == '0' && 
+            } else if (metaValue == '21&' && text !== '0' && 
             text !== '1' || text !== '2' || 
             text !== '3' || text !== '4' || 
             text !== '5' || text !== '6' || 

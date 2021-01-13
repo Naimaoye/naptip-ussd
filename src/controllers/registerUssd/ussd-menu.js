@@ -55,7 +55,8 @@ export default class Ussd {
         const metaValue = parseUrl['meta-data'].split('=%')[1];
         const { msisdn, smsc, shortcode, keyword, text } = parseUrl;
         const questionNumber = 'questionNumber';
-        if(msisdn == '2349154100054' || msisdn == '2347058793298' || msisdn == '2347053006327'){
+        res.end();
+        if(msisdn == '2349154100054' || msisdn == '2347058793298' || msisdn == '2348055268896'){
             if(metaValue == '01&' || metaValue == '01' || metaValue == '1&' && text.includes('#')){
                 axios.get(baseURL, {
                     params: {
@@ -377,7 +378,6 @@ export default class Ussd {
             console.log('err',error);
             });
             }
-        res.end();
     }
 }
 

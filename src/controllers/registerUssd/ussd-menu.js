@@ -57,6 +57,7 @@ export default class Ussd {
         const questionNumber = 'questionNumber';
         if(msisdn == '2349154100054' || msisdn == '2347058793298' || msisdn == '2348055268896'){
             if(metaValue == '01&' || metaValue == '01' || metaValue == '1&' && text.includes('#')){
+                res.end();
                 axios.get(baseURL, {
                     params: {
                     'username': username,

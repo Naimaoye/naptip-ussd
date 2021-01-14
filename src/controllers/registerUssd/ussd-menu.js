@@ -49,7 +49,7 @@ const baseURL = 'http://10.0.0.56:13150/cgi-bin/sendsms';
 
 export default class Ussd {
     static async registerUssdDetails(res, req) {
-        res.end();
+        //res.end();
         const queryString = req.getQuery();
         const parseUrl = qs.parse(queryString);
         console.log('incoming req', parseUrl);

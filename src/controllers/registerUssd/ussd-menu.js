@@ -127,13 +127,13 @@ export default class Ussd {
                 if (ansExist == '4') {
                     if (metaValue == '12&'&& text == '1' || text == '2' || text == '3' || text == '4' || 
                 text == '5' || text == '6' || text == '7' || text == '8'){
-                    createClient(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValue16);
                     const gender = getUserOptions(genderConst);
                     const incidence = getUserOptions(incidenceConst);
                     const state = getUserOptions(stateConst);
                     const optionsArray = [];
                     optionsArray.push(gender, incidence, state);
                     console.log("options", optionsArray);
+                    createClient(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValue16);
             } else if (metaValue == '21&' && text !== '0' && 
             text !== '1' || text !== '2' || 
             text !== '3' || text !== '4' || 

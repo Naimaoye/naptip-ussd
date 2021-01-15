@@ -31,12 +31,21 @@ import {
     stateConst,
     incidenceConst,
 } from './constants';
-import { createClient, getUserOptions } from './ussd-functions';
+import { createClient } from './ussd-functions';
 
 const username = 'test';
 const password = 'test';
 const baseURL = 'http://10.0.0.56:13150/cgi-bin/sendsms';
 
+const getUserOptions = (key) => {
+        client.get(key, async (err, ansExist) => {
+            if (ansExist) {
+                return ansExist;
+            }else {
+                console.log("from redis", err)
+            }
+        })
+    };
 
 export default class Ussd {
     static async registerUssdDetails(res, req) {

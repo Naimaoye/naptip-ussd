@@ -1,5 +1,5 @@
 import axios from 'axios';
-import client from '../../utils/redis-config';
+//import client from '../../utils/redis-config';
 
 export const createClient = (baseURL, username, password, shortcode, smsc, msisdn, text, metaData) => {
     axios.get(baseURL, {
@@ -19,12 +19,12 @@ export const createClient = (baseURL, username, password, shortcode, smsc, msisd
     });
 }
 
-export const getUserOptions = (key) => {
-    client.get(key, async (err, ansExist) => {
-        if (ansExist) {
-            return ansExist;
-        }else {
-            console.log("from redis", err)
-        }
-    })
-}
+// export const getUserOptions = (key) => {
+//     client.get(key, async (err, ansExist) => {
+//         if (ansExist) {
+//             return ansExist;
+//         }else {
+//             console.log("from redis", err)
+//         }
+//     })
+// }

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import client from '../../utils/redis-config';
 
 export const createClient = (baseURL, username, password, shortcode, smsc, msisdn, text, metaData) => {
     axios.get(baseURL, {
@@ -13,9 +14,15 @@ export const createClient = (baseURL, username, password, shortcode, smsc, msisd
         }
     })
     .then(function (response) {
-    console.log("resp",response);
     })
     .catch(function (error) {
-    console.log('err',error);
     });
+}
+
+export const getUserOptions = (key) => {
+    client.get(key, async (err, ansExist) => {
+        if (ansExist) {
+            return ansExist;
+        }
+    })
 }

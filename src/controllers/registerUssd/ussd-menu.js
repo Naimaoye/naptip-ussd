@@ -5,22 +5,15 @@ import Report from '../../models/db.report';
 import {
 GENDER_ARRAY_Q1,
 INCIDENCE_ARRAY_Q2,
-STATE_FIRST_LETTER_Q3,
 STATE_ARRAY_1,
 STATE_ARRAY_2,
 STATE_ARRAY_3,
 STATE_ARRAY_4,
 STATE_ARRAY_5,
-GENDER_ARRAY_PATTERN,
-INCIDENCE_ARRAY_PATTERN,
-STATE_FIRST_LETTER_PATTERN,
-STATE_ARRAY_PATTERN,
 } from '../../utils/constants';
 
 import {
     SUCCESS_MESSAGE,
-    ERROR_MESSAGE,
-    INVALID_CODE,
     GENDER_SELECTION,
     INCIDENCE_SELECTION,
     STATE_ALPHABET_SELECTION,
@@ -32,31 +25,25 @@ import {
     GENDER_SELECTION_INVALID,
     INCIDENCE_SELECTION_INVALID,
     metaValueTwo,
-    metaValue16
+    metaValue16,
+    genderConst,
+    stateConst,
+    incidenceConst,
 } from './constants';
-import { createClient } from './ussd-functions';
+import { createClient, getUserOptions } from './ussd-functions';
 
 const username = 'test';
 const password = 'test';
 const baseURL = 'http://10.0.0.56:13150/cgi-bin/sendsms';
 
 
-// get the text coming back
-// convert the text value to float
-// check the answer
-// increment question number
-// store in an array
-// write sql query to save the values in the db
-// check if text is 00 and remove the previous option from the array
-
 export default class Ussd {
     static async registerUssdDetails(res, req) {
         res.end();
         const queryString = req.getQuery();
         const parseUrl = qs.parse(queryString);
-        console.log('incoming req', parseUrl);
         const metaValue = parseUrl['meta-data'].split('=%')[1];
-        const { msisdn, smsc, shortcode, keyword, text } = parseUrl;
+        const { msisdn, smsc, shortcode, text } = parseUrl;
         const questionNumber = 'questionNumber';
         if(msisdn == '2349154100054' || msisdn == '2347058793298' || msisdn == '2348055268896'){
             if(metaValue == '01&' || metaValue == '01' || metaValue == '1&' && text.includes('#')){
@@ -69,93 +56,27 @@ export default class Ussd {
             client.get(questionNumber, async (err, ansExist) => {
                 if (ansExist == '1') {
                     if (metaValue == '12&' && text == '1' || text == '2'){
-                            axios.get(baseURL, {
-                                params: {
-                                'username': username,
-                                'password': password,
-                                'from': shortcode,
-                                'smsc': smsc,
-                                'to': msisdn,
-                                'text': INCIDENCE_SELECTION,
-                                'meta-data': '?smpp?meta-data=2'
-                                }
-                            })
-                            .then(function (response) {
-                            console.log("resp",response);
-                            })
-                            .catch(function (error) {
-                            console.log('err',error);
-                            });
+                        createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION, metaValueTwo);
                             const incidenceIndex = parseInt(text) - 1;
                             const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
                             client.setex("incidence", 120,incidenceType);
                             client.setex('questionNumber', 120,'2');
-                        } else { // When the data is not found in the cache then we can make request to the server
-                            axios.get(baseURL, {
-                                params: {
-                                'username': username,
-                                'password': password,
-                                'from': shortcode,
-                                'smsc': smsc,
-                                'to': msisdn,
-                                'text': GENDER_SELECTION_INVALID,
-                                'meta-data': '?smpp?meta-data=2'
-                                }
-                            })
-                            .then(function (response) {
-                            console.log("resp",response);
-                            })
-                            .catch(function (error) {
-                            console.log('err',error);
-                            });
+                        } else { 
+                            createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION_INVALID, metaValueTwo);
                             const genderIndex = parseInt(text) - 1;
                             const gender = GENDER_ARRAY_Q1[genderIndex];
                             client.setex("gender", 120,gender);
                             client.setex('questionNumber', 120,'1');
                         }
-                } else {
-                    console.log("from redis",err);
                 }
               });
               client.get(questionNumber, async (err, ansExist) => {
                 if (ansExist == '2') {
                     if (metaValue == '12&' && text == '1' || text == '2' || text == '3' || text == '4' || text == '5'){
-                        axios.get(baseURL, {
-                            params: {
-                            'username': username,
-                            'password': password,
-                            'from': shortcode,
-                            'smsc': smsc,
-                            'to': msisdn,
-                            'text': STATE_ALPHABET_SELECTION,
-                            'meta-data': '?smpp?meta-data=2'
-                            }
-                        })
-                        .then(function (response) {
-                        console.log("resp",response);
-                        })
-                        .catch(function (error) {
-                        console.log('err',error);
-                        });
+                        createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION, metaValueTwo);
                         client.setex('questionNumber', 120,'3');
-                        } else { // When the data is not found in the cache then we can make request to the server
-                            axios.get(baseURL, {
-                                params: {
-                                'username': username,
-                                'password': password,
-                                'from': shortcode,
-                                'smsc': smsc,
-                                'to': msisdn,
-                                'text': INCIDENCE_SELECTION_INVALID,
-                                'meta-data': '?smpp?meta-data=2'
-                                }
-                            })
-                            .then(function (response) {
-                            console.log("resp",response);
-                            })
-                            .catch(function (error) {
-                            console.log('err',error);
-                            });
+                        } else {
+                            createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION_INVALID, metaValueTwo);
                             const incidenceIndex = parseInt(text) - 1;
                             const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
                             client.setex("incidence", 120, incidenceType);
@@ -166,133 +87,37 @@ export default class Ussd {
               client.get(questionNumber, async (err, ansExist) => {
                 if (ansExist == '3') {
                     if (metaValue == '12&' && text === '1'){
-                        axios.get(baseURL, {
-                            params: {
-                            'username': username,
-                            'password': password,
-                            'from': shortcode,
-                            'smsc': smsc,
-                            'to': msisdn,
-                            'text': STATE_SELECTION_PAGE1,
-                            'meta-data': '?smpp?meta-data=2'
-                            }
-                        })
-                        .then(function (response) {
-                        console.log("resp",response);
-                        })
-                        .catch(function (error) {
-                        console.log('err',error);
-                        });
+                        createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE1, metaValueTwo);
                         const stateIndex = parseInt(text) - 1;
                         const state = STATE_ARRAY_1[stateIndex];
                         client.setex("state", 120, state);
                         client.setex('questionNumber', 120, '4');
                      } else if (metaValue == '12&' && text == '2'){
-                        axios.get(baseURL, {
-                            params: {
-                            'username': username,
-                            'password': password,
-                            'from': shortcode,
-                            'smsc': smsc,
-                            'to': msisdn,
-                            'text': STATE_SELECTION_PAGE2,
-                            'meta-data': '?smpp?meta-data=2'
-                            }
-                        })
-                        .then(function (response) {
-                        console.log("resp",response);
-                        })
-                        .catch(function (error) {
-                        console.log('err',error);
-                        });
+                        createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE2, metaValueTwo);
                         const stateIndex = parseInt(text) - 1;
                         const state = STATE_ARRAY_2[stateIndex];
                         client.setex("state", 120, state);
                         client.setex('questionNumber', 120, '4');
                     } else if (metaValue == '12&' && text == '3'){
-                        axios.get(baseURL, {
-                            params: {
-                            'username': username,
-                            'password': password,
-                            'from': shortcode,
-                            'smsc': smsc,
-                            'to': msisdn,
-                            'text': STATE_SELECTION_PAGE3,
-                            'meta-data': '?smpp?meta-data=2'
-                            }
-                        })
-                        .then(function (response) {
-                        console.log("resp",response);
-                        })
-                        .catch(function (error) {
-                        console.log('err',error);
-                        });
+                        createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE3, metaValueTwo);
                         const stateIndex = parseInt(text) - 1;
                         const state = STATE_ARRAY_3[stateIndex];
                         client.setex("state", 120,state);
                         client.setex('questionNumber', 120, '4');
                         }else if (metaValue == '12&' && text == '4'){
-                            axios.get(baseURL, {
-                                params: {
-                                'username': username,
-                                'password': password,
-                                'from': shortcode,
-                                'smsc': smsc,
-                                'to': msisdn,
-                                'text': STATE_SELECTION_PAGE4,
-                                'meta-data': '?smpp?meta-data=2'
-                                }
-                            })
-                            .then(function (response) {
-                            console.log("resp",response);
-                            })
-                            .catch(function (error) {
-                            console.log('err',error);
-                            });
+                            createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE4, metaValueTwo);
                             const stateIndex = parseInt(text) - 1;
                             const state = STATE_ARRAY_4[stateIndex];
                             client.setex("state", 120, state);
                             client.setex('questionNumber', 120,'4');
                         }else if (metaValue == '12&' && text == '5'){
-                            axios.get(baseURL, {
-                                params: {
-                                'username': username,
-                                'password': password,
-                                'from': shortcode,
-                                'smsc': smsc,
-                                'to': msisdn,
-                                'text': STATE_SELECTION_PAGE5,
-                                'meta-data': '?smpp?meta-data=2'
-                                }
-                            })
-                            .then(function (response) {
-                            console.log("resp",response);
-                            })
-                            .catch(function (error) {
-                            console.log('err',error);
-                            });
+                            createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE5, metaValueTwo);
                             const stateIndex = parseInt(text) - 1;
                             const state = STATE_ARRAY_5[stateIndex];
                             client.setex("state", 120,state);
                             client.setex('questionNumber', 120,'4');
                         }else if (metaValue == '12&' && text == '0' && text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5') {
-                            axios.get(baseURL, {
-                                params: {
-                                'username': username,
-                                'password': password,
-                                'from': shortcode,
-                                'smsc': smsc,
-                                'to': msisdn,
-                                'text': STATE_ALPHABET_SELECTION,
-                                'meta-data': '?smpp?meta-data=2'
-                                }
-                            })
-                            .then(function (response) {
-                            console.log("resp",response);
-                            })
-                            .catch(function (error) {
-                            console.log('err',error);
-                            });
+                            createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION, metaValueTwo);
                             client.setex('questionNumber', 120,'3');
                         } 
                 } 
@@ -301,68 +126,27 @@ export default class Ussd {
                 if (ansExist == '4') {
                     if (metaValue == '12&'&& text == '1' || text == '2' || text == '3' || text == '4' || 
                 text == '5' || text == '6' || text == '7' || text == '8'){
-                axios.get(baseURL, {
-                    params: {
-                    'username': username,
-                    'password': password,
-                    'from': shortcode,
-                    'smsc': smsc,
-                    'to': msisdn,
-                    'text': SUCCESS_MESSAGE,
-                    'meta-data': '?smpp?meta-data=16'
-                    }
-                })
-                .then(function (response) {
-                console.log("resp",response);
-                })
-                .catch(function (error) {
-                console.log('err',error);
-                });
+                    createClient(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValue16);
+                    const gender = getUserOptions(genderConst);
+                    const incidence = getUserOptions(incidenceConst);
+                    const state = getUserOptions(stateConst);
+                    const optionsArray = [];
+                    optionsArray.push(gender, incidence, state);
+                    console.log("options", optionsArray);
             } else if (metaValue == '21&' && text !== '0' && 
             text !== '1' || text !== '2' || 
             text !== '3' || text !== '4' || 
             text !== '5' || text !== '6' || 
              text !== '7' || text !== '8') {
-                axios.get(baseURL, {
-                    params: {
-                    'username': username,
-                    'password': password,
-                    'from': shortcode,
-                    'smsc': smsc,
-                    'to': msisdn,
-                    'text':  STATE_ALPHABET_SELECTION,
-                    'meta-data': '?smpp?meta-data=2'
-                    }
-                })
-                .then(function (response) {
-                console.log("resp",response);
-                })
-                .catch(function (error) {
-                console.log('err',error);
-                });
+                createClient(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValueTwo);
                 client.setex('questionNumber', 120,'3');
                 }
                 } 
               });
             }   
         } else {
-            axios.get(baseURL, {
-                params: {
-                'username': username,
-                'password': password,
-                'from': shortcode,
-                'smsc': smsc,
-                'to': msisdn,
-                'text': '',
-                'meta-data': '?smpp?meta-data=16'
-                }
-            })
-            .then(function (response) {
-            console.log("resp",response);
-            })
-            .catch(function (error) {
-            console.log('err',error);
-            });
+            const empty = "";
+            createClient(baseURL, username, password, shortcode, smsc, msisdn, empty, metaValue16);
             }
     }
 }

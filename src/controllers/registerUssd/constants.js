@@ -1,5 +1,8 @@
 export const metaValueTwo = '?smpp?meta-data=2'
 export const metaValue16 = '?smpp?meta-data=16'
+export const genderConst = 'gender';
+export const incidenceConst = 'incidence';
+export const stateConst= 'state';
 
 export const SUCCESS_MESSAGE = 'You have successfully reported. We will contact you shortly.';
 export const ERROR_MESSAGE = 'An error occured. Please try again.';

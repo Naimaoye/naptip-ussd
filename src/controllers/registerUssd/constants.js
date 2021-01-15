@@ -1,3 +1,6 @@
+export const metaValueTwo = '?smpp?meta-data=2'
+export const metaValue16 = '?smpp?meta-data=16'
+
 export const SUCCESS_MESSAGE = 'You have successfully reported. We will contact you shortly.';
 export const ERROR_MESSAGE = 'An error occured. Please try again.';
 export const INVALID_CODE = 'You have entered the wrong key, please try again.';

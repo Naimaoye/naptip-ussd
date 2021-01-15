@@ -1,5 +1,4 @@
 import qs from 'qs';
-import axios from 'axios';
 
 import client from '../../utils/redis-config';
 import Report from '../../models/db.report';
@@ -31,8 +30,11 @@ import {
     STATE_SELECTION_PAGE4,
     STATE_SELECTION_PAGE5,
     GENDER_SELECTION_INVALID,
-    INCIDENCE_SELECTION_INVALID
+    INCIDENCE_SELECTION_INVALID,
+    metaValueTwo,
+    metaValue16
 } from './constants';
+import { createClient } from './ussd-functions';
 
 const username = 'test';
 const password = 'test';
@@ -58,23 +60,7 @@ export default class Ussd {
         const questionNumber = 'questionNumber';
         if(msisdn == '2349154100054' || msisdn == '2347058793298' || msisdn == '2348055268896'){
             if(metaValue == '01&' || metaValue == '01' || metaValue == '1&' && text.includes('#')){
-                axios.get(baseURL, {
-                    params: {
-                    'username': username,
-                    'password': password,
-                    'from': shortcode,
-                    'smsc': smsc,
-                    'to': msisdn,
-                    'text': GENDER_SELECTION,
-                    'meta-data': '?smpp?meta-data=2'
-                    }
-                })
-                .then(function (response) {
-                console.log("resp",response);
-                })
-                .catch(function (error) {
-                console.log('err',error);
-                });
+                createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION, metaValueTwo);
                 const genderIndex = parseInt(text) - 1;
                 const gender = GENDER_ARRAY_Q1[genderIndex];
                 client.setex("gender", 120,gender);

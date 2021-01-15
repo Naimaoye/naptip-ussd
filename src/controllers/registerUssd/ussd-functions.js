@@ -23,6 +23,8 @@ export const getUserOptions = (key) => {
     client.get(key, async (err, ansExist) => {
         if (ansExist) {
             return ansExist;
+        }else {
+            console.log("from redis", err)
         }
     })
 }

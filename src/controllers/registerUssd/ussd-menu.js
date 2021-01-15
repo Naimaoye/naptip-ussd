@@ -24,6 +24,7 @@ import {
     STATE_SELECTION_PAGE5,
     GENDER_SELECTION_INVALID,
     INCIDENCE_SELECTION_INVALID,
+    STATE_ALPHABET_SELECTION_INVALID,
     metaValueTwo,
     metaValue16,
     genderConst,
@@ -138,7 +139,7 @@ export default class Ussd {
             text !== '3' || text !== '4' || 
             text !== '5' || text !== '6' || 
              text !== '7' || text !== '8') {
-                createClient(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValueTwo);
+                createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION_INVALID, metaValueTwo);
                 client.setex('questionNumber', 120,'3');
                 }
                 } 

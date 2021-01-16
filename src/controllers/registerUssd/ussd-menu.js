@@ -37,15 +37,9 @@ const username = 'test';
 const password = 'test';
 const baseURL = 'http://10.0.0.56:13150/cgi-bin/sendsms';
 
-const getUserOptions = (key) => {
-        client.get(key, async (err, ansExist) => {
-            if (ansExist) {
-                return ansExist;
-            }else {
-                console.log("from redis", err)
-            }
-        })
-    };
+// const getUserOptions = (key) => {
+        
+//     };
 
 export default class Ussd {
     static async registerUssdDetails(res, req) {
@@ -60,7 +54,7 @@ export default class Ussd {
                 createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION, metaValueTwo);
                 const genderIndex = parseInt(text) - 1;
                 const gender = GENDER_ARRAY_Q1[genderIndex];
-                client.setex("gender", 120,gender);
+                client.set("gender", gender);
                 client.setex('questionNumber', 120,'1');
             } else {
             client.get(questionNumber, async (err, ansExist) => {
@@ -69,13 +63,13 @@ export default class Ussd {
                         createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION, metaValueTwo);
                             const incidenceIndex = parseInt(text) - 1;
                             const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
-                            client.setex("incidence", 120,incidenceType);
+                            client.set("incidence", incidenceType);
                             client.setex('questionNumber', 120,'2');
                         } else { 
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION_INVALID, metaValueTwo);
                             const genderIndex = parseInt(text) - 1;
                             const gender = GENDER_ARRAY_Q1[genderIndex];
-                            client.setex("gender", 120,gender);
+                            client.set("gender", gender);
                             client.setex('questionNumber', 120,'1');
                         }
                 }
@@ -89,7 +83,7 @@ export default class Ussd {
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION_INVALID, metaValueTwo);
                             const incidenceIndex = parseInt(text) - 1;
                             const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
-                            client.setex("incidence", 120, incidenceType);
+                            client.set("incidence", incidenceType);
                             client.setex('questionNumber', 120,'2');
                         }
                 } 
@@ -100,31 +94,31 @@ export default class Ussd {
                         createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE1, metaValueTwo);
                         const stateIndex = parseInt(text) - 1;
                         const state = STATE_ARRAY_1[stateIndex];
-                        client.setex("state", 120, state);
+                        client.set("state", state);
                         client.setex('questionNumber', 120, '4');
                      } else if (metaValue == '12&' && text == '2'){
                         createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE2, metaValueTwo);
                         const stateIndex = parseInt(text) - 1;
                         const state = STATE_ARRAY_2[stateIndex];
-                        client.setex("state", 120, state);
+                        client.set("state", state);
                         client.setex('questionNumber', 120, '4');
                     } else if (metaValue == '12&' && text == '3'){
                         createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE3, metaValueTwo);
                         const stateIndex = parseInt(text) - 1;
                         const state = STATE_ARRAY_3[stateIndex];
-                        client.setex("state", 120,state);
+                        client.set("state", state);
                         client.setex('questionNumber', 120, '4');
                         }else if (metaValue == '12&' && text == '4'){
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE4, metaValueTwo);
                             const stateIndex = parseInt(text) - 1;
                             const state = STATE_ARRAY_4[stateIndex];
-                            client.setex("state", 120, state);
+                            client.set("state", state);
                             client.setex('questionNumber', 120,'4');
                         }else if (metaValue == '12&' && text == '5'){
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE5, metaValueTwo);
                             const stateIndex = parseInt(text) - 1;
                             const state = STATE_ARRAY_5[stateIndex];
-                            client.setex("state", 120,state);
+                            client.set("state", state);
                             client.setex('questionNumber', 120,'4');
                         }else if (metaValue == '12&' && text == '0' && text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5') {
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION, metaValueTwo);
@@ -136,11 +130,28 @@ export default class Ussd {
                 if (ansExist == '4') {
                     if (metaValue == '12&'&& text == '1' || text == '2' || text == '3' || text == '4' || 
                 text == '5' || text == '6' || text == '7' || text == '8'){
-                    const gender = getUserOptions(genderConst);
-                    const incidence = getUserOptions(incidenceConst);
-                    const state = getUserOptions(stateConst);
                     const optionsArray = [];
-                    optionsArray.push(gender, incidence, state);
+                    client.get(genderConst, async (err, ansExist) => {
+                        if (ansExist) {
+                            optionsArray.push(ansExist);
+                        }else {
+                            console.log("from redis", err)
+                        }
+                    });
+                    client.get(incidenceConst, async (err, ansExist) => {
+                        if (ansExist) {
+                            optionsArray.push(ansExist);
+                        }else {
+                            console.log("from redis", err)
+                        }
+                    });
+                    client.get(stateConst, async (err, ansExist) => {
+                        if (ansExist) {
+                            optionsArray.push(ansExist);
+                        }else {
+                            console.log("from redis", err)
+                        }
+                    });
                     console.log("options", optionsArray);
                     createClient(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValue16);
             } else if (metaValue == '21&' && text !== '0' && 

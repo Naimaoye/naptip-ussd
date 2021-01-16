@@ -10,7 +10,7 @@ client.on("connect", () => {
  });
 
  client.on("error", (error) => {
-    console.error("redis error",error.message);
+    console.error("redis error", error.message);
  });
 
  client.on("end", () => {

@@ -1,5 +1,4 @@
 import axios from 'axios';
-//import client from '../../utils/redis-config';
 
 export const createClient = (baseURL, username, password, shortcode, smsc, msisdn, text, metaData) => {
     axios.get(baseURL, {

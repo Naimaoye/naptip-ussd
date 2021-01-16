@@ -133,6 +133,7 @@ export default class Ussd {
                     const optionsArray = [];
                     client.get(genderConst, async (err, ansExist) => {
                         if (ansExist) {
+                            console.log("firstAns", ansExist);
                             optionsArray.push(ansExist);
                         }else {
                             console.log("from redis", err)
@@ -140,6 +141,7 @@ export default class Ussd {
                     });
                     client.get(incidenceConst, async (err, ansExist) => {
                         if (ansExist) {
+                            console.log("secAns", ansExist);
                             optionsArray.push(ansExist);
                         }else {
                             console.log("from redis", err)
@@ -147,6 +149,7 @@ export default class Ussd {
                     });
                     client.get(stateConst, async (err, ansExist) => {
                         if (ansExist) {
+                            console.log("thirdAns", ansExist);
                             optionsArray.push(ansExist);
                         }else {
                             console.log("from redis", err)

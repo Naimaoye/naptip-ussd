@@ -60,12 +60,9 @@ export default class Ussd {
                     if (metaValue == '12&' && text == '1' || text == '2'){
                         const genderIndex = parseInt(text) - 1;
                         const gender = GENDER_ARRAY_Q1[genderIndex];
-                        client.set("gender", gender, (err, reply) => {
-                            if (err) throw err;
-                            console.log("gender",reply);
-                        });
+                        client.set("gender", gender);
                         createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION, metaValueTwo);
-                        client.setex('questionNumber', 120,'2');
+                            client.setex('questionNumber', 120,'2');
                         } else { 
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION_INVALID, metaValueTwo);
                             // const genderIndex = parseInt(text) - 1;
@@ -80,7 +77,10 @@ export default class Ussd {
                         if (metaValue == '12&' && text == '1' || text == '2' || text == '3' || text == '4' || text == '5'){
                             const incidenceIndex = parseInt(text) - 1;
                             const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
-                            client.set("incidence", incidenceType);
+                            client.set("incidence", incidenceType, (err, reply) => {
+                                if (err) throw err;
+                                console.log("incidence",reply);
+                            });
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION, metaValueTwo);
                             client.setex('questionNumber', 120,'3');
                         } else {
@@ -169,14 +169,14 @@ export default class Ussd {
                         optionArr.push(ansExist);
                         console.log('incidence', ansExist);
                     }
-                    });
-                    client.get(stateConst, async (err, ansExist) => {
-                        if(ansExist){
-                            optionArr.push(ansExist);
-                            console.log('state', ansExist);
-                        }
-                    });
-                    console.log("options", optionArr);
+                });
+                client.get(stateConst, async (err, ansExist) => {
+                    if(ansExist){
+                        optionArr.push(ansExist);
+                        console.log('state', ansExist);
+                    }
+                });
+                console.log("options", optionArr);
             
                     createClient(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValue16);
                     

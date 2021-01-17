@@ -54,7 +54,10 @@ export default class Ussd {
                 createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION, metaValueTwo);
                 const genderIndex = parseInt(text) - 1;
                 const gender = GENDER_ARRAY_Q1[genderIndex];
-                client.set("gender", gender);
+                client.set("gender", gender, (err, reply) => {
+                    if (err) throw err;
+                    console.log("gender",reply);
+                });
                 client.setex('questionNumber', 120,'1');
             } else {
             client.get(questionNumber, async (err, ansExist) => {
@@ -130,13 +133,19 @@ export default class Ussd {
                 if (ansExist == '4') {
                     if (metaValue == '12&'&& text == '1' || text == '2' || text == '3' || text == '4' || 
                 text == '5' || text == '6' || text == '7' || text == '8'){
-                    client.keys('*', function (err, keys) {
-                        if (err) return console.log(err);
-                    
-                        for(var i = 0, len = keys.length; i < len; i++) {
-                        console.log("key",keys[i]);
-                        }
-                });
+                   // retrieve values here...
+                    client.get('gender', (err, reply) => {
+                    if (err) throw err;
+                    console.log("gender",reply);
+                    });
+                    client.get('incidence', (err, reply) => {
+                        if (err) throw err;
+                        console.log("incidence",reply);
+                    });
+                    client.get('state', (err, reply) => {
+                        if (err) throw err;
+                        console.log('state',reply);
+                    });
                     createClient(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValue16);
             } else if (metaValue == '21&' && text !== '0' && 
             text !== '1' || text !== '2' || 

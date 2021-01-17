@@ -134,7 +134,7 @@ export default class Ussd {
                         if (err) return console.log(err);
                     
                         for(var i = 0, len = keys.length; i < len; i++) {
-                        console.log(keys[i]);
+                        console.log("key",keys[i]);
                         }
                 });
                     createClient(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValue16);

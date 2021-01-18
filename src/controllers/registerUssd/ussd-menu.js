@@ -37,7 +37,7 @@ import { createClient } from './ussd-functions';
 
 const username = 'test';
 const password = 'test';
-const baseURL = 'http://10.0.0.56:13150/cgi-bin/sendsms';
+const baseURL = 'http://10.0.0.46:13150/cgi-bin/sendsms';
 
 // const getUserOptions = (key) => {
         

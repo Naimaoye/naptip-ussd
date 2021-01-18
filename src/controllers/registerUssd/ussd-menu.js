@@ -27,8 +27,8 @@ import {
     STATE_ALPHABET_SELECTION_INVALID,
     metaValueTwo,
     metaValue16,
-    genderConst,
     incidenceConst,
+    stateConst,
     // genderConst,
     // stateConst,
     // incidenceConst,
@@ -53,24 +53,25 @@ export default class Ussd {
         const questionNumber = 'questionNumber';
         if(msisdn == '2349154100054' || msisdn == '2347058793298' || msisdn == '2348055268896'){
             if(metaValue == '01&' || metaValue == '01' || metaValue == '1&' && text.includes('#')){
-                createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION, metaValueTwo); 
+                createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION, metaValueTwo);
+                const genderIndex = parseInt(text) - 1;
+                const gender = GENDER_ARRAY_Q1[genderIndex];
+                client.set("gender", gender);
                 client.setex('questionNumber', 120,'1');
             } else {
             client.get(questionNumber, async (err, ansExist) => {
                 if (ansExist == '1') {
                     if (metaValue == '12&' && text == '1' || text == '2'){
                         createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION, metaValueTwo);
-                        const genderIndex = parseInt(text) - 1;
-                        const gender = GENDER_ARRAY_Q1[genderIndex];
-                        client.set("gender", gender, (err, reply) => {
-                            if (err) throw err;
-                            console.log(reply);
-                        });
+                            const incidenceIndex = parseInt(text) - 1;
+                            const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
+                            client.set("incidence", incidenceType);
+                            client.setex('questionNumber', 120,'2');
                         } else { 
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION_INVALID, metaValueTwo);
-                            // const genderIndex = parseInt(text) - 1;
-                            // const gender = GENDER_ARRAY_Q1[genderIndex];
-                            // client.set("gender", gender);
+                            const genderIndex = parseInt(text) - 1;
+                            const gender = GENDER_ARRAY_Q1[genderIndex];
+                            client.set("gender", gender);
                             client.setex('questionNumber', 120,'1');
                         }
                 }
@@ -78,16 +79,13 @@ export default class Ussd {
               client.get(questionNumber, async (err, ansExist) => {
                 if (ansExist == '2') {
                         if (metaValue == '12&' && text == '1' || text == '2' || text == '3' || text == '4' || text == '5'){
-                            const incidenceIndex = parseInt(text) - 1;
-                            const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
-                            client.set("incidence", incidenceType);
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION, metaValueTwo);
                             client.setex('questionNumber', 120,'3');
                         } else {
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION_INVALID, metaValueTwo);
-                            // const incidenceIndex = parseInt(text) - 1;
-                            // const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
-                            // client.set("incidence", incidenceType);
+                            const incidenceIndex = parseInt(text) - 1;
+                            const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
+                            client.set("incidence", incidenceType);
                             client.setex('questionNumber', 120,'2');
                         }
                 } 
@@ -136,13 +134,18 @@ export default class Ussd {
                 text == '5' || text == '6' || text == '7' || text == '8'){
                    // retrieve values here...
                    client.get(genderConst, async (err, ansExist) => {
-                       if(ansExist){
-                           console.log("gender",ansExist)
-                       }
-                   });
-                   client.get(incidenceConst, async (err, ansExist) => {
                     if(ansExist){
-                        console.log("incidence",ansExist);
+                        console.log(ansExist)
+                    }
+                });
+                client.get(incidenceConst, async (err, ansExist) => {
+                    if(ansExist){
+                        console.log(ansExist)
+                    }
+                });
+                client.get(stateConst, async (err, ansExist) => {
+                    if(ansExist){
+                        console.log(ansExist)
                     }
                 });
                     createClient(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValue16);

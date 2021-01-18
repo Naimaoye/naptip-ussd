@@ -133,16 +133,22 @@ export default class Ussd {
                 if (ansExist == '4') {
                     if (text == '1' || text == '2' || text == '3' || text == '4' || text == '5' || text == '6' || text == '7' || text == '8'){
                         // retrieve values here...
-                        //    client.get(genderConst, async (err, ansExist) => {
-                        //     if(ansExist){
-                        //         console.log(ansExist)
-                        //     }
-                        // });
+                           client.get(genderConst, async (err, ansExist) => {
+                            if(ansExist){
+                                console.log("gender",ansExist)
+                            }
+                        });
                         client.get(incidenceConst, async (err, ansExist) => {
                             if(ansExist){
                                 console.log("incidence",ansExist);
                             }
-                    });
+                        });
+                        client.get("stateLetter", async (err, ansExist) => {
+                            if(ansExist){
+                                console.log("firstLetter",ansExist);
+                            }
+                        });
+
                     createClient(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValue16);
                 } else if (text !== '0' && text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5' || text !== '6' || text !== '7' || text !== '8') {
                     createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION_INVALID, metaValueTwo);

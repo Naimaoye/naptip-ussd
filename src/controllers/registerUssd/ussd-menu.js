@@ -54,19 +54,15 @@ export default class Ussd {
         if(msisdn == '2349154100054' || msisdn == '2347058793298' || msisdn == '2348055268896'){
             if(metaValue == '01&' || metaValue == '01' || metaValue == '1&' && text.includes('#')){
                 createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION, metaValueTwo);
-                const genderIndex = parseInt(text) - 1;
-                const gender = GENDER_ARRAY_Q1[genderIndex];
-                client.set("gender", gender);
                 client.setex('questionNumber', 120,'1');
             } else {
             client.get(questionNumber, async (err, ansExist) => {
                 if (ansExist == '1') {
                     if (metaValue == '12&' && text == '1' || text == '2'){
                         createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION, metaValueTwo);
-                            const incidenceIndex = parseInt(text) - 1;
-                            const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
-                            client.set("incidence", incidenceType);
-                            client.setex('questionNumber', 120,'2');
+                        const genderIndex = parseInt(text) - 1;
+                        const gender = GENDER_ARRAY_Q1[genderIndex];
+                        client.set("gender", gender);
                         } else { 
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION_INVALID, metaValueTwo);
                             const genderIndex = parseInt(text) - 1;
@@ -80,12 +76,15 @@ export default class Ussd {
                 if (ansExist == '2') {
                         if (metaValue == '12&' && text == '1' || text == '2' || text == '3' || text == '4' || text == '5'){
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION, metaValueTwo);
-                            client.setex('questionNumber', 120,'3');
-                        } else {
-                            createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION_INVALID, metaValueTwo);
                             const incidenceIndex = parseInt(text) - 1;
                             const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
                             client.set("incidence", incidenceType);
+                            client.setex('questionNumber', 120,'3');
+                        } else {
+                            createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION_INVALID, metaValueTwo);
+                            // const incidenceIndex = parseInt(text) - 1;
+                            // const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
+                            // client.set("incidence", incidenceType);
                             client.setex('questionNumber', 120,'2');
                         }
                 } 
@@ -94,33 +93,33 @@ export default class Ussd {
                 if (ansExist == '3') {
                         if (metaValue == '12&' && text === '1'){
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE1, metaValueTwo);
-                            const stateIndex = parseInt(text) - 1;
-                            const state = STATE_ARRAY_1[stateIndex];
-                            client.set("state", state);
+                            // const stateIndex = parseInt(text) - 1;
+                            // const state = STATE_ARRAY_1[stateIndex];
+                            client.set("stateLetter", 'A-B');
                             client.setex('questionNumber', 120, '4');
                      } else if (metaValue == '12&' && text == '2'){
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE2, metaValueTwo);
-                            const stateIndex = parseInt(text) - 1;
-                            const state = STATE_ARRAY_2[stateIndex];
-                            client.set("state", state);
+                            // const stateIndex = parseInt(text) - 1;
+                            // const state = STATE_ARRAY_2[stateIndex];
+                            client.set("stateLetter", 'C-I');
                             client.setex('questionNumber', 120, '4');
                     } else if (metaValue == '12&' && text == '3'){
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE3, metaValueTwo);
-                            const stateIndex = parseInt(text) - 1;
-                            const state = STATE_ARRAY_3[stateIndex];
-                            client.set("state", state);
+                            // const stateIndex = parseInt(text) - 1;
+                            // const state = STATE_ARRAY_3[stateIndex];
+                            client.set("stateLetter", 'J-L');
                             client.setex('questionNumber', 120, '4');
                     } else if (metaValue == '12&' && text == '4'){
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE4, metaValueTwo);
-                            const stateIndex = parseInt(text) - 1;
-                            const state = STATE_ARRAY_4[stateIndex];
-                            client.set("state", state);
+                            // const stateIndex = parseInt(text) - 1;
+                            // const state = STATE_ARRAY_4[stateIndex];
+                            client.set("stateLetter", 'N-R');
                             client.setex('questionNumber', 120,'4');
                     } else if (metaValue == '12&' && text == '5'){
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE5, metaValueTwo);
-                            const stateIndex = parseInt(text) - 1;
-                            const state = STATE_ARRAY_5[stateIndex];
-                            client.set("state", state);
+                            // const stateIndex = parseInt(text) - 1;
+                            // const state = STATE_ARRAY_5[stateIndex];
+                            client.set("stateLetter", 'S-Z');
                             client.setex('questionNumber', 120,'4');
                     } else if (metaValue == '12&' && text == '0' && text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5') {
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION, metaValueTwo);

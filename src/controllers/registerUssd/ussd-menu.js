@@ -46,7 +46,6 @@ const baseURL = 'http://10.0.0.56:13150/cgi-bin/sendsms';
 export default class Ussd {
     static async registerUssdDetails(res, req) {
         res.end();
-        try {
         const queryString = req.getQuery();
         const parseUrl = qs.parse(queryString);
         const metaValue = parseUrl['meta-data'].split('=%')[1];
@@ -141,7 +140,7 @@ export default class Ussd {
                 // });
                     client.get(incidenceConst, async (err, ansExist) => {
                         if(ansExist){
-                            console.log("incidence",ansExist);
+                            console.log("incidence",ansExist)
                         }
                     });
                     createClient(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValue16);
@@ -160,12 +159,7 @@ export default class Ussd {
             const empty = "";
             createClient(baseURL, username, password, shortcode, smsc, msisdn, empty, metaValue16);
             }
-    } catch(e){
-        console.log("error", e);
     }
-
-
-}
 }
 
 

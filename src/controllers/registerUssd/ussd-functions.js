@@ -13,8 +13,10 @@ export const createClient = (baseURL, username, password, shortcode, smsc, msisd
         }
     })
     .then(function (response) {
+        console.log('res', response);
     })
     .catch(function (error) {
+        console.log('error', error);
     });
 }
 

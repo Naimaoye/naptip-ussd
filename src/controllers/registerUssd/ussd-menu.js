@@ -133,11 +133,11 @@ export default class Ussd {
                     if (metaValue == '12&'&& text == '1' || text == '2' || text == '3' || text == '4' || 
                 text == '5' || text == '6' || text == '7' || text == '8'){
                    // retrieve values here...
-                   client.get(genderConst, async (err, ansExist) => {
-                    if(ansExist){
-                        console.log(ansExist)
-                    }
-                });
+                //    client.get(genderConst, async (err, ansExist) => {
+                //     if(ansExist){
+                //         console.log(ansExist)
+                //     }
+                // });
                 client.get(incidenceConst, async (err, ansExist) => {
                     if(ansExist){
                         console.log(ansExist)

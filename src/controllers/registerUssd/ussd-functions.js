@@ -20,12 +20,11 @@ export const createClient = (baseURL, username, password, shortcode, smsc, msisd
     });
 }
 
-// export const getUserOptions = (key) => {
-//     client.get(key, async (err, ansExist) => {
-//         if (ansExist) {
-//             return ansExist;
-//         }else {
-//             console.log("from redis", err)
-//         }
-//     })
-// }
+export const stringifyData = (data) => {
+    return JSON.stringify(data);
+};
+
+export const parseData = (data) => {
+    return JSON.parse(data);
+};
+

@@ -27,8 +27,8 @@ import {
     STATE_ALPHABET_SELECTION_INVALID,
     metaValueTwo,
     metaValue16,
-    incidenceConst,
-    stateConst,
+    // incidenceConst,
+    // stateConst,
     // genderConst,
     // stateConst,
     // incidenceConst,
@@ -46,113 +46,105 @@ const baseURL = 'http://10.0.0.46:13150/cgi-bin/sendsms';
 export default class Ussd {
     static async registerUssdDetails(res, req) {
         res.end();
-        try {
+    try {
         const queryString = req.getQuery();
         const parseUrl = qs.parse(queryString);
         const metaValue = parseUrl['meta-data'].split('=%')[1].split('&')[0];
         const { msisdn, smsc, shortcode, text } = parseUrl;
-        const questionNumber = 'questionNumber';
         if(msisdn == '2349154100054' || msisdn == '2347058793298' || msisdn == '2348055268896'){
             if(metaValue == '01' && text.includes('#')){
                 createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION, metaValueTwo);
-                client.setex('questionNumber', 120,'1');
+                client.hset(msisdn, "menu", "1");
             } else if(metaValue == '12'){
-            client.get(questionNumber, async (err, ansExist) => {
-                if (ansExist == '1') {
+                client.hget(msisdn, async (err, ansExist) => {
+                    if (ansExist.menu == '1') {
                     if (text == '1' || text == '2'){
                         const genderIndex = parseInt(text) - 1;
                         const gender = GENDER_ARRAY_Q1[genderIndex];
-                        client.set("gender", gender);
+                        client.hset(msisdn, "data.gender", gender);
                         createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION, metaValueTwo);
-                        client.setex('questionNumber', 120,'2');
+                        client.hset(msisdn, "menu", "2");
                         } else { 
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION_INVALID, metaValueTwo);
-                            // const genderIndex = parseInt(text) - 1;
-                            // const gender = GENDER_ARRAY_Q1[genderIndex];
-                            // client.set("gender", gender);
-                            client.setex('questionNumber', 120,'1');
+                            client.hset(msisdn, "menu", "1");
                         }
                 }
               });
-              client.get(questionNumber, async (err, ansExist) => {
-                if (ansExist == '2') {
+              client.hgetall(msisdn, async (err, ansExist) => {
+                if (ansExist.menu == '2') {
                         if (text == '1' || text == '2' || text == '3' || text == '4' || text == '5'){
                             const incidenceIndex = parseInt(text) - 1;
                             const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
-                            client.set("incidence", incidenceType);
+                            client.hset(msisdn, "data.incidence", incidenceType);
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION, metaValueTwo);
-                            client.setex('questionNumber', 120,'3');
+                            client.hset(msisdn, "menu", "3");
                         } else {
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION_INVALID, metaValueTwo);
-                            // const incidenceIndex = parseInt(text) - 1;
-                            // const incidenceType = INCIDENCE_ARRAY_Q2[incidenceIndex];
-                            // client.set("incidence", incidenceType);
-                            client.setex('questionNumber', 120,'2');
+                            client.hset(msisdn, "menu", "2");
                         }
                 } 
               });
-              client.get(questionNumber, async (err, ansExist) => {
-                if (ansExist == '3') {
+              client.hget(msisdn, async (err, ansExist) => {
+                if (ansExist.menu == '3') {
                         if (text === '1'){
-                            client.set("stateLetter", 'A-B');
+                            client.hset(msisdn, "data.firstLetter", 'A-B');
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE1, metaValueTwo);
-                            // const stateIndex = parseInt(text) - 1;
-                            // const state = STATE_ARRAY_1[stateIndex];
-                            client.setex('questionNumber', 120, '4');
+                            client.hset(msisdn, "menu", "4");
                      } else if (text == '2'){
-                            client.set("stateLetter", 'C-I');
+                            client.hset(msisdn, "data.firstLetter", 'C-I');
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE2, metaValueTwo);
-                            // const stateIndex = parseInt(text) - 1;
-                            // const state = STATE_ARRAY_2[stateIndex];
-                            client.setex('questionNumber', 120, '4');
+                            client.hset(msisdn, "menu", "4");
                     } else if (text == '3'){
-                            client.set("stateLetter", 'J-L');
+                            client.hset(msisdn, "data.firstLetter", 'J-L');
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE3, metaValueTwo);
-                            // const stateIndex = parseInt(text) - 1;
-                            // const state = STATE_ARRAY_3[stateIndex];
-                            client.setex('questionNumber', 120, '4');
+                            client.hset(msisdn, "menu", "4");
                     } else if (text == '4'){
-                            client.set("stateLetter", 'N-R');
+                            client.hset(msisdn, "data.firstLetter", 'N-R');
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE4, metaValueTwo);
-                            // const stateIndex = parseInt(text) - 1;
-                            // const state = STATE_ARRAY_4[stateIndex];
-                            client.setex('questionNumber', 120,'4');
+                            client.hset(msisdn, "menu", "4");
                     } else if (text == '5'){
-                            client.set("stateLetter", 'S-Z');
+                            client.hset(msisdn, "data.firstLetter", 'S-Z');
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE5, metaValueTwo);
-                            // const stateIndex = parseInt(text) - 1;
-                            // const state = STATE_ARRAY_5[stateIndex];
-                            client.setex('questionNumber', 120,'4');
+                            client.hset(msisdn, "menu", "4");
                     } else if (text == '0' && text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5') {
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION, metaValueTwo);
-                            client.setex('questionNumber', 120,'3');
+                            client.hset(msisdn, "menu", "4");
                         } 
                 } 
               });
-              client.get(questionNumber, async (err, ansExist) => {
-                if (ansExist == '4') {
+              client.hget(msisdn, async (err, ansExist) => {
+                if (ansExist.menu == '4') {
                     if (text == '1' || text == '2' || text == '3' || text == '4' || text == '5' || text == '6' || text == '7' || text == '8'){
-                        // retrieve values here...
-                           client.get(genderConst, async (err, ansExist) => {
-                            if(ansExist){
-                                console.log("gender",ansExist)
-                            }
-                        });
-                        client.get(incidenceConst, async (err, ansExist) => {
-                            if(ansExist){
-                                console.log("incidence",ansExist);
-                            }
-                        });
-                        client.get("stateLetter", async (err, ansExist) => {
-                            if(ansExist){
-                                console.log("firstLetter",ansExist);
-                            }
-                        });
-
+                        if(ansExist.data.firstLetter == 'A-B'){
+                            const stateIndex = parseInt(text) - 1;
+                            const state = STATE_ARRAY_1[stateIndex];
+                            client.hset(msisdn, "data.state", state);
+                        } else if(ansExist.data.firstLetter == 'C-I'){
+                            const stateIndex = parseInt(text) - 1;
+                            const state = STATE_ARRAY_2[stateIndex];
+                            client.hset(msisdn, "data.state", state);
+                        } else if(ansExist.data.firstLetter == 'J-L'){
+                            const stateIndex = parseInt(text) - 1;
+                            const state = STATE_ARRAY_3[stateIndex];
+                            client.hset(msisdn, "data.state", state);
+                        } else if(ansExist.data.firstLetter == 'N-R'){
+                            const stateIndex = parseInt(text) - 1;
+                            const state = STATE_ARRAY_4[stateIndex];
+                            client.hset(msisdn, "data.state", state);
+                        } else {
+                            const stateIndex = parseInt(text) - 1;
+                            const state = STATE_ARRAY_5[stateIndex];
+                            client.hset(msisdn, "data.state", state);
+                        }
+                        // retrieve values
+                        const gender = client.hget(msisdn, "data.gender");
+                        const incidence = client.hget(msisdn, "data.incidence");
+                        const state = client.hget(msisdn, "data.state");
+                        console.log("options", gender, incidence, state);
                     createClient(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValue16);
                 } else if (text !== '0' && text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5' || text !== '6' || text !== '7' || text !== '8') {
                     createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION_INVALID, metaValueTwo);
-                    client.setex('questionNumber', 120,'3');
+                    client.hset(msisdn, "menu", "3");
                     }
                 } 
               });

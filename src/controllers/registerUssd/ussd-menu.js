@@ -29,7 +29,7 @@ import {
     metaValueTwo,
     metaValue16,
 } from './constants';
-import { createClient, stringifyData, parseData, newDate } from './ussd-functions';
+import { createClient, stringifyData, parseData } from './ussd-functions';
 
 const username = 'test';
 const password = 'test';
@@ -166,9 +166,8 @@ export default class Ussd {
                             const incidence = ansExist.session.incidence;
                             const state = ansExist.session.state;
                             const phoneNumber = ansExist.session.msisdn;
-                            const date = newDate();
                             // Bulk insert into DB and clear cache
-                            let sql = `INSERT INTO incidence (created_date, gender, phone_number, reporter_state, type) VALUES (${date}, ${gender}, ${phoneNumber}, ${state}, ${incidence})`;
+                            let sql = `INSERT INTO incidence (gender, phone_number, reporter_state, type) VALUES (${gender}, ${phoneNumber}, ${state}, ${incidence})`;
                                 con.query(sql, function (err, result) {
                                     if (err) {
                                         console.log("err", err);

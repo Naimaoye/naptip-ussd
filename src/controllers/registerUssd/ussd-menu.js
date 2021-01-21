@@ -168,7 +168,7 @@ export default class Ussd {
                             const phoneNumber = ansExist.session.msisdn;
                             const date = newDate();
                             // Bulk insert into DB and clear cache
-                            var sql = `INSERT INTO incidence (created_date, gender, phone_number, reporter_state, type) VALUES (${date}, ${gender}, ${phoneNumber}, ${state}, ${incidence})`;
+                            let sql = `INSERT INTO incidence (created_date, gender, phone_number, reporter_state, type) VALUES (${date}, ${gender}, ${phoneNumber}, ${state}, ${incidence})`;
                                 con.query(sql, function (err, result) {
                                     if (err) {
                                         console.log("err", err);

@@ -28,20 +28,21 @@ export const parseData = (data) => {
     return JSON.parse(data);
 };
 
-export const newDate = () =>{
-let dateArr = [];
+export const date = () =>{
+    const dateArr=[];
 let date_ob = new Date();
 
 // adjust 0 before single digit date
-let date = date_ob.getDate().slice(-2);
+let date = ("0" + date_ob.getDate()).slice(-2);
 
 // current month
 let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
 
 // current year
 let year = date_ob.getFullYear();
+
+// prints date in YYYY-MM-DD format
 dateArr.push(date, month, year);
 // prints date in YYYY-MM-DD format
 return dateArr.join('-');
-
 }

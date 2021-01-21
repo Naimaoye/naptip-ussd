@@ -1,5 +1,5 @@
 export const createIncidenceTable = `
-CREATE TABLE incidence(
+CREATE TABLE IF NOT EXISTS incidence(
     id MEDIUMINT NOT NULL AUTO_INCREMENT,
     city VARCHAR(30) DEFAULT NULL,
     created_date datetime(6) DEFAULT NULL,

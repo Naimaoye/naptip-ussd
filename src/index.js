@@ -1,32 +1,30 @@
 import { App } from '@sifrr/server';
-//import mysql from 'mysql';
+import mysql from 'mysql';
 
 import Ussd from './controllers/registerUssd/ussd-menu';
 require('./utils/redis-config');
-//import { createIncidenceTable } from './models/db.report';
+import { createIncidenceTable } from './models/db.report';
+import { con } from './utils/configDB';
 
 const app = new App();
 
 const port = 3003;
-// const con = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: 'oyedoyin',
-//   database: 'report',
-// });
 
-// con.connect((err) => {
-//   if(err){
-//     console.log('Error connecting to Db');
-//     return;
-//   }
-//   // create table
-//   con.query(createIncidenceTable, function (err, result) {
-//     if (err) throw err;
-//     console.log('table created', result);
-//   });
-//   console.log('Connection established');
-// });
+con.connect((err) => {
+  if(err){
+    console.log('Error connecting to Db');
+    return;
+  }
+  // create table
+  con.query(createIncidenceTable, function (err, result) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('table created', result);
+    }
+  });
+  console.log('Connection established');
+});
 
 
 app.get('/', Ussd.registerUssdDetails)

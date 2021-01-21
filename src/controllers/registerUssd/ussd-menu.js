@@ -182,11 +182,15 @@ export default class Ussd {
                         console.log("options", gender, incidence, state);
                         });
                     createClient(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValue16);
-                } else if (text !== '0' && text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5' || text !== '6' || text !== '7' || text !== '8') {
+                } else if (text == '0') {
+                    const raw = { menu: '3', session: {gender: gender, incidence: incidence}}
+                    client.setex(msisdn, 360, stringifyData(raw));
+                    createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION, metaValueTwo);
+                } else if (text !== '0' || text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5' || text !== '6' || text !== '7' || text !== '8') {
                     const raw = { menu: '3', session: {gender: gender, incidence: incidence}}
                     client.setex(msisdn, 360, stringifyData(raw));
                     createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION_INVALID, metaValueTwo);
-                    }
+                }
                 } 
               });
             } else if (metaValue == '21' || metaValue == '13'){

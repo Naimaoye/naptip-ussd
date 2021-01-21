@@ -27,27 +27,12 @@ import {
     STATE_ALPHABET_SELECTION_INVALID,
     metaValueTwo,
     metaValue16,
-    // incidenceConst,
-    // stateConst,
-    // genderConst,
-    // stateConst,
-    // incidenceConst,
 } from './constants';
 import { createClient, stringifyData, parseData } from './ussd-functions';
 
 const username = 'test';
 const password = 'test';
 const baseURL = 'http://10.0.0.46:13150/cgi-bin/sendsms';
-
-// const data = {
-//     menu: "",
-//     session: {
-//         gender: "",
-//         incidence: "",
-//         state: ""
-//     }
-// }
-
 
 export default class Ussd {
     static async registerUssdDetails(res, req) {
@@ -180,6 +165,7 @@ export default class Ussd {
                         const incidence = ansExist.session.incidence;
                         const state = ansExist.session.state;
                         console.log("options", gender, incidence, state);
+                        // Bulk insert into DB and clear cache
                         });
                     createClient(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValue16);
                 } else if (text == '0') {

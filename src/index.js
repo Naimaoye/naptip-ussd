@@ -23,14 +23,6 @@ con.connect((err) => {
       console.log('table created');
     }
   });
-  // create Index
-  con.query(createIndex, function (err, result) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log('index created');
-    }
-  });
   console.log('Connection established');
 });
 

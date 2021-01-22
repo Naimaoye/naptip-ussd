@@ -166,12 +166,15 @@ export default class Ussd {
                             const incidence = ansExist.session.incidence;
                             const state = ansExist.session.state;
                             const phoneNumber = ansExist.session.msisdn;
+                            const date = new Date().toISOString();
+                            const dateValue = date.split('T')[0];
                             // Bulk insert into DB and clear cache
                             let postData = {
+                                created_date: dateValue,
                                 gender: gender,
                                 phone_number: phoneNumber,
                                 reporter_state: state,
-                                type: incidence
+                                type: incidence,
                             }
                             let sql = 'INSERT INTO incidence SET ?';
                                 con.query(sql, postData, function (err, result) {

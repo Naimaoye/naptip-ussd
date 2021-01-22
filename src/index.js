@@ -3,7 +3,7 @@ import mysql from 'mysql';
 
 import Ussd from './controllers/registerUssd/ussd-menu';
 require('./utils/redis-config');
-import { createIncidenceTable } from './models/db.report';
+import { createIncidenceTable, createIndex } from './models/db.report';
 import { con } from './utils/configDB';
 
 const app = new App();
@@ -20,7 +20,15 @@ con.connect((err) => {
     if (err) {
       console.log(err);
     } else {
-      console.log('table created', result);
+      console.log('table created');
+    }
+  });
+  // create Index
+  con.query(createIndex, function (err, result) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('index created');
     }
   });
   console.log('Connection established');

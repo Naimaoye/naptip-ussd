@@ -167,8 +167,14 @@ export default class Ussd {
                             const state = ansExist.session.state;
                             const phoneNumber = ansExist.session.msisdn;
                             // Bulk insert into DB and clear cache
-                            let sql = `INSERT INTO incidence (gender, phone_number, reporter_state, type) VALUES (${gender}, ${phoneNumber}, ${state}, ${incidence})`;
-                                con.query(sql, function (err, result) {
+                            let postData = {
+                                gender: gender,
+                                phone_number: phoneNumber,
+                                reporter_state: state,
+                                type: incidence
+                            }
+                            let sql = 'INSERT INTO incidence SET ?';
+                                con.query(sql, postData, function (err, result) {
                                     if (err) {
                                         console.log("err", err);
                                     }else {

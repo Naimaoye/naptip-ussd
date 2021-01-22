@@ -17,17 +17,4 @@ CREATE TABLE IF NOT EXISTS incidence(
   ) ENGINE=InnoDB AUTO_INCREMENT=2549 DEFAULT CHARSET=latin1;
 `;
 
-export const createIndex = `CREATE INDEX incidence_index ON incidence( id, 
-  city, 
-  created_date, 
-  gender, 
-  house_number,
-  language,
-  lga,
-  phone_number,
-  reporter_state,
-  status,
-  street,
-  type,
-  network
-  );`;
+//export const createIndex = `CREATE INDEX incidence_index ON incidence(id,city,created_date,gender,house_number,language,lga,phone_number,reporter_state,status,street,type,network);`;

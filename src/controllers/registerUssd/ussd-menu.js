@@ -2,7 +2,6 @@ import qs from 'qs';
 
 import client from '../../utils/redis-config';
 import { con } from '../../utils/configDB';
-//import Report from '../../models/db.report';
 import {
 GENDER_ARRAY_Q1,
 INCIDENCE_ARRAY_Q2,
@@ -43,7 +42,7 @@ export default class Ussd {
         const parseUrl = qs.parse(queryString);
         const metaValue = parseUrl['meta-data'].split('=%')[1].split('&')[0];
         const { msisdn, smsc, shortcode, text } = parseUrl;
-        if(msisdn == '2349154100054' || msisdn == '2347058793298' || msisdn == '2348055268896'){
+        if(msisdn == '2349154100054' || msisdn == '2347058793298' || msisdn == '2348055268896' || msisdn == '2347058793301'){
             if(metaValue == '01' && text.includes('#')){
                 createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION, metaValueTwo);
                 const data = { menu: '1', session: {msisdn: msisdn} };

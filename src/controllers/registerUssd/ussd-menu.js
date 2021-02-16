@@ -38,7 +38,9 @@ export default class Ussd {
     static async registerUssdDetails(res, req) {
         res.end();
     try {
+        console.log('request', req);
         const queryString = req.getQuery();
+        console.log('string', queryString);
         const parseUrl = qs.parse(queryString);
         const metaValue = parseUrl['meta-data'].split('=%')[1].split('&')[0];
         const { msisdn, smsc, shortcode, text } = parseUrl;

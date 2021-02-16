@@ -40,6 +40,8 @@ export default class Ussd {
     try {
         console.log('request', req);
         const queryString = req.getQuery();
+        const urlString = req.getUrl();
+        console.log('url', urlString);
         console.log('string', queryString);
         const parseUrl = qs.parse(queryString);
         const metaValue = parseUrl['meta-data'].split('=%')[1].split('&')[0];

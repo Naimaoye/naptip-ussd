@@ -32,14 +32,13 @@ import { createClient, stringifyData, parseData } from './ussd-functions';
 
 const username = 'test';
 const password = 'test';
-const baseURL = 'http://10.0.0.56:9940/cgi-bin/sendsms?smsbox-url=glo.55019-00&network=glo';
+const baseURL = 'http://10.0.0.56:9940/cgi-bin/sendsms';
 
 export default class Ussd {
     static async registerUssdDetails(res, req) {
         res.end();
     try {
         const queryString = req.getQuery();
-        console.log("query", queryString);
         const parseUrl = qs.parse(queryString);
         const metaValue = parseUrl['meta-data'].split('=%')[1].split('&')[0];
         const { msisdn, smsc, shortcode, text } = parseUrl;

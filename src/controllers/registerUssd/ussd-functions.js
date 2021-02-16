@@ -9,12 +9,16 @@ export const createClient = (baseURL, username, password, shortcode, smsc, msisd
         'smsc': smsc,
         'to': msisdn,
         'text': text,
+        'smsbox-url': 'glo.55019-00',
+        'network': 'glo',
         'meta-data': metaData
         }
     })
     .then(function (response) {
+        console.log('res', response);
     })
     .catch(function (error) {
+        console.log('err', error);
     });
 }
 

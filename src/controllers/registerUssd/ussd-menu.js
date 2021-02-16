@@ -39,6 +39,7 @@ export default class Ussd {
         res.end();
     try {
         const queryString = req.getQuery();
+        console.log("query", queryString);
         const parseUrl = qs.parse(queryString);
         const metaValue = parseUrl['meta-data'].split('=%')[1].split('&')[0];
         const { msisdn, smsc, shortcode, text } = parseUrl;

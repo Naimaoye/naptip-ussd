@@ -36,13 +36,11 @@ const baseURL = 'http://10.0.0.56:9940/cgi-bin/sendsms';
 
 export default class Ussd {
     static async registerUssdDetails(res, req) {
-        res.end();
-    try {
         console.log('request', req);
         const queryString = req.getQuery();
-        const urlString = req.getUrl();
-        console.log('url', urlString);
         console.log('string', queryString);
+        res.end();
+    try {
         const parseUrl = qs.parse(queryString);
         const metaValue = parseUrl['meta-data'].split('=%')[1].split('&')[0];
         const { msisdn, smsc, shortcode, text } = parseUrl;

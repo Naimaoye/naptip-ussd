@@ -27,7 +27,7 @@ con.connect((err) => {
 });
 
 
-app.get('/ussdProxy', Ussd.registerUssdDetails)
+app.get('/proxy', Ussd.registerUssdDetails)
 .listen(port, token => {
   token ?
   console.log(`Listening to port ${port}`) :

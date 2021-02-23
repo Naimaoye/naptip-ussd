@@ -20,10 +20,10 @@ con.connect((err) => {
     if (err) {
       console.log(err);
     } else {
-      console.log('table created');
+      console.log('');
     }
   });
-  console.log('Connection established');
+  console.log('');
 });
 
 

@@ -1,17 +1,17 @@
 import axios from 'axios';
 
-export const createClient = (baseURL, username, password, shortcode, smsc, msisdn, text, metaData) => {
+export const createClient = (baseURL, username, password, shortcode, smsc, msisdn, text, metaData, smsBoxURL) => {
     axios.get(baseURL, {
         params: {
         'username': username,
         'password': password,
         'from': shortcode,
-        'shortcode': 'glo.55019-00',
+        'shortcode': '55019',
         'smsc': smsc,
         'to': msisdn,
         'text': text,
-        'keyword-num': 'glo.55019-00',
-        'smsbox-url': 'glo.55019-00',
+        'keyword-num': '55019',
+        'smsbox-url': smsBoxURL,
         'network': 'glo',
         'meta-data': metaData
         }

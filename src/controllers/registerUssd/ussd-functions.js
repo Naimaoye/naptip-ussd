@@ -1,27 +1,22 @@
-import axios from 'axios';
+//import axios from 'axios';
 
-export const createClient = (baseURL, username, password, shortcode, smsc, msisdn, text, metaData, smsBoxURL) => {
-    axios.get(baseURL, {
-        params: {
+export const sendRes = (baseURL, username, password, shortcode, smsc, msisdn, text, metaData, keyword, smsBoxURL) => {
+        const jsonRes = {
+        'path': baseURL,
         'username': username,
         'password': password,
         'from': shortcode,
-        'shortcode': '55019',
+        'shortcode': '346',
         'smsc': smsc,
         'to': msisdn,
+        'msisdn': msisdn,
         'text': text,
-        'keyword-num': '55019',
+        'keyword': keyword,
         'smsbox-url': smsBoxURL,
-        'network': 'glo',
+        'network': 'mtn',
         'meta-data': metaData
         }
-    })
-    .then(function (response) {
-        console.log('resp', response);
-    })
-    .catch(function (error) {
-        console.log('err', error);
-    });
+        return jsonRes;
 }
 
 export const stringifyData = (data) => {

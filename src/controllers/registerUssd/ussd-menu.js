@@ -32,7 +32,7 @@ import { sendRes, stringifyData, parseData } from './ussd-functions';
 
 const username = 'test';
 const password = 'test';
-const baseURL = 'http://10.0.0.56:9940/cgi-bin/sendsms/json';
+const baseURL = 'http://10.0.0.56:9940/cgi-bin/sendsms';
 
 export default class Ussd {
     static async registerUssdDetails(res, req) {
@@ -51,8 +51,7 @@ export default class Ussd {
                 if(metaValue && msisdn && smsc && shortcode && text && smsBoxUrl && keyword) {
                     if(msisdn == '2349154100054' || msisdn == '2347058793298' || msisdn == '2348055268896' || msisdn == '2347058793301'){
                         if(metaValue == '01' && text.includes('#')){
-                            const resBody = sendRes(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION, metaValueTwo, keyword, smsBoxUrl);
-                            res.write(resBody);
+                            createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION, metaValueTwo, keyword, smsBoxUrl);
                             const data = { menu: '1', session: {msisdn: msisdn} };
                             client.setex(msisdn, 360, stringifyData(data));
                         } else if(metaValue == '12'){
@@ -64,12 +63,10 @@ export default class Ussd {
                                     const gender = GENDER_ARRAY_Q1[genderIndex];
                                     const raw = { menu: '2', session: {msisdn: msisdn ,gender: gender} };
                                     const data = stringifyData(raw);
-                                    const resBody = sendRes(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION, metaValueTwo,keyword, smsBoxUrl);
-                                    res.write(resBody);
+                                    createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION, metaValueTwo,keyword, smsBoxUrl);
                                     client.setex(msisdn, 360, data);
                                     } else { 
-                                        const resBody = sendRes(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION_INVALID, metaValueTwo, keyword,smsBoxUrl);
-                                        res.write(resBody);
+                                        createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION_INVALID, metaValueTwo, keyword,smsBoxUrl);
                                         const data = { menu: '1', session: {msisdn: msisdn} };
                                         client.setex(msisdn, 360, stringifyData(data));
                                     }
@@ -84,15 +81,13 @@ export default class Ussd {
                                         const gender = ansExist.session.gender;
                                         const raw = { menu: '3', session: {msisdn: msisdn, gender: gender, incidence: incidenceType} };
                                         const data = stringifyData(raw);
-                                        const resBody = sendRes(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION, metaValueTwo, keyword,smsBoxUrl);
-                                        res.write(resBody);
+                                        createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION, metaValueTwo, keyword,smsBoxUrl);
                                         client.setex(msisdn, 360, data);
                                     } else {
                                         const gender = ansExist.session.gender;
                                         const raw = { menu: '2', session: {msisdn: msisdn, gender: gender}}
                                         client.setex(msisdn, 360, stringifyData(raw));
-                                        const resBody = sendRes(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION_INVALID, metaValueTwo, keyword,smsBoxUrl);
-                                        res.write(resBody);
+                                        createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION_INVALID, metaValueTwo, keyword,smsBoxUrl);
                                     }
                             } 
                           });
@@ -105,37 +100,31 @@ export default class Ussd {
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'A-B'} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        const resBody = sendRes(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE1, metaValueTwo, keyword,smsBoxUrl);
-                                        res.write(resBody);
+                                        createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE1, metaValueTwo, keyword,smsBoxUrl);
                                  } else if (text == '2'){
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'C-I'} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        const resBody = sendRes(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE2, metaValueTwo, keyword, smsBoxUrl);
-                                        res.write(resBody);
+                                        createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE2, metaValueTwo, keyword, smsBoxUrl);
                                 } else if (text == '3'){
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'J-L'} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        const resBody = sendRes(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE3, metaValueTwo, keyword,smsBoxUrl);
-                                        res.write(resBody);
+                                        createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE3, metaValueTwo, keyword,smsBoxUrl);
                                 } else if (text == '4'){
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'N-R'} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        const resBody = sendRes(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE4, metaValueTwo, keyword,smsBoxUrl);
-                                        res.write(resBody);
+                                        createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE4, metaValueTwo, keyword,smsBoxUrl);
                                 } else if (text == '5'){
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'S-Z'} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        const resBody = sendRes(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE5, metaValueTwo, keyword,smsBoxUrl);
-                                        res.write(resBody);
+                                        createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE5, metaValueTwo, keyword,smsBoxUrl);
                                 } else if (text == '0' && text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5') {
                                         const raw = { menu: '3', session: {msisdn: msisdn, gender: gender, incidence: incidence}}
                                         client.setex(msisdn, 360, stringifyData(raw));
-                                        const resBody = sendRes(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION, metaValueTwo, keyword,smsBoxUrl);
-                                        res.write(resBody);
+                                        createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION, metaValueTwo, keyword,smsBoxUrl);
                                     } 
                             } 
                           });
@@ -202,39 +191,33 @@ export default class Ussd {
                                                 }
                                             });
                                         });
-                                        const resBody = sendRes(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValue16, keyword,smsBoxUrl);
-                                        res.write(resBody);
+                                        createClient(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValue16, keyword,smsBoxUrl);
                                 client.DEL(msisdn);
                             } else if (text == '0') {
                                 const gender = ansExist.session.gender;
                                 const incidence = ansExist.session.incidence;
                                 const raw = { menu: '3', session: {msisdn: msisdn, gender: gender, incidence: incidence}}
                                 client.setex(msisdn, 360, stringifyData(raw));
-                                const resBody = sendRes(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION, metaValueTwo, keyword,smsBoxUrl);
-                                res.write(resBody);
+                                createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION, metaValueTwo, keyword,smsBoxUrl);
                             } else if (text !== '0' || text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5' || text !== '6' || text !== '7' || text !== '8') {
                                 const gender = ansExist.session.gender;
                                 const incidence = ansExist.session.incidence;
                                 const raw = { menu: '3', session: {msisdn: msisdn, gender: gender, incidence: incidence}}
                                 client.setex(msisdn, 360, stringifyData(raw));
-                                const resBody = sendRes(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION_INVALID, metaValueTwo, smsBoxUrl);
-                                res.write(resBody);
+                                createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION_INVALID, metaValueTwo, keyword, smsBoxUrl);
                             }
                             } 
                           });
                         } else if (metaValue == '21' || metaValue == '13'){
                             const empty = "";
-                            const resBody = sendRes(baseURL, username, password, shortcode, smsc, msisdn, empty, metaValue16, keyword,smsBoxUrl);
-                            res.write(resBody);
+                            createClient(baseURL, username, password, shortcode, smsc, msisdn, empty, metaValue16, keyword,smsBoxUrl);
                         } else {
                             const empty = "";
-                            const resBody = sendRes(baseURL, username, password, shortcode, smsc, msisdn, empty, metaValue16, keyword,smsBoxUrl);
-                            res.write(resBody);
+                            createClient(baseURL, username, password, shortcode, smsc, msisdn, empty, metaValue16, keyword,smsBoxUrl);
                         }  
                     } else {
                         const empty = "";
-                        const resBody = sendRes(baseURL, username, password, shortcode, smsc, msisdn, empty, metaValue16, keyword,smsBoxUrl);
-                        res.write(resBody);
+                        createClient(baseURL, username, password, shortcode, smsc, msisdn, empty, metaValue16, keyword,smsBoxUrl);
                         }
                 } else {
                     throw new Error('Incomplete query parameters received!');

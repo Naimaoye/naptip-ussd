@@ -8,7 +8,7 @@ import { con } from './utils/configDB';
 
 const app = new App();
 
-const port = 3003;
+const port = 9975;
 
 con.connect((err) => {
   if(err){

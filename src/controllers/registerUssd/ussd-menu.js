@@ -49,7 +49,6 @@ export default class Ussd {
                 const { msisdn, smsc, shortcode, text, keyword, id } = parseUrl;
                 const smsBoxUrl = parseUrl['smsbox-url'];
                 if(metaValue && msisdn && smsc && shortcode && text && smsBoxUrl && keyword) {
-                    if(msisdn == '2349154100054' || msisdn == '2347058793298' || msisdn == '2348055268896' || msisdn == '2347058793301'){
                         if(metaValue == '01' && text.includes('#')){
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION, metaValueTwo, keyword, id, smsBoxUrl);
                             const data = { menu: '1', session: {msisdn: msisdn} };
@@ -215,10 +214,6 @@ export default class Ussd {
                             const empty = "";
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, empty, metaValue16, keyword, id, smsBoxUrl);
                         }  
-                    } else {
-                        const empty = "";
-                        createClient(baseURL, username, password, shortcode, smsc, msisdn, empty, metaValue16, keyword, id, smsBoxUrl);
-                        }
                 } else {
                     throw new Error('Incomplete query parameters received!');
                 }

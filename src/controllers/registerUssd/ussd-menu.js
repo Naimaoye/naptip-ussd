@@ -32,7 +32,7 @@ import { createClient, stringifyData, parseData } from './ussd-functions';
 
 const username = 'test';
 const password = 'test';
-const baseURL = 'http://10.0.0.56:9940/cgi-bin/sendsms';
+const baseURL = 'http://10.0.0.70:9940/cgi-bin/sendsms';
 
 export default class Ussd {
     static async registerUssdDetails(res, req) {

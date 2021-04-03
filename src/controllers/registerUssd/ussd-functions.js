@@ -8,7 +8,7 @@ export const createClient = (baseURL, username, password, shortcode, smsc, msisd
         'id': id,
         'password': password,
         'from': shortcode,
-        'shortcode': shortcode,
+        'shortcode': '627',
         'smsc': smsc,
         'to': msisdn,
         'msisdn': msisdn,

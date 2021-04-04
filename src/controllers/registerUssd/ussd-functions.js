@@ -34,3 +34,23 @@ export const stringifyData = (data) => {
 export const parseData = (data) => {
     return JSON.parse(data);
 };
+
+export const resParams = (username, password, shortcode, smsc, msisdn, text, metaData, keyword, id, smsBoxURL) => {
+    const params = {
+        'path': '/cgi-bin/sendsms/json',
+        'username': username,
+        'id': id,
+        'password': password,
+        'from': shortcode,
+        'shortcode': '627',
+        'smsc': smsc,
+        'to': msisdn,
+        'msisdn': msisdn,
+        'text': text,
+        'keyword': keyword,
+        'smsbox-url': smsBoxURL,
+        'network': 'mtn',
+        'meta-data': metaData
+    };
+    return params;
+}

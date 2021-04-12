@@ -52,5 +52,6 @@ export const resParams = (username, password, shortcode, smsc, msisdn, text, met
         'network': 'mtn',
         'meta-data': metaData
     };
-    return params;
+    const string = JSON.stringify(params);
+    return string;
 }

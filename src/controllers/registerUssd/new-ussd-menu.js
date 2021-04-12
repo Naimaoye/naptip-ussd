@@ -248,12 +248,15 @@ export default class Ussd {
                         }  
                     } else {
                         console.log('Incomplete query parameters received!');
+                        res.end();
                     }
                 } else {
-                    console.log('Invalid query string'); 
+                    console.log('Invalid query string');
+                    res.end();
                 }
             } else {
                 console.log('Invalid query string!');
+                res.end()
             }
 
         } catch(e){

@@ -40,6 +40,7 @@ export default class Ussd {
         try {
             if(queryString) {
                 const parseUrl = qs.parse(queryString);
+                console.log("url", parseUrl);
                 const meta = parseUrl['meta-data']
                 if(meta && parseUrl['meta-data'].includes('=%')){
                     const metaValue = meta.split('=%')[1].split('&')[0];

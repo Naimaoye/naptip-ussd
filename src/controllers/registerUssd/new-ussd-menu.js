@@ -51,7 +51,7 @@ export default class Ussd {
                             res.write(parameters);
                             const data = { menu: '1', session: {msisdn: msisdn} };
                             client.setex(msisdn, 360, stringifyData(data));
-                            res.end();
+                            //res.end();
                         } else if(metaValue == '12'){
                             client.get(msisdn, async (err, result) => {
                                 const ansExist = parseData(result)
@@ -70,7 +70,7 @@ export default class Ussd {
                                         const data = { menu: '1', session: {msisdn: msisdn} };
                                         client.setex(msisdn, 360, stringifyData(data));
                                     }
-                                    res.end();
+                                    //res.end();
                             }
                           });
                           client.get(msisdn, async (err, result) => {
@@ -92,7 +92,7 @@ export default class Ussd {
                                         const parameters = resParams(username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION_INVALID, metaValueTwo, keyword, id, smsBoxUrl);
                                         res.write(parameters);
                                     }
-                                    res.end();
+                                    //res.end();
                             } 
                           });
                           client.get(msisdn, async (err, result) => {
@@ -136,7 +136,7 @@ export default class Ussd {
                                         const parameters = resParams(username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION, metaValueTwo, keyword, id, smsBoxUrl);
                                         res.write(parameters);
                                     }
-                                    res.end(); 
+                                    //res.end(); 
                             } 
                           });
                           client.get(msisdn, async (err, result) => {
@@ -221,16 +221,18 @@ export default class Ussd {
                                             res.write(parameters);
                                         }
                             } 
-                            res.end();
+                            //res.end();
                           });
                         }else if (metaValue == '21' || metaValue == '13'){
                             const empty = "";
                             const parameters = resParams(username, password, shortcode, smsc, msisdn, empty, metaValue16, keyword, id, smsBoxUrl);
                             res.write(parameters);
+                            //res.end();
                         } else {
                             const empty = "";
                             const parameters = resParams(username, password, shortcode, smsc, msisdn, empty, metaValue16, keyword, id, smsBoxUrl);
                             res.write(parameters);
+                            //res.end();
                         }  
                     } else {
                         throw new Error('Incomplete query parameters received!');

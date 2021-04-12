@@ -53,5 +53,6 @@ export const resParams = (username, password, shortcode, smsc, msisdn, text, met
         'meta-data': metaData
     };
     const string = JSON.stringify(params);
+    console.log("response", string);
     return string;
 }

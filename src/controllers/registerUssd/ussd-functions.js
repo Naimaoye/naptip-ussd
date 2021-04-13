@@ -55,6 +55,7 @@ export const resParams = (username, password, shortcode, smsc, msisdn, text, met
     const string = JSON.stringify(params);
     console.log("params", params);
     console.log("type", typeof(string));
+    console.log("daataType", typeof(params));
     console.log("response", string);
     return string;
 }

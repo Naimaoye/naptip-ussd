@@ -245,6 +245,7 @@ export default class Ussd {
                             } 
                             res.end();
                           });
+                          res.end();
                         }else if (metaValue == '21' || metaValue == '13'){
                             const empty = "";
                             const parameters = resParams(username, password, shortcode, smsc, msisdn, empty, metaValue16, keyword, id, smsBoxUrl);

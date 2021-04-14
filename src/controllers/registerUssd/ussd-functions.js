@@ -58,10 +58,7 @@ export const resParams = (username, password, shortcode, smsc, msisdn, text, met
     return string;
 }
 
-export const getAllUrlParams = (url) => {
-
-    // get query string from url (optional) or window
-    var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
+export const getAllUrlParams = (queryString) => {
   
     // we'll store the parameters here
     var obj = {};

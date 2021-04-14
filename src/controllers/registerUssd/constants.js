@@ -1,4 +1,4 @@
-export const metaValueTwo = '?smpp?meta-data=02'
+export const metaValueTwo = '?smpp?meta-data=2'
 export const metaValue16 = '?smpp?meta-data=17'
 export const genderConst = 'gender';
 export const incidenceConst = 'incidence';

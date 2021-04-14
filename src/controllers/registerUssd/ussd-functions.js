@@ -69,9 +69,10 @@ export const getAllUrlParams = (url) => {
     // if query string exists
     if (queryString) {
   
+      // stuff after # is not part of query string, so get rid of it
       // split our query string into its component parts
     var arr = queryString.split('&');
-
+    console.log("arr", arr);
     for (var i = 0; i < arr.length; i++) {
       // separate the keys and the values
       var a = arr[i].split('=');

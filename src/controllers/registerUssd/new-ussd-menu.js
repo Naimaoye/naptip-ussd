@@ -28,7 +28,7 @@ import {
     metaValueTwo,
     metaValue16,
 } from './constants';
-import { resParams, stringifyData, parseData, getQueryVariable } from './ussd-functions';
+import { resParams, stringifyData, parseData, getAllUrlParams } from './ussd-functions';
 
 const username = 'test';
 const password = 'test';
@@ -40,7 +40,7 @@ export default class Ussd {
         console.log("str", queryString);
         try {
             if(queryString) {
-                const parseUrl = getQueryVariable(queryString);
+                const parseUrl = getAllUrlParams(queryString);
                 console.log("url", parseUrl);
                 const meta = parseUrl['meta-data']
                 if(meta && parseUrl['meta-data'].includes('=%')){

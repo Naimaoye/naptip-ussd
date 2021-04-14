@@ -75,6 +75,7 @@ export default class Ussd {
                                         client.setex(msisdn, 360, stringifyData(data));
                                     }
                             }
+                            res.end();
                           });
                           client.get(msisdn, async (err, result) => {
                             const ansExist = parseData(result)
@@ -98,7 +99,8 @@ export default class Ussd {
                                         res.end();
                                     }
                                     //res.end();
-                            } 
+                            }
+                            res.end(); 
                           });
                           client.get(msisdn, async (err, result) => {
                             const ansExist = parseData(result)
@@ -149,6 +151,7 @@ export default class Ussd {
                                     }
                                     //res.end(); 
                             } 
+                            res.end();
                           });
                           client.get(msisdn, async (err, result) => {
                             const ansExist = parseData(result)
@@ -240,7 +243,7 @@ export default class Ussd {
                                             res.end();
                                         }
                             } 
-                            //res.end();
+                            res.end();
                           });
                         }else if (metaValue == '21' || metaValue == '13'){
                             const empty = "";
@@ -268,6 +271,7 @@ export default class Ussd {
 
         } catch(e){
             console.log("error", e);
+            res.end();
         }
     }
 }

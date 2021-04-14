@@ -53,9 +53,18 @@ export const resParams = (username, password, shortcode, smsc, msisdn, text, met
         'meta-data': metaData
     };
     const string = JSON.stringify(params);
-    console.log("params", params);
-    console.log("type", typeof(string));
-    console.log("daataType", typeof(params));
+    console.log("parameters", params);
     console.log("response", string);
     return string;
+}
+
+export const getQueryVariable = (link) => {
+    var vars = link.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == variable) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+    console.log('Query variable %s not found', variable);
 }

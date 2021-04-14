@@ -43,8 +43,10 @@ export default class Ussd {
                 const parseUrl = qs.parse(queryString);
                 console.log("url", parseUrl);
                 const meta = parseUrl['meta-data']
+                console.log("meta", meta);
                 if(meta && parseUrl['meta-data'].includes('=%')){
                     const metaValue = meta.split('=%')[1].split('&')[0];
+                    console.log("value",metaValue);
                     const { msisdn, smsc, shortcode, text, keyword, id } = parseUrl;
                     const smsBoxUrl = parseUrl['smsbox-url'];
                     if(metaValue && msisdn && smsc && shortcode && text && smsBoxUrl && keyword) {

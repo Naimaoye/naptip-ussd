@@ -162,30 +162,35 @@ export default class Ussd {
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'A-B', state: state} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
+                                        res.end();
                                     } else if(ansExist.session.firstLetter == 'C-I'){
                                         const stateIndex = parseInt(text) - 1;
                                         const state = STATE_ARRAY_2[stateIndex];
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'C-I', state: state} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
+                                        res.end();
                                     } else if(ansExist.session.firstLetter == 'J-L'){
                                         const stateIndex = parseInt(text) - 1;
                                         const state = STATE_ARRAY_3[stateIndex];
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'J-L', state: state} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
+                                        res.end();
                                     } else if(ansExist.session.firstLetter == 'N-R'){
                                         const stateIndex = parseInt(text) - 1;
                                         const state = STATE_ARRAY_4[stateIndex];
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'N-R', state: state} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
+                                        res.end();
                                     } else {
                                         const stateIndex = parseInt(text) - 1;
                                         const state = STATE_ARRAY_5[stateIndex];
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'S-Z', state: state} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
+                                        res.end();
                                     }
                                     // retrieve values
                                     client.get(msisdn, async (err, result) => {

@@ -52,6 +52,7 @@ export default class Ussd {
                     if(metaValue && msisdn && smsc && shortcode && text && smsBoxUrl && keyword) {
                         if(metaValue == '01' && text.includes('#')){
                             const parameters = resParams(username, password, shortcode, smsc, msisdn, GENDER_SELECTION, metaValueTwo, keyword, id, smsBoxUrl);
+                            console.log("here", parameters);
                             res.write(parameters);
                             const data = { menu: '1', session: {msisdn: msisdn} };
                             client.setex(msisdn, 360, stringifyData(data));

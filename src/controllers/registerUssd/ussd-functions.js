@@ -38,23 +38,23 @@ export const parseData = (data) => {
 export const resParams = (username, password, shortcode, smsc, msisdn, text, metaData, keyword, id, smsBoxURL) => {
     const params = {
         'path': '/cgi-bin/sendsms/json',
-        'username': username,
-        'id': id,
-        'password': password,
-        'from': shortcode,
+        'username': `${username}`,
+        'id': `${id}`,
+        'password': `${password}`,
+        'from': `${shortcode}`,
         'shortcode': '627',
-        'smsc': smsc,
-        'to': msisdn,
-        'msisdn': msisdn,
-        'text': text,
-        'keyword': keyword,
-        'smsbox-url': smsBoxURL,
+        'smsc': `${smsc}`,
+        'to':`${msisdn}`,
+        'msisdn':`${msisdn}`,
+        'text': `${text}`,
+        'keyword': `${keyword}`,
+        'smsbox-url': `${smsBoxURL}`,
         'network': 'mtn',
-        'meta-data': metaData
+        'meta-data': `${metaData}`
     };
-    //const string = JSON.stringify(params);
+    const string = JSON.stringify(params);
     console.log("parameters", params);
-    //console.log("response", string);
+    console.log("response", string);
     return params;
 }
 

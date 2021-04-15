@@ -39,7 +39,7 @@ export default class Ussd {
     static async registerUssdDetails(res, req) {
         console.log('request', req);
         const queryString = req.getQuery();
-        //console.log('string', queryString);
+        console.log('string', queryString);
     try {
         if(queryString) {
             const parseUrl = qs.parse(queryString);

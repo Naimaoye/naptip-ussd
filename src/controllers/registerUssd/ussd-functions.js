@@ -52,10 +52,10 @@ export const resParams = (username, password, shortcode, smsc, msisdn, text, met
         'network': 'mtn',
         'meta-data': metaData
     };
-    const string = JSON.stringify(params);
+    //const string = JSON.stringify(params);
     console.log("parameters", params);
-    console.log("response", string);
-    return string;
+    //console.log("response", string);
+    return params;
 }
 
 function getQueryVariable(variable) {

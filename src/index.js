@@ -8,7 +8,11 @@ import { con } from './utils/configDB';
 
 const app = new App();
 
-const port = 9970 || 9971 || 9972 || 9973 || 9974;
+const port1 = 9970;
+const port2 = 9971;
+const port3 = 9972;
+const port4 = 9973;
+const port5 = 9974;
 const testPort = 9975;
 
 con.connect((err) => {
@@ -29,9 +33,25 @@ con.connect((err) => {
 
 
 app.get('/proxy', Ussd.registerUssdDetails)
-.listen(port, token => {
+.listen(port1, token => {
   token ?
-  console.log(`Listening to port ${port}`) :
-  console.log(`Failed to listen to port ${port}`);
+  console.log(`Listening to port ${port1}`) :
+  console.log(`Failed to listen to port ${port1}`);
+}).listen(port2, token => {
+  token ?
+  console.log(`Listening to port ${port2}`) :
+  console.log(`Failed to listen to port ${port2}`);
+}).listen(port3, token => {
+  token ?
+  console.log(`Listening to port ${port3}`) :
+  console.log(`Failed to listen to port ${port3}`);
+}).listen(port4, token => {
+  token ?
+  console.log(`Listening to port ${port4}`) :
+  console.log(`Failed to listen to port ${port4}`);
+}).listen(port5, token => {
+  token ?
+  console.log(`Listening to port ${port5}`) :
+  console.log(`Failed to listen to port ${port5}`);
 });
 

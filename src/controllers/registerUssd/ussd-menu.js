@@ -56,6 +56,7 @@ export default class Ussd {
                             res.end();
                         } else if(metaValue == '12'){
                             client.get(msisdn, async (err, result) => {
+                                try{
                                 const ansExist = parseData(result);
                                 console.log('ans', ansExist);
                                 if (ansExist.menu == '1') {
@@ -74,8 +75,10 @@ export default class Ussd {
                                         res.end();
                                     }
                             }
-                            res.end();
-                          });
+                            }catch(e){
+                                console.log(err);
+                                res.end();
+                            }});
                           client.get(msisdn, async (err, result) => {
                             const ansExist = parseData(result)
                             if (ansExist.menu == '2') {

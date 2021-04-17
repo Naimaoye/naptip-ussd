@@ -1,7 +1,7 @@
 import { App } from '@sifrr/server';
 import mysql from 'mysql';
 
-import Ussd from './controllers/registerUssd/new-ussd-menu';
+import Ussd from './controllers/registerUssd/ussd-menu';
 require('./utils/redis-config');
 import { createIncidenceTable, createIndex } from './models/db.report';
 import { con } from './utils/configDB';
@@ -32,7 +32,7 @@ con.connect((err) => {
 });
 
 
-app.get('/proxy/json', Ussd.registerUssdDetails)
+app.get('/proxy', Ussd.registerUssdDetails)
 .listen(testPort, token => {
   token ?
   console.log(`Listening : port ${port1}`) :

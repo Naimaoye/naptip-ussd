@@ -32,12 +32,17 @@ con.connect((err) => {
 });
 
 
-app.get('/proxy', Ussd.registerUssdDetails)
-.listen(testPort, token => {
-  token ?
-  console.log(`Listening : port ${testPort}`) :
-  console.log(`Failed to listen to port ${testPort}`);
-});
+app.get('/proxy', Ussd.registerUssdDetails);
+app.listen(9975, () => console.log('listening on 9975'));
+app.listen(9976, () => console.log('listening on 9976'));
+app.listen(9977, () => console.log('listening on 9977'));
+app.listen(9978, () => console.log('listening on 9978'));
+app.listen(9979, () => console.log('listening on 9979'));
+// .listen(9975, token => {
+//   token ?
+//   console.log(`Listening : port 9975`) :
+//   console.log(`Failed to listen to port ${testPort}`);
+// });
 // .listen(port2, token => {
 //   token ?
 //   console.log(`Listening : port ${port2}`) :

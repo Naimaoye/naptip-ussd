@@ -65,12 +65,12 @@ export default class Ussd {
                                     const data = stringifyData(raw);
                                     createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION, metaValueTwo,keyword, id,smsBoxUrl);
                                     client.setex(msisdn, 360, data);
-                                    //res.end();
+                                    res.end();
                                     } else { 
                                         createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION_INVALID, metaValueTwo, keyword, id, smsBoxUrl);
                                         const data = { menu: '1', session: {msisdn: msisdn} };
                                         client.setex(msisdn, 360, stringifyData(data));
-                                       // res.end();
+                                        res.end();
                                     }
                             }
                             res.end();

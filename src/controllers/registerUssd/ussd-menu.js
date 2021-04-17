@@ -37,6 +37,7 @@ const baseURL = 'http://10.0.0.70:9940/cgi-bin/sendsms';
 
 export default class Ussd {
     static async registerUssdDetails(res, req) {
+        res.end();
         console.log('request', req);
         const queryString = req.getQuery();
         console.log('string', queryString);
@@ -240,24 +241,24 @@ export default class Ussd {
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, empty, metaValue16, keyword, id, smsBoxUrl);
                             //res.end();
                         }
-                        res.end();  
+                       // res.end();  
                 } else {
                     console.log('Incomplete query parameters received!');
-                    res.end();
+                    //res.end();
                 }
             } else {
                 console.log('Invalid query string');
-                res.end();
+               // res.end();
             }
             
         } else {
             console.log('Invalid query string!');
-            res.end()
+           // res.end()
         }
        
     } catch(e){
         console.log("error", e);
-         res.end();
+       //  res.end();
     }
 
 }

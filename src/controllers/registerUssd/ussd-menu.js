@@ -73,7 +73,7 @@ export default class Ussd {
                                         res.end();
                                     }
                             }
-                            res.end();
+                            //res.end();
                           });
                           client.get(msisdn, async (err, result) => {
                             const ansExist = parseData(result)

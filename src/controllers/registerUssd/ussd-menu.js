@@ -230,7 +230,7 @@ export default class Ussd {
                             } 
                             //res.end();
                         });
-                        res.end(); 
+                        //res.end(); 
                     } else if (metaValue == '21' || metaValue == '13'){
                             const empty = "";
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, empty, metaValue16, keyword, id, smsBoxUrl);
@@ -240,24 +240,24 @@ export default class Ussd {
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, empty, metaValue16, keyword, id, smsBoxUrl);
                             //res.end();
                         }
-                        res.end();  
+                        //res.end();  
                 } else {
                     console.log('Incomplete query parameters received!');
-                    res.end();
+                    //res.end();
                 }
             } else {
                 console.log('Invalid query string');
-                res.end();
+                //res.end();
             }
             
         } else {
             console.log('Invalid query string!');
-            res.end()
+            //res.end()
         }
        
     } catch(e){
         console.log("error", e);
-         res.end();
+         //res.end();
     }
 
 }

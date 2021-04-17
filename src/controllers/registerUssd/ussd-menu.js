@@ -56,9 +56,7 @@ export default class Ussd {
                             res.end();
                         } else if(metaValue == '12'){
                             client.get(msisdn, async (err, result) => {
-                                try{
-                                const ansExist = parseData(result);
-                                console.log('ans', ansExist);
+                                const ansExist = parseData(result)
                                 if (ansExist.menu == '1') {
                                 if (text == '1' || text == '2'){
                                     const genderIndex = parseInt(text) - 1;
@@ -67,18 +65,16 @@ export default class Ussd {
                                     const data = stringifyData(raw);
                                     createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION, metaValueTwo,keyword, id,smsBoxUrl);
                                     client.setex(msisdn, 360, data);
-                                    res.end();
+                                    //res.end();
                                     } else { 
                                         createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION_INVALID, metaValueTwo, keyword, id, smsBoxUrl);
                                         const data = { menu: '1', session: {msisdn: msisdn} };
                                         client.setex(msisdn, 360, stringifyData(data));
-                                        res.end();
+                                       // res.end();
                                     }
                             }
-                            }catch(e){
-                                console.log(err);
-                                res.end();
-                            }});
+                            res.end();
+                          });
                           client.get(msisdn, async (err, result) => {
                             const ansExist = parseData(result)
                             if (ansExist.menu == '2') {

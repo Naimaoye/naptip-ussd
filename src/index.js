@@ -33,25 +33,26 @@ con.connect((err) => {
 
 
 app.get('/proxy/json', Ussd.registerUssdDetails)
-.listen(port1, token => {
+.listen(testPort, token => {
   token ?
   console.log(`Listening : port ${port1}`) :
   console.log(`Failed to listen to port ${port1}`);
-}).listen(port2, token => {
-  token ?
-  console.log(`Listening : port ${port2}`) :
-  console.log(`Failed to listen to port ${port2}`);
-}).listen(port3, token => {
-  token ?
-  console.log(`Listening : port ${port3}`) :
-  console.log(`Failed to listen to port ${port3}`);
-}).listen(port4, token => {
-  token ?
-  console.log(`Listening : port ${port4}`) :
-  console.log(`Failed to listen to port ${port4}`);
-}).listen(port5, token => {
-  token ?
-  console.log(`Listening : port ${port5}`) :
-  console.log(`Failed to listen to port ${port5}`);
 });
+// .listen(port2, token => {
+//   token ?
+//   console.log(`Listening : port ${port2}`) :
+//   console.log(`Failed to listen to port ${port2}`);
+// }).listen(port3, token => {
+//   token ?
+//   console.log(`Listening : port ${port3}`) :
+//   console.log(`Failed to listen to port ${port3}`);
+// }).listen(port4, token => {
+//   token ?
+//   console.log(`Listening : port ${port4}`) :
+//   console.log(`Failed to listen to port ${port4}`);
+// }).listen(port5, token => {
+//   token ?
+//   console.log(`Listening : port ${port5}`) :
+//   console.log(`Failed to listen to port ${port5}`);
+// });
 

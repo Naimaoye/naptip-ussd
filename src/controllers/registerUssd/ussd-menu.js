@@ -55,6 +55,7 @@ export default class Ussd {
                             client.setex(msisdn, 360, stringifyData(data));
                             res.end();
                         } else if(metaValue == '12'){
+                            console.log(' I am here');
                             client.get(msisdn, async (err, result) => {
                                 const ansExist = parseData(result)
                                 if (ansExist.menu == '1') {

@@ -35,8 +35,8 @@ con.connect((err) => {
 app.get('/proxy', Ussd.registerUssdDetails)
 .listen(testPort, token => {
   token ?
-  console.log(`Listening : port ${port1}`) :
-  console.log(`Failed to listen to port ${port1}`);
+  console.log(`Listening : port ${testPort}`) :
+  console.log(`Failed to listen to port ${testPort}`);
 });
 // .listen(port2, token => {
 //   token ?

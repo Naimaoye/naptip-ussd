@@ -55,9 +55,9 @@ export default class Ussd {
                             client.setex(msisdn, 360, stringifyData(data));
                             res.end();
                         } else if(metaValue == '12'){
-                            console.log(' I am here');
                             client.get(msisdn, async (err, result) => {
-                                const ansExist = parseData(result)
+                                const ansExist = parseData(result);
+                                console.log('ans', ansExist);
                                 if (ansExist.menu == '1') {
                                 if (text == '1' || text == '2'){
                                     const genderIndex = parseInt(text) - 1;

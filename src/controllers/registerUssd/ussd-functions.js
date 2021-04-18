@@ -21,6 +21,7 @@ export const createClient = (baseURL, username, password, shortcode, smsc, msisd
     })
     .then(function (response) {
     console.log('resp', response);
+    return response;
     })
     .catch(function (error) {
     console.log('err', error);

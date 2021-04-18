@@ -37,7 +37,9 @@ const baseURL = 'http://10.0.0.70:9940/cgi-bin/sendsms';
 
 export default class Ussd {
     static async registerUssdDetails(res, req) {
-        res.end();
+        res.onAborted(() => {
+            res.aborted = true;
+         });
         console.log('request', req);
         const queryString = req.getQuery();
         console.log('string', queryString);
@@ -51,10 +53,13 @@ export default class Ussd {
                 const smsBoxUrl = parseUrl['smsbox-url'];
                 if(metaValue && msisdn && smsc && shortcode && text && smsBoxUrl && keyword) {
                         if(metaValue == '01' && text.includes('#')){
-                            createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION, metaValueTwo, keyword, id, smsBoxUrl);
+                            const httpRes = createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION, metaValueTwo, keyword, id, smsBoxUrl);
                             const data = { menu: '1', session: {msisdn: msisdn} };
                             client.setex(msisdn, 360, stringifyData(data));
-                            //res.end();
+                            console.log('httpRes', httpRes);
+                            if (!res.aborted){
+                            res.end(httpRes);
+                            }
                         } else if(metaValue == '12'){
                             client.get(msisdn, async (err, result) => {
                                 const ansExist = parseData(result);
@@ -64,9 +69,12 @@ export default class Ussd {
                                     const gender = GENDER_ARRAY_Q1[genderIndex];
                                     const raw = { menu: '2', session: {msisdn: msisdn ,gender: gender} };
                                     const data = stringifyData(raw);
-                                    createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION, metaValueTwo,keyword, id,smsBoxUrl);
+                                    const httpRes = createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION, metaValueTwo,keyword, id,smsBoxUrl);
                                     client.setex(msisdn, 360, data);
-                                    //res.end();
+                                    console.log('httpRes', httpRes);
+                                    if (!res.aborted){
+                                        res.end(httpRes);
+                                    }
                                     } else { 
                                         createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION_INVALID, metaValueTwo, keyword, id, smsBoxUrl);
                                         const data = { menu: '1', session: {msisdn: msisdn} };
@@ -154,35 +162,30 @@ export default class Ussd {
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'A-B', state: state} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                       // res.end();
                                     } else if(ansExist.session.firstLetter == 'C-I'){
                                         const stateIndex = parseInt(text) - 1;
                                         const state = STATE_ARRAY_2[stateIndex];
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'C-I', state: state} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        //res.end();
                                     } else if(ansExist.session.firstLetter == 'J-L'){
                                         const stateIndex = parseInt(text) - 1;
                                         const state = STATE_ARRAY_3[stateIndex];
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'J-L', state: state} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        //res.end();
                                     } else if(ansExist.session.firstLetter == 'N-R'){
                                         const stateIndex = parseInt(text) - 1;
                                         const state = STATE_ARRAY_4[stateIndex];
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'N-R', state: state} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        //res.end();
                                     } else {
                                         const stateIndex = parseInt(text) - 1;
                                         const state = STATE_ARRAY_5[stateIndex];
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'S-Z', state: state} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                       // res.end();
                                     }
                                     // retrieve values
                                     client.get(msisdn, async (err, result) => {

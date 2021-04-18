@@ -37,7 +37,7 @@ const baseURL = 'http://10.0.0.70:9940/cgi-bin/sendsms';
 
 export default class Ussd {
     static async registerUssdDetails(res, req) {
-        //res.end();
+        res.end();
         console.log('request', req);
         const queryString = req.getQuery();
         console.log('string', queryString);
@@ -54,7 +54,7 @@ export default class Ussd {
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION, metaValueTwo, keyword, id, smsBoxUrl);
                             const data = { menu: '1', session: {msisdn: msisdn} };
                             client.setex(msisdn, 360, stringifyData(data));
-                            res.end();
+                            //res.end();
                         } else if(metaValue == '12'){
                             client.get(msisdn, async (err, result) => {
                                 const ansExist = parseData(result);
@@ -64,31 +64,7 @@ export default class Ussd {
                                     const gender = GENDER_ARRAY_Q1[genderIndex];
                                     const raw = { menu: '2', session: {msisdn: msisdn ,gender: gender} };
                                     const data = stringifyData(raw);
-                                    axios.get(baseURL, {
-                                        params: {
-                                        'username': username,
-                                        'id': id,
-                                        'password': password,
-                                        'from': shortcode,
-                                        'shortcode': shortcode,
-                                        'smsc': smsc,
-                                        'to': msisdn,
-                                        'msisdn': msisdn,
-                                        'text': INCIDENCE_SELECTION,
-                                        'keyword': keyword,
-                                        'smsbox-url': smsBoxUrl,
-                                        'network': 'mtn',
-                                        'meta-data': metaValueTwo
-                                        }
-                                    })
-                                    .then((response) => {
-                                     console.log('resp', response);
-                                     res.end();
-                                    })
-                                    .catch((error) => {
-                                    console.log('err', error);
-                                    });
-                                    //createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION, metaValueTwo,keyword, id,smsBoxUrl);
+                                    createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION, metaValueTwo,keyword, id,smsBoxUrl);
                                     client.setex(msisdn, 360, data);
                                     //res.end();
                                     } else { 

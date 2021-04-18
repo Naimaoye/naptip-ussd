@@ -53,7 +53,7 @@ export default class Ussd {
                 const smsBoxUrl = parseUrl['smsbox-url'];
                 if(metaValue && msisdn && smsc && shortcode && text && smsBoxUrl && keyword) {
                         if(metaValue == '01' && text.includes('#')){
-                            const httpRes = createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION, metaValueTwo, keyword, id, smsBoxUrl);
+                            createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION, metaValueTwo, keyword, id, smsBoxUrl);
                             const data = { menu: '1', session: {msisdn: msisdn} };
                             client.setex(msisdn, 360, stringifyData(data));
                             // console.log('httpRes', httpRes);
@@ -69,12 +69,12 @@ export default class Ussd {
                                     const gender = GENDER_ARRAY_Q1[genderIndex];
                                     const raw = { menu: '2', session: {msisdn: msisdn ,gender: gender} };
                                     const data = stringifyData(raw);
-                                    const httpRes = createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION, metaValueTwo,keyword, id,smsBoxUrl);
+                                    createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION, metaValueTwo,keyword, id,smsBoxUrl);
                                     client.setex(msisdn, 360, data);
-                                    console.log('httpRes', httpRes);
-                                    if (res.aborted){
-                                        console.log('aborted res');
-                                    }
+                                    // console.log('httpRes', httpRes);
+                                    // if (res.aborted){
+                                    //     console.log('aborted res');
+                                    // }
                                     } else { 
                                         createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION_INVALID, metaValueTwo, keyword, id, smsBoxUrl);
                                         const data = { menu: '1', session: {msisdn: msisdn} };

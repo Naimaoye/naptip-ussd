@@ -33,11 +33,11 @@ con.connect((err) => {
 
 
 app.get('/proxy', Ussd.registerUssdDetails);
-app.listen(9970, () => console.log('listening on 9975'));
-app.listen(9971, () => console.log('listening on 9976'));
-app.listen(9972, () => console.log('listening on 9977'));
-app.listen(9973, () => console.log('listening on 9978'));
-app.listen(9974, () => console.log('listening on 9979'));
+app.listen(9970, () => console.log('listening on 9970'));
+app.listen(9971, () => console.log('listening on 9971'));
+app.listen(9972, () => console.log('listening on 9972'));
+app.listen(9973, () => console.log('listening on 9973'));
+app.listen(9974, () => console.log('listening on 9974'));
 // .listen(9975, token => {
 //   token ?
 //   console.log(`Listening : port 9975`) :

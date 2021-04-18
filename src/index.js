@@ -1,7 +1,7 @@
 import { App } from '@sifrr/server';
 import mysql from 'mysql';
 
-import Ussd from './controllers/registerUssd/ussd-menu';
+import Ussd from './controllers/registerUssd/ussd';
 require('./utils/redis-config');
 import { createIncidenceTable, createIndex } from './models/db.report';
 import { con } from './utils/configDB';

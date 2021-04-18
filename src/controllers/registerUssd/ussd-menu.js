@@ -40,6 +40,7 @@ export default class Ussd {
         res.onAborted(() => {
             res.aborted = true;
          });
+         res.end();
         console.log('request', req);
         const queryString = req.getQuery();
         console.log('string', queryString);
@@ -211,11 +212,12 @@ export default class Ussd {
                                                 } else {
                                                 console.log("1 record inserted, ID: " + result);
                                                 createClient(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValue16, keyword, id, smsBoxUrl);
-                                                res.end();
                                                 }
                                             });
                                              client.DEL(msisdn);
+                                             res.end();
                                         });
+                                    res.end();
                             } else if (text == '0') {
                                 const gender = ansExist.session.gender;
                                 const incidence = ansExist.session.incidence;

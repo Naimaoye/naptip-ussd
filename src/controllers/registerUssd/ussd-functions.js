@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-export const createClient = (baseURL, username, password, shortcode, smsc, msisdn, text, metaData, keyword, id, smsBoxURL, res) => {
+export const createClient = (baseURL, username, password, shortcode, smsc, msisdn, text, metaData, keyword, id, smsBoxURL) => {
     axios.get(baseURL, {
         params: {
         'username': username,
@@ -21,11 +21,9 @@ export const createClient = (baseURL, username, password, shortcode, smsc, msisd
     })
     .then(function (response) {
     console.log('resp', response);
-    res.end();
     })
     .catch(function (error) {
     console.log('err', error);
-    res.end();
     })
 };
 

@@ -57,8 +57,8 @@ export default class Ussd {
                             const data = { menu: '1', session: {msisdn: msisdn} };
                             client.setex(msisdn, 360, stringifyData(data));
                             console.log('httpRes', httpRes);
-                            if (!res.aborted){
-                            res.end(httpRes);
+                            if (res.aborted){
+                            console.log('aborted res')
                             }
                         } else if(metaValue == '12'){
                             client.get(msisdn, async (err, result) => {
@@ -72,8 +72,8 @@ export default class Ussd {
                                     const httpRes = createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION, metaValueTwo,keyword, id,smsBoxUrl);
                                     client.setex(msisdn, 360, data);
                                     console.log('httpRes', httpRes);
-                                    if (!res.aborted){
-                                        res.end(httpRes);
+                                    if (res.aborted){
+                                        console.log('aborted res');
                                     }
                                     } else { 
                                         createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION_INVALID, metaValueTwo, keyword, id, smsBoxUrl);

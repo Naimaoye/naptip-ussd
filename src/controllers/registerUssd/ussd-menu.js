@@ -56,7 +56,6 @@ export default class Ussd {
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION, metaValueTwo, keyword, id, smsBoxUrl);
                             const data = { menu: '1', session: {msisdn: msisdn} };
                             client.setex(msisdn, 360, stringifyData(data));
-                            res.end();
                             // console.log('httpRes', httpRes);
                             // if (res.aborted){
                             // console.log('aborted res')
@@ -72,7 +71,6 @@ export default class Ussd {
                                     const data = stringifyData(raw);
                                     createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION, metaValueTwo,keyword, id,smsBoxUrl);
                                     client.setex(msisdn, 360, data);
-                                    res.end();
                                     // console.log('httpRes', httpRes);
                                     // if (res.aborted){
                                     //     console.log('aborted res');
@@ -81,7 +79,7 @@ export default class Ussd {
                                         createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION_INVALID, metaValueTwo, keyword, id, smsBoxUrl);
                                         const data = { menu: '1', session: {msisdn: msisdn} };
                                         client.setex(msisdn, 360, stringifyData(data));
-                                        res.end();
+                                       // res.end();
                                     }
                             }
                             //res.end();
@@ -97,13 +95,13 @@ export default class Ussd {
                                         const data = stringifyData(raw);
                                         createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION, metaValueTwo, keyword, id, smsBoxUrl);
                                         client.setex(msisdn, 360, data);
-                                        res.end();
+                                        //res.end();
                                     } else {
                                         const gender = ansExist.session.gender;
                                         const raw = { menu: '2', session: {msisdn: msisdn, gender: gender}}
                                         client.setex(msisdn, 360, stringifyData(raw));
                                         createClient(baseURL, username, password, shortcode, smsc, msisdn, INCIDENCE_SELECTION_INVALID, metaValueTwo, keyword, id, smsBoxUrl);
-                                        res.end();
+                                       // res.end();
                                     }
                             } 
                             //res.end();
@@ -118,36 +116,36 @@ export default class Ussd {
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
                                         createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE1, metaValueTwo, keyword, id, smsBoxUrl);
-                                        res.end();
+                                        //res.end();
                                     } else if (text == '2'){
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'C-I'} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
                                         createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE2, metaValueTwo, keyword, id, smsBoxUrl);
-                                        res.end();
+                                       // res.end();
                                     } else if (text == '3'){
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'J-L'} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
                                         createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE3, metaValueTwo, keyword, id, smsBoxUrl);
-                                        res.end();
+                                       // res.end();
                                     } else if (text == '4'){
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'N-R'} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
                                         createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE4, metaValueTwo, keyword, id, smsBoxUrl);
-                                        res.end();
+                                       // res.end();
                                     } else if (text == '5'){
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'S-Z'} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
                                         createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_SELECTION_PAGE5, metaValueTwo, keyword, id, smsBoxUrl);
-                                        res.end();
+                                       // res.end();
                                     } else if (text == '0' && text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5') {
                                         const raw = { menu: '3', session: {msisdn: msisdn, gender: gender, incidence: incidence}}
                                         client.setex(msisdn, 360, stringifyData(raw));
                                         createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION, metaValueTwo, keyword, id, smsBoxUrl);
-                                        res.end();
+                                        //res.end();
                                     } 
                             } 
                             //res.end();
@@ -164,35 +162,30 @@ export default class Ussd {
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'A-B', state: state} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        res.end();
                                     } else if(ansExist.session.firstLetter == 'C-I'){
                                         const stateIndex = parseInt(text) - 1;
                                         const state = STATE_ARRAY_2[stateIndex];
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'C-I', state: state} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        res.end();
                                     } else if(ansExist.session.firstLetter == 'J-L'){
                                         const stateIndex = parseInt(text) - 1;
                                         const state = STATE_ARRAY_3[stateIndex];
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'J-L', state: state} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        res.end();
                                     } else if(ansExist.session.firstLetter == 'N-R'){
                                         const stateIndex = parseInt(text) - 1;
                                         const state = STATE_ARRAY_4[stateIndex];
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'N-R', state: state} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        res.end();
                                     } else {
                                         const stateIndex = parseInt(text) - 1;
                                         const state = STATE_ARRAY_5[stateIndex];
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'S-Z', state: state} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        res.end();
                                     }
                                     // retrieve values
                                     client.get(msisdn, async (err, result) => {
@@ -221,6 +214,7 @@ export default class Ussd {
                                                 }
                                             });
                                              client.DEL(msisdn);
+                                             res.end();
                                         });
                                     res.end();
                             } else if (text == '0') {
@@ -229,14 +223,14 @@ export default class Ussd {
                                 const raw = { menu: '3', session: {msisdn: msisdn, gender: gender, incidence: incidence}}
                                 client.setex(msisdn, 360, stringifyData(raw));
                                 createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION, metaValueTwo, keyword, id, smsBoxUrl);
-                                res.end();
+                               // res.end();
                             } else if (text !== '0' || text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5' || text !== '6' || text !== '7' || text !== '8') {
                                 const gender = ansExist.session.gender;
                                 const incidence = ansExist.session.incidence;
                                 const raw = { menu: '3', session: {msisdn: msisdn, gender: gender, incidence: incidence}}
                                 client.setex(msisdn, 360, stringifyData(raw));
                                 createClient(baseURL, username, password, shortcode, smsc, msisdn, STATE_ALPHABET_SELECTION_INVALID, metaValueTwo, keyword, id, smsBoxUrl);
-                                res.end();
+                               // res.end();
                             }
                             } 
                             //res.end();

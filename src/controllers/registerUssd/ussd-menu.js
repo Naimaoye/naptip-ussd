@@ -214,9 +214,9 @@ export default class Ussd {
                                                 }
                                             });
                                              client.DEL(msisdn);
-                                            // res.end();
+                                             res.end();
                                         });
-                                    res.end();
+                                    //res.end();
                             } else if (text == '0') {
                                 const gender = ansExist.session.gender;
                                 const incidence = ansExist.session.incidence;

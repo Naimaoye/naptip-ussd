@@ -56,10 +56,10 @@ export default class Ussd {
                             const httpRes = createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION, metaValueTwo, keyword, id, smsBoxUrl);
                             const data = { menu: '1', session: {msisdn: msisdn} };
                             client.setex(msisdn, 360, stringifyData(data));
-                            console.log('httpRes', httpRes);
-                            if (res.aborted){
-                            console.log('aborted res')
-                            }
+                            // console.log('httpRes', httpRes);
+                            // if (res.aborted){
+                            // console.log('aborted res')
+                            // }
                         } else if(metaValue == '12'){
                             client.get(msisdn, async (err, result) => {
                                 const ansExist = parseData(result);
@@ -212,10 +212,10 @@ export default class Ussd {
                                                 console.log("1 record inserted, ID: " + result);
                                                 }
                                             });
+                                            createClient(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValue16, keyword, id, smsBoxUrl);
+                                            // res.end();
+                                             client.DEL(msisdn);
                                         });
-                                        createClient(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValue16, keyword, id, smsBoxUrl);
-                                       // res.end();
-                                        client.DEL(msisdn);
                             } else if (text == '0') {
                                 const gender = ansExist.session.gender;
                                 const incidence = ansExist.session.incidence;

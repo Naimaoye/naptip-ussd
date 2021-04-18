@@ -40,7 +40,6 @@ export default class Ussd {
         res.onAborted(() => {
             res.aborted = true;
          });
-         res.end();
         console.log('request', req);
         const queryString = req.getQuery();
         console.log('string', queryString);

@@ -214,7 +214,7 @@ export default class Ussd {
                                                 }
                                             });
                                              client.DEL(msisdn);
-                                             res.end();
+                                            // res.end();
                                         });
                                     res.end();
                             } else if (text == '0') {

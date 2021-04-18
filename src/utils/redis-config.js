@@ -6,7 +6,7 @@ client.on("connect", () => {
  });
 
  client.on("ready", () => {
-    console.error("connected to redis and ready to use");
+    //console.error("connected to redis and ready to use");
  });
 
  client.on("error", (error) => {
@@ -14,11 +14,11 @@ client.on("connect", () => {
  });
 
  client.on("end", () => {
-    console.error("client disconnected");
+    //console.error("client disconnected");
  });
 
  client.on("ready", () => {
-    console.error("connected to redis and ready to use");
+    //console.error("connected to redis and ready to use");
  });
 
  export default client;

@@ -214,6 +214,7 @@ export default class Ussd {
                                                 }
                                             });
                                              client.DEL(msisdn);
+                                             res.end();
                                         });
                             } else if (text == '0') {
                                 const gender = ansExist.session.gender;
@@ -237,30 +238,30 @@ export default class Ussd {
                     } else if (metaValue == '21' || metaValue == '13'){
                             const empty = "";
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, empty, metaValue16, keyword, id, smsBoxUrl);
-                            //res.end();
+                            res.end();
                         } else {
                             const empty = "";
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, empty, metaValue16, keyword, id, smsBoxUrl);
-                            //res.end();
+                            res.end();
                         }
                        // res.end();  
                 } else {
                     console.log('Incomplete query parameters received!');
-                    //res.end();
+                    res.end();
                 }
             } else {
                 console.log('Invalid query string');
-               // res.end();
+               res.end();
             }
             
         } else {
             console.log('Invalid query string!');
-           // res.end()
+           res.end();
         }
        
     } catch(e){
         console.log("error", e);
-       //  res.end();
+       res.end();
     }
 
 }

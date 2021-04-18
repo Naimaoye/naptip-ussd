@@ -54,10 +54,13 @@ export default class Ussd {
                             createClient(baseURL, username, password, shortcode, smsc, msisdn, GENDER_SELECTION, metaValueTwo, keyword, id, smsBoxUrl);
                             const data = { menu: '1', session: {msisdn: msisdn} };
                             client.setex(msisdn, 360, stringifyData(data));
-                           //res.end();
+                            res.end();
                         } else if(metaValue == '12'){
                             client.get(msisdn, async (err, result) => {
-                                const ansExist = parseData(result)
+                                const ansExist = parseData(result);
+                                if(err){
+                                    console.log('error', err);
+                                }
                                 if (ansExist.menu == '1') {
                                 if (text == '1' || text == '2'){
                                     const genderIndex = parseInt(text) - 1;

@@ -210,9 +210,9 @@ export default class Ussd {
                                                     console.log("err", err);
                                                 } else {
                                                 console.log("1 record inserted, ID: " + result);
-                                                createClient(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValue16, keyword, id, smsBoxUrl);
                                                 }
                                             });
+                                            createClient(baseURL, username, password, shortcode, smsc, msisdn, SUCCESS_MESSAGE, metaValue16, keyword, id, smsBoxUrl);
                                              client.DEL(msisdn);
                                              res.end();
                                         });

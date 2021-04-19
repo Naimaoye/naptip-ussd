@@ -1,0 +1,1 @@
+pm2 start --name="glo.naptip.ussd.backend"  --namespace="naptip" --output=/dev/null --error=/dev/null --log=log/00/server.log npm -- run dev

@@ -76,6 +76,7 @@ export default class Ussd {
                                console.log('resp', response);
                             })
                             .catch(function (error) {
+                                res.end('');
                             console.log('err', error);
                             });
                             const data = { menu: '1', session: {msisdn: msisdn} };
@@ -137,6 +138,7 @@ export default class Ussd {
                                          console.log('resp', response);
                                         })
                                         .catch(function (error) {
+                                            res.end('');
                                         console.log('err', error);
                                         });
                                         const data = { menu: '1', session: {msisdn: msisdn} };
@@ -175,6 +177,7 @@ export default class Ussd {
                                            console.log('resp', response);
                                         })
                                         .catch(function (error) {
+                                            res.end('');
                                            console.log('err', error);
                                         });
                                         client.setex(msisdn, 360, data);
@@ -204,6 +207,7 @@ export default class Ussd {
                                          console.log('resp', response);
                                         })
                                         .catch(function (error) {
+                                            res.end('');
                                         console.log('err', error);
                                         });
                                     }
@@ -240,6 +244,7 @@ export default class Ussd {
                                            console.log('resp', response);
                                         })
                                         .catch(function (error) {
+                                            res.end('');
                                            console.log('err', error);
                                         });
                                     } else if (text == '2'){
@@ -268,6 +273,7 @@ export default class Ussd {
                                            console.log('resp', response);
                                         })
                                         .catch(function (error) {
+                                            res.end('');
                                            console.log('err', error);
                                         });
                                     } else if (text == '3'){
@@ -296,6 +302,7 @@ export default class Ussd {
                                            console.log('resp', response);
                                         })
                                         .catch(function (error) {
+                                            res.end('');
                                            console.log('err', error);
                                         });
                                     } else if (text == '4'){
@@ -324,6 +331,7 @@ export default class Ussd {
                                            console.log('resp', response);
                                         })
                                         .catch(function (error) {
+                                            res.end('');
                                            console.log('err', error);
                                         });
                                     } else if (text == '5'){
@@ -379,6 +387,7 @@ export default class Ussd {
                                            console.log('resp', response);
                                         })
                                         .catch(function (error) {
+                                            res.end('');
                                            console.log('err', error);
                                         });
                                     } 
@@ -465,6 +474,7 @@ export default class Ussd {
                                                        console.log('resp', response);
                                                     })
                                                     .catch(function (error) {
+                                                        res.end('');
                                                        console.log('err', error);
                                                     });
                                                 console.log("1 record inserted, ID: " + result);
@@ -499,6 +509,7 @@ export default class Ussd {
                                    console.log('resp', response);
                                 })
                                 .catch(function (error) {
+                                    res.end('');
                                    console.log('err', error);
                                 });
                             } else if (text !== '0' || text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5' || text !== '6' || text !== '7' || text !== '8') {
@@ -528,6 +539,7 @@ export default class Ussd {
                                    console.log('resp', response);
                                 })
                                 .catch(function (error) {
+                                    res.end('');
                                    console.log('err', error);
                                 });
 
@@ -558,6 +570,7 @@ export default class Ussd {
                                console.log('resp', response);
                             })
                             .catch(function (error) {
+                                res.end('');
                                console.log('err', error);
                             });
                         } else {
@@ -584,21 +597,26 @@ export default class Ussd {
                                console.log('resp', response);
                             })
                             .catch(function (error) {
+                                res.end('');
                                console.log('err', error);
                             });
                         }  
                 } else {
+                    res.end('');
                     console.log('Incomplete query parameters received!');
                 }
             } else {
+                res.end('');
                 console.log('Invalid query string');
             }
             
         } else {
+            res.end('');
             console.log('Invalid query string!');
         }
        
     } catch(e){
+        res.end('');
         console.log("error", e);
     }
 

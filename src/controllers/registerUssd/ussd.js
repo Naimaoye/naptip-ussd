@@ -203,6 +203,8 @@ export default class Ussd {
                                         })
                                         .then(function (response) {
                                            res.end('');
+                                           console.log('res', response);
+
                                         })
                                         .catch(function (error) {
                                             res.end('');
@@ -239,6 +241,7 @@ export default class Ussd {
                                         })
                                         .then(function (response) {
                                            res.end('');
+                                           console.log('res', response);
                                         })
                                         .catch(function (error) {
                                             res.end('');
@@ -267,6 +270,7 @@ export default class Ussd {
                                         })
                                         .then(function (response) {
                                            res.end('');
+                                           console.log('res', response);
                                         })
                                         .catch(function (error) {
                                             res.end('');
@@ -323,6 +327,7 @@ export default class Ussd {
                                         })
                                         .then(function (response) {
                                            res.end('');
+                                           console.log('res', response);
                                         })
                                         .catch(function (error) {
                                             res.end('');
@@ -351,6 +356,7 @@ export default class Ussd {
                                         })
                                         .then(function (response) {
                                            res.end('');
+                                           console.log('res', response);
                                         })
                                         .catch(function (error) {
                                            console.log('err', error);
@@ -377,6 +383,7 @@ export default class Ussd {
                                         })
                                         .then(function (response) {
                                            res.end('');
+                                           console.log('res', response);
                                         })
                                         .catch(function (error) {
                                             res.end('');
@@ -463,6 +470,7 @@ export default class Ussd {
                                                     })
                                                     .then(function (response) {
                                                        res.end('');
+                                                       console.log('res', response);
                                                     })
                                                     .catch(function (error) {
                                                         res.end('');
@@ -497,6 +505,7 @@ export default class Ussd {
                                 })
                                 .then(function (response) {
                                    res.end('');
+                                   console.log('res', response);
                                 })
                                 .catch(function (error) {
                                     res.end('');
@@ -526,6 +535,7 @@ export default class Ussd {
                                 })
                                 .then(function (response) {
                                    res.end('');
+                                   console.log('res', response);
                                 })
                                 .catch(function (error) {
                                     res.end('');
@@ -556,6 +566,7 @@ export default class Ussd {
                             })
                             .then(function (response) {
                                res.end('');
+                               console.log('res', response);
                             })
                             .catch(function (error) {
                                 res.end('');
@@ -582,6 +593,7 @@ export default class Ussd {
                             })
                             .then(function (response) {
                                res.end('');
+                               console.log('res', response);
                             })
                             .catch(function (error) {
                                 res.end('');

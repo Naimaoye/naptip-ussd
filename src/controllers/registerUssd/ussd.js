@@ -361,7 +361,7 @@ export default class Ussd {
                                         .catch(function (error) {
                                            console.log('err', error);
                                         });
-                                    } else if (text == '0' && text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5') {
+                                    } else if (text == '0' || text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5') {
                                         const raw = { menu: '3', session: {msisdn: msisdn, gender: gender, incidence: incidence}}
                                         client.setex(msisdn, 360, stringifyData(raw));
                                         axios.get(baseURL, {
@@ -374,7 +374,7 @@ export default class Ussd {
                                             'smsc': smsc,
                                             'to': msisdn,
                                             'msisdn': msisdn,
-                                            'text': STATE_ALPHABET_SELECTION,
+                                            'text': STATE_ALPHABET_SELECTION_INVALID,
                                             'keyword': keyword,
                                             'smsbox-url': smsBoxUrl,
                                             'network': 'mtn',
@@ -511,7 +511,7 @@ export default class Ussd {
                                     res.end('');
                                    console.log('err', error);
                                 });
-                            } else if (text !== '0' || text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5' || text !== '6' || text !== '7' || text !== '8') {
+                            } else if (text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5' || text !== '6' || text !== '7' || text !== '8') {
                                 const gender = ansExist.session.gender;
                                 const incidence = ansExist.session.incidence;
                                 const raw = { menu: '3', session: {msisdn: msisdn, gender: gender, incidence: incidence}}
@@ -526,7 +526,7 @@ export default class Ussd {
                                     'smsc': smsc,
                                     'to': msisdn,
                                     'msisdn': msisdn,
-                                    'text':  STATE_ALPHABET_SELECTION_INVALID,
+                                    'text':  STATE_ALPHABET_SELECTION,
                                     'keyword': keyword,
                                     'smsbox-url': smsBoxUrl,
                                     'network': 'mtn',

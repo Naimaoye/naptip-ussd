@@ -38,7 +38,6 @@ const baseURL = 'http://10.0.0.70:9940/cgi-bin/sendsms';
 
 export default class Ussd {
     static async registerUssdDetails(res, req) {
-        res.end();
         res.onAborted(() => {
             res.aborted = true;
          });

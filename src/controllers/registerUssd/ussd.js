@@ -38,6 +38,7 @@ const baseURL = 'http://10.0.0.70:9940/cgi-bin/sendsms';
 
 export default class Ussd {
     static async registerUssdDetails(res, req) {
+        res.end();
         res.onAborted(() => {
             res.aborted = true;
          });
@@ -71,11 +72,12 @@ export default class Ussd {
                                 }
                             })
                             .then(function (response) {
+                                console.log('res-data',response.data);
                                res.end('');
                             })
                             .catch(function (error) {
                                 res.end('');
-                            console.log('err', error);
+                                console.log('err', error);
                             });
                             const data = { menu: '1', session: {msisdn: msisdn} };
                             client.setex(msisdn, 360, stringifyData(data));

@@ -45,7 +45,6 @@ export default class Ussd {
         console.log('string', queryString);
     try {
         if(queryString) {
-            res.end();
             const parseUrl = qs.parse(queryString);
             const meta = parseUrl['meta-data']
             if(meta && parseUrl['meta-data'].includes('=%')){

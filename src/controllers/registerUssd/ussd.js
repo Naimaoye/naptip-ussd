@@ -79,7 +79,6 @@ export default class Ussd {
                             });
                             const data = { menu: '1', session: {msisdn: msisdn} };
                             client.setex(msisdn, 360, stringifyData(data));
-                            res.end('');
                         } else if(metaValue == '12'){
                             client.get(msisdn, async (err, result) => {
                                 const ansExist = parseData(result);
@@ -113,7 +112,6 @@ export default class Ussd {
                                        console.log('err', error);
                                     });
                                     client.setex(msisdn, 360, data);
-                                    res.end('');
                                     } else { 
                                         axios.get(baseURL, {
                                             params: {
@@ -141,7 +139,6 @@ export default class Ussd {
                                         });
                                         const data = { menu: '1', session: {msisdn: msisdn} };
                                         client.setex(msisdn, 360, stringifyData(data));
-                                        res.end('');
                                     }
                             }
                           });
@@ -179,12 +176,10 @@ export default class Ussd {
                                            console.log('err', error);
                                         });
                                         client.setex(msisdn, 360, data);
-                                        res.end('');
                                     } else {
                                         const gender = ansExist.session.gender;
                                         const raw = { menu: '2', session: {msisdn: msisdn, gender: gender}}
                                         client.setex(msisdn, 360, stringifyData(raw));
-                                        res.end('');
                                         axios.get(baseURL, {
                                             params: {
                                             'username': username,
@@ -222,7 +217,6 @@ export default class Ussd {
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'A-B'} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        res.end('');
                                         axios.get(baseURL, {
                                             params: {
                                             'username': username,
@@ -251,7 +245,6 @@ export default class Ussd {
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'C-I'} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        res.end('');
                                         axios.get(baseURL, {
                                             params: {
                                             'username': username,
@@ -280,7 +273,6 @@ export default class Ussd {
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'J-L'} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        res.end('');
                                         axios.get(baseURL, {
                                             params: {
                                             'username': username,
@@ -309,7 +301,6 @@ export default class Ussd {
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'N-R'} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        res.end('');
                                         axios.get(baseURL, {
                                             params: {
                                             'username': username,
@@ -338,7 +329,6 @@ export default class Ussd {
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'S-Z'} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        res.end('');
                                         axios.get(baseURL, {
                                             params: {
                                             'username': username,
@@ -365,7 +355,6 @@ export default class Ussd {
                                     } else if (text == '0' && text !== '1' || text !== '2' || text !== '3' || text !== '4' || text !== '5') {
                                         const raw = { menu: '3', session: {msisdn: msisdn, gender: gender, incidence: incidence}}
                                         client.setex(msisdn, 360, stringifyData(raw));
-                                        res.end('');
                                         axios.get(baseURL, {
                                             params: {
                                             'username': username,
@@ -405,35 +394,30 @@ export default class Ussd {
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'A-B', state: state} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        res.end('');
                                     } else if(ansExist.session.firstLetter == 'C-I'){
                                         const stateIndex = parseInt(text) - 1;
                                         const state = STATE_ARRAY_2[stateIndex];
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'C-I', state: state} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        res.end('');
                                     } else if(ansExist.session.firstLetter == 'J-L'){
                                         const stateIndex = parseInt(text) - 1;
                                         const state = STATE_ARRAY_3[stateIndex];
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'J-L', state: state} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        res.end('');
                                     } else if(ansExist.session.firstLetter == 'N-R'){
                                         const stateIndex = parseInt(text) - 1;
                                         const state = STATE_ARRAY_4[stateIndex];
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'N-R', state: state} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        res.end('');
                                     } else {
                                         const stateIndex = parseInt(text) - 1;
                                         const state = STATE_ARRAY_5[stateIndex];
                                         const raw = { menu: '4', session: {msisdn: msisdn, gender: gender, incidence: incidence, firstLetter: 'S-Z', state: state} };
                                         const data = stringifyData(raw);
                                         client.setex(msisdn, 360, data);
-                                        res.end('');
                                     }
                                     // retrieve values
                                     client.get(msisdn, async (err, result) => {
@@ -483,7 +467,6 @@ export default class Ussd {
                                                     });
                                                 console.log("1 record inserted, ID: " + result);
                                                 client.DEL(msisdn);
-                                                res.end('');
                                                 }
                                             });
                                         });
@@ -492,7 +475,6 @@ export default class Ussd {
                                 const incidence = ansExist.session.incidence;
                                 const raw = { menu: '3', session: {msisdn: msisdn, gender: gender, incidence: incidence}}
                                 client.setex(msisdn, 360, stringifyData(raw));
-                                res.end('');
                                 axios.get(baseURL, {
                                     params: {
                                     'username': username,
@@ -621,7 +603,7 @@ export default class Ussd {
         res.end('');
         console.log("error", e);
     }
-    res.end('');
+
 }
 }
 
